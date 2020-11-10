@@ -10,7 +10,7 @@ using UnityEngine.UI;
 public class CountryHandler : MonoBehaviour
 {
     public Country country;
-
+    
     public Text nbTroupeUI;
     private SpriteRenderer sprite;
     public Color32 oldColor;
@@ -22,9 +22,13 @@ public class CountryHandler : MonoBehaviour
     private void Awake()
     {
         sprite = GetComponent<SpriteRenderer>();
-        nbTroupeUI.text = country.nbTroupe.ToString();
-
+        showTroupe();
         //sprite.color = startColor;
+    }
+
+    public void showTroupe()
+    {
+        nbTroupeUI.text = country.nbTroupe.ToString();
     }
 
 

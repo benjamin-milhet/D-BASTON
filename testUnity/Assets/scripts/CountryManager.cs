@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System;
+using Random = System.Random;
 
 public class CountryManager : MonoBehaviour
 {
@@ -77,8 +78,14 @@ public class CountryManager : MonoBehaviour
                     countHandler.TintColor(new Color32(0, 180, 0, 200));
                     break;
             }
+            
+            if (countHandler.name != "Menu")
+            { 
+                countHandler.showTroupe();
+            }
 
             
+
         }
         
     }
@@ -194,12 +201,44 @@ public class CountryManager : MonoBehaviour
                     t = 0;
                 }
                 countryList[i].GetComponent<CountryHandler>().country.tribe = (Country.theTribes)t;
+                countryList[i].GetComponent<CountryHandler>().country.nbTroupe = 1;
 
 
             }
-            TintCountries();
+
+            
         }
+        for (int i = 0; i < nbJoueur; i++)
+        {
+            int nbTroupeTotalParJoueur = 30;
+            Random random = new Random();
+            int j = 0;
+            while (j < nbTroupeTotalParJoueur)
+            {
+                int res = random.Next(countryList.Count);
+                if (countryList[res].GetComponent<CountryHandler>().country.tribe == (Country.theTribes) i)
+                {
+
+                    if (countryList[res].name != "Menu")
+                    {
+                        countryList[res].GetComponent<CountryHandler>().country.nbTroupe += 1;
+                        j++;
+
+                    }
+                }
+            }
+        }
+
+
+
+        TintCountries();
+
+        
+       
+        
     }
+    
+    
 
 
 

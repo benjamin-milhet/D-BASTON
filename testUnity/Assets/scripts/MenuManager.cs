@@ -61,4 +61,16 @@ public class MenuManager : MonoBehaviour
         GameManager.instance.DeleteSaveFile();
         UnityEditor.EditorApplication.isPlaying = false;
     }
+
+    public void NextJoueur()
+    {
+        CountryManager.instance.TourJoueur++;
+        if (CountryManager.instance.TourJoueur > CountryManager.instance.NbJoueur-1)
+        {
+            CountryManager.instance.TourJoueur = 0;
+        }
+
+    }
+    
+    
 }

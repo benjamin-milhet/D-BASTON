@@ -2582,8 +2582,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11500000, guid: 67034aff3e0c9474693ed9ec95c12045, type: 3}
-        m_MethodName: 
+      - m_Target: {fileID: 1574520241}
+        m_MethodName: QuitGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4497,7 +4497,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 859943188}
+      - m_Target: {fileID: 1574520241}
         m_MethodName: DisableMenu
         m_Mode: 1
         m_Arguments:
@@ -9591,12 +9591,12 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11500000, guid: f7760ed029de8b44d9d7fc00f16373f8, type: 3}
-        m_MethodName: 
+      - m_Target: {fileID: 859943188}
+        m_MethodName: DisableAttackPanel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -9744,6 +9744,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1491560102}
   - component: {fileID: 1491560101}
+  - component: {fileID: 1491560104}
+  - component: {fileID: 1491560103}
   m_Layer: 0
   m_Name: passer
   m_TagString: Menu
@@ -9815,6 +9817,90 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 29
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1491560103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1491560100}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc9339ebb4eadd341a6a3d659f15facc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: passer
+--- !u!60 &1491560104
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1491560100}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2.56, y: 2.56}
+    newSize: {x: 2.56, y: 2.56}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.77, y: -1.05}
+      - {x: 0.89, y: -0.95}
+      - {x: 1.02, y: -0.81}
+      - {x: 1.14, y: -0.63}
+      - {x: 1.22, y: -0.48}
+      - {x: 1.28, y: -0.28}
+      - {x: 1.28, y: 0.22999999}
+      - {x: 1.27, y: 0.28}
+      - {x: 1.2099999, y: 0.48}
+      - {x: 1.14, y: 0.63}
+      - {x: 1.09, y: 0.71}
+      - {x: 1.02, y: 0.79999995}
+      - {x: 0.88, y: 0.95}
+      - {x: 0.77, y: 1.05}
+      - {x: 0.63, y: 1.14}
+      - {x: 0.47, y: 1.2099999}
+      - {x: 0.35, y: 1.25}
+      - {x: 0.26999998, y: 1.27}
+      - {x: 0.22, y: 1.28}
+      - {x: -0.22999999, y: 1.28}
+      - {x: -0.28, y: 1.27}
+      - {x: -0.48, y: 1.2099999}
+      - {x: -0.63, y: 1.14}
+      - {x: -0.77, y: 1.05}
+      - {x: -0.95, y: 0.89}
+      - {x: -1.05, y: 0.76}
+      - {x: -1.12, y: 0.68}
+      - {x: -1.24, y: 0.42}
+      - {x: -1.26, y: 0.31}
+      - {x: -1.28, y: 0.22}
+      - {x: -1.28, y: -0.22999999}
+      - {x: -1.27, y: -0.28}
+      - {x: -1.2099999, y: -0.48}
+      - {x: -1.14, y: -0.63}
+      - {x: -1.05, y: -0.77}
+      - {x: -0.95, y: -0.89}
+      - {x: -0.82, y: -1.01}
+      - {x: -0.68, y: -1.11}
+      - {x: -0.47, y: -1.2099999}
+      - {x: -0.35, y: -1.25}
+      - {x: -0.26999998, y: -1.27}
+      - {x: -0.22, y: -1.28}
+      - {x: 0.22, y: -1.28}
+      - {x: 0.28, y: -1.27}
+      - {x: 0.48, y: -1.2099999}
+      - {x: 0.63, y: -1.14}
 --- !u!1 &1492978945
 GameObject:
   m_ObjectHideFlags: 0

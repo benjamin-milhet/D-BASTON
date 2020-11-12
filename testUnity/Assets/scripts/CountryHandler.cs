@@ -57,14 +57,14 @@ public class CountryHandler : MonoBehaviour
     void OnMouseUpAsButton()
     {
         //print("Pressed");
-        if (country.tribe == Country.theTribes.CLONE && country.nbTroupe >1)
+        if (country.tribe == (Country.theTribes)CountryManager.instance.TourJoueur && country.nbTroupe >1)
         {
             if (!CountryManager.instance.CountryIsSelected)
             {
                 bool res = false;
                 foreach (CountryHandler c in this.voisins)
                 {
-                    if (c.country.tribe != Country.theTribes.CLONE)
+                    if (c.country.tribe != (Country.theTribes)CountryManager.instance.TourJoueur)
                     {
                         res = true;
                     }
@@ -97,7 +97,7 @@ public class CountryHandler : MonoBehaviour
             
            
         }
-        else if (country.tribe != Country.theTribes.CLONE && CountryManager.instance.CountryIsSelected)
+        else if (country.tribe != (Country.theTribes)CountryManager.instance.TourJoueur && CountryManager.instance.CountryIsSelected)
         {
             CountryManager.instance.CountryIsSelected = false;
 

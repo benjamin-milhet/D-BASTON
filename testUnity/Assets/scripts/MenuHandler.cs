@@ -15,6 +15,13 @@ public class MenuHandler : MonoBehaviour
         {
             MenuManager.instance.ShowMenu();
         }
+        else if (name == "passer")
+        {
+            MenuManager.instance.NextJoueur();
+        }
+        {
+            
+        }
     }
     
     private void OnDrawGizmos()

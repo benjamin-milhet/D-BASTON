@@ -13,12 +13,30 @@ public class CountryManager : MonoBehaviour
     public GameObject attackPanel;
     public GameObject attaqueText;
     public List<GameObject> countryList = new List<GameObject>();
+    
 
     private bool countryIsSelected = false;
 
     public bool CountryIsSelected { get => countryIsSelected; set => countryIsSelected = value; }
 
     
+    private int tourJoueur = 0; //Permet de savoir le tour de quel joueur est en cours
+
+    public int TourJoueur
+    {
+        get => tourJoueur;
+        set => tourJoueur = value;
+    }
+
+    private int nbJoueur = 2;
+
+    public int NbJoueur
+    {
+        get => nbJoueur;
+        set => nbJoueur = value;
+    }
+
+
     void Awake()
     {
         instance = this;
@@ -34,7 +52,7 @@ public class CountryManager : MonoBehaviour
         if (GameManager.instance.battleHasEnded && GameManager.instance.battleWon)
         {
             CountryHandler count = GameObject.Find(GameManager.instance.attackedCountry).GetComponent<CountryHandler>();
-            count.country.tribe = Country.theTribes.CLONE;
+            count.country.tribe = (Country.theTribes)tourJoueur;
             GameManager.instance.exp += count.country.expReward;
             GameManager.instance.money += count.country.moneyReward;
             TintCountries();
@@ -140,7 +158,7 @@ public class CountryManager : MonoBehaviour
             }
             foreach (CountryHandler c in country.voisins)
             {
-                if (c.country.tribe == Country.theTribes.CLONE)
+                if (c.country.tribe == (Country.theTribes)tourJoueur)
                 {
                     c.gameObject.SetActive(false);
                 }

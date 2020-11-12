@@ -97,7 +97,7 @@ public class CountryHandler : MonoBehaviour
             
            
         }
-        else if (country.tribe != Country.theTribes.CLONE && country.tribe != Country.theTribes.MENU && CountryManager.instance.CountryIsSelected)
+        else if (country.tribe != Country.theTribes.CLONE && CountryManager.instance.CountryIsSelected)
         {
             CountryManager.instance.CountryIsSelected = false;
 
@@ -105,10 +105,7 @@ public class CountryHandler : MonoBehaviour
             ShowGUI();
 
         }
-        else if (country.tribe == Country.theTribes.MENU)
-        {
-            CountryManager.instance.ShowMenu();
-        }
+        
     }
 
     private void OnDrawGizmos()

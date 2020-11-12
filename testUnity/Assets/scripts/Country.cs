@@ -10,8 +10,7 @@ public class Country {
         CLONE = 0,
         DROIDE = 1,
         JEDI = 2,
-        SITH = 3,
-        MENU
+        SITH = 3
     }
 
 

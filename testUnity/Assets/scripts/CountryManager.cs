@@ -11,7 +11,6 @@ public class CountryManager : MonoBehaviour
     public static CountryManager instance;
 
     public GameObject attackPanel;
-    public GameObject menu;
     public GameObject attaqueText;
     public List<GameObject> countryList = new List<GameObject>();
 
@@ -79,10 +78,9 @@ public class CountryManager : MonoBehaviour
                     break;
             }
             
-            if (countHandler.name != "Menu")
-            { 
-                countHandler.showTroupe();
-            }
+            
+            countHandler.showTroupe();
+            
 
             
 
@@ -110,22 +108,7 @@ public class CountryManager : MonoBehaviour
         SceneManager.LoadScene(1);
     }
 
-    public void ShowMenu()
-    {
-        menu.SetActive(true);
-    }
-
-    public void DisableMenu()
-    {
-        menu.SetActive(false);
-    }
-
-    public void QuitGame()
-    {
-        menu.SetActive(false);
-        GameManager.instance.DeleteSaveFile();
-        UnityEditor.EditorApplication.isPlaying = false;
-    }
+    
 
     public void ShowAttaqueText()
     {
@@ -145,13 +128,8 @@ public class CountryManager : MonoBehaviour
             {
                 if (!country.voisins.Contains(countryList[j].GetComponent<CountryHandler>()) && country != countryList[j].GetComponent<CountryHandler>())
                 {
-                    if (!(countryList[j].name.Equals("Menu")) )
-                    {
-                        countryList[j].SetActive(false);
-                        
-                    
-
-                    }  
+                    countryList[j].SetActive(false);
+  
                 }
                 else
                 {
@@ -190,23 +168,18 @@ public class CountryManager : MonoBehaviour
             {
                 cptJ2++;
             }
-            if (!countryList[i].name.Equals("Menu"))
-            {
-                if (cptJ1 > 9)
-                {
-                    t = 1;
-                }
-                else if (cptJ2 > 9)
-                {
-                    t = 0;
-                }
-                countryList[i].GetComponent<CountryHandler>().country.tribe = (Country.theTribes)t;
-                countryList[i].GetComponent<CountryHandler>().country.nbTroupe = 1;
-
-
-            }
-
             
+            if (cptJ1 > 9)
+            { 
+                t = 1;
+            }
+            else if (cptJ2 > 9)
+            {
+                t = 0;
+            }
+            countryList[i].GetComponent<CountryHandler>().country.tribe = (Country.theTribes)t;
+            countryList[i].GetComponent<CountryHandler>().country.nbTroupe = 1;
+
         }
         for (int i = 0; i < nbJoueur; i++)
         {
@@ -218,13 +191,10 @@ public class CountryManager : MonoBehaviour
                 int res = random.Next(countryList.Count);
                 if (countryList[res].GetComponent<CountryHandler>().country.tribe == (Country.theTribes) i)
                 {
+                    countryList[res].GetComponent<CountryHandler>().country.nbTroupe += 1;
+                    j++;
 
-                    if (countryList[res].name != "Menu")
-                    {
-                        countryList[res].GetComponent<CountryHandler>().country.nbTroupe += 1;
-                        j++;
-
-                    }
+                    
                 }
             }
         }

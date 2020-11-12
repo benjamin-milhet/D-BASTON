@@ -18,7 +18,9 @@
           <e p="FightSim.cs" t="Include" />
           <e p="GameManager.cs" t="Include" />
           <e p="Joueur.cs" t="Include" />
+          <e p="MenuHandler.cs" t="Include" />
           <e p="MenuJeu.cs" t="Include" />
+          <e p="MenuManager.cs" t="Include" />
           <e p="opacity.cs" t="Include" />
           <e p="Partie.cs" t="Include" />
         </e>

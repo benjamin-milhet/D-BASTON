@@ -14,7 +14,7 @@ public class FightSim : MonoBehaviour
 
    IEnumerator Fight()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1);
         int num = Random.Range(0, 2);
 
         if (num ==0)

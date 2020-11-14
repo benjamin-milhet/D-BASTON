@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
     [System.Serializable]
     public class SaveData
     {
-        
+        public int cur_tourJoueur;
         private List<Country> savedCountry = new List<Country>();
         public int cur_money;
         public int cur_exp;
@@ -30,10 +30,6 @@ public class GameManager : MonoBehaviour
         public List<Country> SavedCountry { get => savedCountry; set => savedCountry = value; }
     }
     
-    void Start()
-    {
-    }
-
     void Awake()
     {
         //DeleteSaveFile();
@@ -59,6 +55,8 @@ public class GameManager : MonoBehaviour
         //money and exp
         data.cur_exp = exp;
         data.cur_money = money;
+
+        data.cur_tourJoueur = CountryManager.instance.TourJoueur;
 
         BinaryFormatter bf = new BinaryFormatter();
         FileStream stream = new FileStream(Application.persistentDataPath + "/SaveFile.json", FileMode.Create);
@@ -93,6 +91,9 @@ public class GameManager : MonoBehaviour
 
             exp = data.cur_exp;
             money = data.cur_money;
+
+            CountryManager.instance.TourJoueur = data.cur_tourJoueur;
+
 
             CountryManager.instance.TintCountries();
             print("Game loaded");

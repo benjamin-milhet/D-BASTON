@@ -20,7 +20,7 @@ public class CountryManager : MonoBehaviour
     public bool CountryIsSelected { get => countryIsSelected; set => countryIsSelected = value; }
 
     
-    private int tourJoueur = 0; //Permet de savoir le tour de quel joueur est en cours
+    private int tourJoueur; //Permet de savoir le tour de quel joueur est en cours
 
     public int TourJoueur
     {
@@ -171,6 +171,7 @@ public class CountryManager : MonoBehaviour
 
     public void Initialisation()
     {
+        this.TourJoueur = 0;
         int nbJoueur = 2;
         int cptJ1 = 0;
         int cptJ2 = 0;

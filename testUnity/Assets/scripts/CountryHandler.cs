@@ -56,6 +56,34 @@ public class CountryHandler : MonoBehaviour
 
     void OnMouseUpAsButton()
     {
+        this.PhaseDeux();
+        
+    }
+
+    private void OnDrawGizmos()
+    {
+        country.name = name;
+        this.tag = "Country";
+    }
+
+    public void TintColor(Color32 color)
+    {
+        sprite.color = color;
+    }
+
+    void ShowGUI()
+    {
+        CountryManager.instance.ShowAttackPanel(country.name + " appartient aux " + country.tribe.ToString() + ". Est-ce que vous voulez vraiment les attaquer?", country.moneyReward, country.expReward);
+        GameManager.instance.attackedCountry = country.name;
+        GameManager.instance.battleHasEnded = false;
+        GameManager.instance.battleWon = false;
+
+        CountryManager.instance.CountrySelectedAttacked = this;
+
+    }
+
+    private void PhaseDeux()
+    {
         //print("Pressed");
         if (country.tribe == (Country.theTribes)CountryManager.instance.TourJoueur && country.nbTroupe >1)
         {
@@ -91,11 +119,6 @@ public class CountryHandler : MonoBehaviour
                 CountryManager.instance.TintCountries();
             }
 
-            
-
-            
-            
-           
         }
         else if (country.tribe != (Country.theTribes)CountryManager.instance.TourJoueur && CountryManager.instance.CountryIsSelected)
         {
@@ -105,26 +128,5 @@ public class CountryHandler : MonoBehaviour
             ShowGUI();
 
         }
-        
-    }
-
-    private void OnDrawGizmos()
-    {
-        country.name = name;
-        this.tag = "Country";
-    }
-
-    public void TintColor(Color32 color)
-    {
-        sprite.color = color;
-    }
-
-    void ShowGUI()
-    {
-        CountryManager.instance.ShowAttackPanel(country.name + " appartient aux " + country.tribe.ToString() + ". Est-ce que vous voulez vraiment les attaquer?", country.moneyReward, country.expReward);
-        GameManager.instance.attackedCountry = country.name;
-        GameManager.instance.battleHasEnded = false;
-        GameManager.instance.battleWon = false;
-        
     }
 }

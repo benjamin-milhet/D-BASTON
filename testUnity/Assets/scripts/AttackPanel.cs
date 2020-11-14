@@ -11,4 +11,8 @@ public class AttackPanel : MonoBehaviour
     public Text moneyRewardText;
     public Text expRewardText;
 
+    public Slider nbDe;
+    
+    
+
 }

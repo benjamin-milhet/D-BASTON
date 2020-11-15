@@ -94,10 +94,31 @@ public class CountryHandler : MonoBehaviour
     {
         if (country.tribe == (Country.theTribes) CountryManager.instance.TourJoueur)
         {
-            this.country.nbTroupe += CountryManager.instance.nbTerritoire(this.country.tribe);
-            CountryManager.instance.TintCountries();
-            CountryManager.instance.ChangementPhase();
+            if (!CountryManager.instance.CountryIsSelected)
+            {
+                CountryManager.instance.CountryIsSelected = true;
+                
+                oldColor = sprite.color;
+                hoverColor = new Color32(oldColor.r, oldColor.g, oldColor.b, 190);
+                sprite.color = hoverColor;
+                
+                CountryManager.instance.ShowSliderTroupe(CountryManager.instance.NbTroupePhase1);
+                CountryManager.instance.TintThisCountries(this);
+
+
+            }
+            else
+            {
+                CountryManager.instance.CountryIsSelected = false;
+                CountryManager.instance.DisableSliderTroupe();
+                CountryManager.instance.TintCountries();
+            }
+            
+            
+            //this.country.nbTroupe += CountryManager.instance.nbTerritoire(this.country.tribe);
+            
         }
+        
     }
 
     private void PhaseDeux()

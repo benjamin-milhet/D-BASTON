@@ -64,14 +64,52 @@ public class MenuManager : MonoBehaviour
 
     public void NextJoueur()
     {
+        switch (CountryManager.instance.PhaseEnCours)
+        {
+            case 1 :
+                this.PhaseUn();
+                break;
+            case 2 :
+                this.PhaseDeux();
+                break;
+        }
+        
+
+    }
+
+    private void PhaseUn()
+    {
+        try
+        {
+            CountryManager.instance.NbTroupePhase1 -= CountryManager.instance.getValueSlider();
+            CountryManager.instance.CountrySlectedPhaseUn.country.nbTroupe += CountryManager.instance.getValueSlider();
+        }
+        catch (Exception e)
+        {
+            //messagebox erreur
+        }
+        CountryManager.instance.DisableSliderTroupe();
+        CountryManager.instance.TintCountries();
+
+        if (CountryManager.instance.NbTroupePhase1 <= 0)
+        {
+            CountryManager.instance.nbTroupePhaseUn.value = 0;
+            CountryManager.instance.ChangementPhase();
+
+        }
+
+    }
+
+    private void PhaseDeux()
+    {
         CountryManager.instance.TourJoueur++;
         if (CountryManager.instance.TourJoueur > CountryManager.instance.NbJoueur-1)
         {
             CountryManager.instance.TourJoueur = 0;
         }
         CountryManager.instance.ResetPhase();
+        CountryManager.instance.TintCountries();
         GameManager.instance.Saving();
-
     }
     
     

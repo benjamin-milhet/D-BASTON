@@ -12,9 +12,23 @@ public class CountryManager : MonoBehaviour
 
     public GameObject attackPanel;
     public GameObject attaqueText;
+    public Image couleurTeam;
+    public Slider nbTroupePhaseUn;
     public GameObject attaqueUI;
     public List<GameObject> countryList = new List<GameObject>();
-    
+
+    private int nbTroupePhase1 = 0;
+
+    public int NbTroupePhase1
+    {
+        get => nbTroupePhase1;
+        set => nbTroupePhase1 = value;
+    }
+
+    private CountryHandler countrySlectedPhaseUn;
+
+    public CountryHandler CountrySlectedPhaseUn => countrySlectedPhaseUn;
+
 
     private bool countryIsSelected = false;
     private CountryHandler countrySelected = null;
@@ -56,7 +70,7 @@ public class CountryManager : MonoBehaviour
         get => nbJoueur;
         set => nbJoueur = value;
     }
-
+    
 
     void Awake()
     {
@@ -116,13 +130,10 @@ public class CountryManager : MonoBehaviour
                     countHandler.TintColor(new Color32(0, 180, 0, 200));
                     break;
             }
-            
-            
+
+            this.couleurTeam.color = this.getCouleurTeam();
             countHandler.showTroupe();
             
-
-            
-
         }
         
     }
@@ -185,9 +196,7 @@ public class CountryManager : MonoBehaviour
 
         //SceneManager.LoadScene(1);
     }
-
     
-
     public void ShowAttaqueText()
     {
         attaqueText.SetActive(true);
@@ -223,9 +232,19 @@ public class CountryManager : MonoBehaviour
                 }
             }
 
-
-
-
+    }
+    
+    public void TintThisCountries(CountryHandler country)
+    {
+        this.countrySlectedPhaseUn = country;
+        for (int j = 0; j < countryList.Count; j++)
+        {
+            if (!country.Equals(countryList[j].GetComponent<CountryHandler>()))
+            {
+                countryList[j].SetActive(false);
+  
+            }
+        }
     }
 
     public void Initialisation()
@@ -278,7 +297,7 @@ public class CountryManager : MonoBehaviour
         }
 
 
-
+        this.nbTroupePhase1 = this.nbTerritoire();
         TintCountries();
 
         
@@ -292,8 +311,7 @@ public class CountryManager : MonoBehaviour
         this.countrySelected.country.nbTroupe -= t1;
         this.countrySelectedAttacked.country.nbTroupe -= t2;
 
-        print("-------------------t1" + t1);
-        print("-------------------t2" + t2);
+        
         if (this.countrySelectedAttacked.country.nbTroupe <= 0)
         {
             this.countrySelectedAttacked.country.nbTroupe = 1;
@@ -311,6 +329,7 @@ public class CountryManager : MonoBehaviour
         {
             countrySelectedAttacked.country.tribe = countrySelected.country.tribe;
             TintCountries();
+            this.ConditionVictoire();
 
         }
 
@@ -319,8 +338,9 @@ public class CountryManager : MonoBehaviour
         GameManager.instance.Saving();
     }
 
-    public int nbTerritoire(Country.theTribes tribe)
+    public int nbTerritoire()
     {
+        Country.theTribes tribe = (Country.theTribes) TourJoueur;
         int count = 0;
         int res = 0;
         for (int i = 0; i < countryList.Count; i++)
@@ -352,20 +372,87 @@ public class CountryManager : MonoBehaviour
         this.phaseEnCours++;
         if (this.phaseEnCours >= 3)
         {
+            this.nbTroupePhase1 = this.nbTerritoire();
             this.phaseEnCours = 1;
         }
     }
     
     public void ResetPhase()
     {
+        this.nbTroupePhase1 = this.nbTerritoire();
         this.phaseEnCours = 1;
     }
-    
-    
+
+    public Color32 getCouleurTeam()
+    {
+        Color32 res;
+        switch ((Country.theTribes)tourJoueur)
+        {
+            case Country.theTribes.CLONE:
+                res = new Color32(180, 0, 0, 200);
+                break;
+
+            case Country.theTribes.DROIDE:
+                res = new Color32(0, 24, 114, 200);
+                break;
+
+            case Country.theTribes.JEDI:
+                res = new Color32(0, 180, 0, 200);
+                break;
+            default:
+                res = new Color32(0, 0, 0, 200);
+                break;
+        }
+        
+        return res;
+    }
+
+    public void ShowSliderTroupe(int max)
+    {
+        nbTroupePhaseUn.maxValue = max;
+        nbTroupePhaseUn.gameObject.SetActive(true);
+    }
+
+    public void DisableSliderTroupe()
+    {
+        nbTroupePhaseUn.gameObject.SetActive(false);
+
+    }
+
+    public int getValueSlider()
+    {
+        return (int) nbTroupePhaseUn.value;
+    }
 
 
 
 
 
 
+
+
+
+
+
+
+
+
+    public void ConditionVictoire()
+    {
+        int resVictoire = 0;
+        for (int i = 0; i < countryList.Count; i++)
+        {
+            CountryHandler countHandler = countryList[i].GetComponent<CountryHandler>();
+            if (countHandler.country.tribe == (Country.theTribes)TourJoueur)
+            {
+                resVictoire++;
+            }
+        }
+
+        if (resVictoire == countryList.Count)
+        {
+            GameManager.instance.DeleteSaveFile();
+            UnityEditor.EditorApplication.isPlaying = false;
+        }
+    }
 }

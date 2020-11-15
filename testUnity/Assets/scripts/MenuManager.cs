@@ -69,6 +69,7 @@ public class MenuManager : MonoBehaviour
         {
             CountryManager.instance.TourJoueur = 0;
         }
+        CountryManager.instance.ResetPhase();
         GameManager.instance.Saving();
 
     }

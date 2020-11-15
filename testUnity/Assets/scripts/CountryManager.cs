@@ -18,7 +18,11 @@ public class CountryManager : MonoBehaviour
 
     private bool countryIsSelected = false;
     private CountryHandler countrySelected = null;
-    
+
+    private int phaseEnCours = 1;
+
+    public int PhaseEnCours => phaseEnCours;
+
 
     private CountryHandler countrySelectedAttacked = null;
 
@@ -313,6 +317,48 @@ public class CountryManager : MonoBehaviour
         GameManager.instance.battleWon = false;
         GameManager.instance.battleHasEnded = false;
         GameManager.instance.Saving();
+    }
+
+    public int nbTerritoire(Country.theTribes tribe)
+    {
+        int count = 0;
+        int res = 0;
+        for (int i = 0; i < countryList.Count; i++)
+        {
+            CountryHandler countHandler = countryList[i].GetComponent<CountryHandler>();
+            if (countHandler.country.tribe == tribe)
+            {
+                count++;
+            }
+        }
+
+        if (count <= 10)
+        {
+            res = 3;
+        }
+        else if (count >10 && count <=14)
+        {
+            res = 4;
+        }
+        else
+        {
+            res = 5;
+        }
+        return res;
+    }
+
+    public void ChangementPhase()
+    {
+        this.phaseEnCours++;
+        if (this.phaseEnCours >= 3)
+        {
+            this.phaseEnCours = 1;
+        }
+    }
+    
+    public void ResetPhase()
+    {
+        this.phaseEnCours = 1;
     }
     
     

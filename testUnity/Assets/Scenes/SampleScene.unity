@@ -3627,8 +3627,6 @@ MonoBehaviour:
   battleWon: 0
   exp: 0
   money: 0
-  valueDe: 0
-  valueDeAttacked: 0
 --- !u!1 &484748985
 GameObject:
   m_ObjectHideFlags: 0
@@ -6265,6 +6263,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackPanel: {fileID: 1524764250}
   attaqueText: {fileID: 900304480}
+  attaqueUI: {fileID: 918691635}
   countryList: []
 --- !u!1 &868962901
 GameObject:
@@ -6598,12 +6597,12 @@ GameObject:
   - component: {fileID: 918691638}
   - component: {fileID: 918691637}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: PanelAttaque
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &918691636
 RectTransform:
   m_ObjectHideFlags: 0

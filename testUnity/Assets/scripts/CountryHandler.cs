@@ -56,7 +56,15 @@ public class CountryHandler : MonoBehaviour
 
     void OnMouseUpAsButton()
     {
-        this.PhaseDeux();
+        switch (CountryManager.instance.PhaseEnCours)
+        {
+            case 1 :
+                this.PhaseUn();
+                break;
+            case 2 :
+                this.PhaseDeux();
+                break;
+        }
         
     }
 
@@ -80,6 +88,16 @@ public class CountryHandler : MonoBehaviour
 
         CountryManager.instance.CountrySelectedAttacked = this;
 
+    }
+
+    private void PhaseUn()
+    {
+        if (country.tribe == (Country.theTribes) CountryManager.instance.TourJoueur)
+        {
+            this.country.nbTroupe += CountryManager.instance.nbTerritoire(this.country.tribe);
+            CountryManager.instance.TintCountries();
+            CountryManager.instance.ChangementPhase();
+        }
     }
 
     private void PhaseDeux()

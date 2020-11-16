@@ -141,6 +141,7 @@ public class CountryManager : MonoBehaviour
     public void ShowAttackPanel(string description, int moneyReward, int expReward)
     {
         attackPanel.SetActive(true);
+        
         AttackPanel gui = attackPanel.GetComponent<AttackPanel>();
         gui.descriptionText.text = description;
         gui.moneyRewardText.text = "+ " + moneyReward.ToString();

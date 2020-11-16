@@ -93,6 +93,7 @@ public class MenuManager : MonoBehaviour
 
         if (CountryManager.instance.NbTroupePhase1 <= 0)
         {
+            CountryManager.instance.CountryIsSelected = false;
             CountryManager.instance.nbTroupePhaseUn.value = 0;
             CountryManager.instance.ChangementPhase();
 

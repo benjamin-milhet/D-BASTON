@@ -23,7 +23,7 @@ public class FightSim
         int res = 0;
         int resAttacked = 0;
         List<int> resultatAttacked = new List<int>();
-       
+        
         
         for (int i = 0; i < this.valueDe; i++)
         {

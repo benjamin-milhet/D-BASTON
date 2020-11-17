@@ -4,7 +4,9 @@ using UnityEngine;
 
 [System.Serializable]
 public class Country {
-    public string name;
+    /// <summary>
+    /// Enumeration des equipes possibles
+    /// </summary>
     public enum theTribes
     {
         CLONE = 0,
@@ -14,24 +16,11 @@ public class Country {
     }
 
 
-
-    public theTribes tribe;
-
+    public string name; //Nom du territoire
+    public theTribes tribe; //Joueur qui possede ce territoire
     public int moneyReward;
     public int expReward;
-    public int nbTroupe;
-
-
-   
-
-
-
-    //public Text nbTroupeUI;
-
-    /*public void start()
-    {
-        nbTroupeUI.text = nbTroupe.ToString();
-    }*/
+    public int nbTroupe;//Nombre de troupe sur ce territoire
 
 }
 

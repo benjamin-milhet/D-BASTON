@@ -7,5 +7,5 @@ using UnityEngine.UI;
 
 public class AffichageTroupe : MonoBehaviour
 {
-    public Text nbTroupe;
+    public Text nbTroupe; //Permet d'afficher le nombre de troupe sur un territoire
 }

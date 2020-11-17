@@ -14,6 +14,7 @@ public class CountryManager : MonoBehaviour
     public GameObject attaqueText;
     public Image couleurTeam;
     public Slider nbTroupePhaseUn;
+    public Text valueSlider;
     public GameObject attaqueUI;
     public List<GameObject> countryList = new List<GameObject>();
 
@@ -410,12 +411,14 @@ public class CountryManager : MonoBehaviour
 
     public void ShowSliderTroupe(int max)
     {
+        valueSlider.gameObject.SetActive(true);
         nbTroupePhaseUn.maxValue = max;
         nbTroupePhaseUn.gameObject.SetActive(true);
     }
 
     public void DisableSliderTroupe()
     {
+        valueSlider.gameObject.SetActive(false);
         nbTroupePhaseUn.gameObject.SetActive(false);
 
     }
@@ -423,6 +426,11 @@ public class CountryManager : MonoBehaviour
     public int getValueSlider()
     {
         return (int) nbTroupePhaseUn.value;
+    }
+
+    public void setValueTextSlider()
+    {
+        valueSlider.text = nbTroupePhaseUn.value.ToString();
     }
 
 

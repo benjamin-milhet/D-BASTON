@@ -145,10 +145,10 @@ public class CountryManager : MonoBehaviour
         attackPanel.SetActive(true);
         
         AttackPanel gui = attackPanel.GetComponent<AttackPanel>();
+        gui.nbDe.value = 1;
+        gui.SetValueTextSlider();
         gui.descriptionText.text = description;
-        gui.moneyRewardText.text = "+ " + moneyReward.ToString();
-        gui.expRewardText.text = "+ " + expReward.ToString();
-        
+
         switch (countrySelected.country.nbTroupe)
         {
             case 1 :
@@ -175,9 +175,6 @@ public class CountryManager : MonoBehaviour
     public void StartFight()
     {
         AttackPanel gui = attackPanel.GetComponent<AttackPanel>();
-        
-        
-        
         attackPanel.SetActive(false);
         TintCountries();
         attaqueUI.SetActive(true);

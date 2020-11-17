@@ -100,6 +100,7 @@
      <Compile Include="Assets\scripts\MenuHandler.cs" />
      <Compile Include="Assets\scripts\MenuJeu.cs" />
      <Compile Include="Assets\scripts\MenuManager.cs" />
+     <Compile Include="Assets\scripts\MenuPreparerPartie.cs" />
      <Compile Include="Assets\scripts\Partie.cs" />
      <Compile Include="Assets\scripts\opacity.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

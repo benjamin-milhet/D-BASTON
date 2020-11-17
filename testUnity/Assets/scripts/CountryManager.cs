@@ -15,6 +15,7 @@ public class CountryManager : MonoBehaviour
     public Image couleurTeam;
     public Slider nbTroupePhaseUn;
     public Text valueSlider;
+    public Text textPhase;
     public GameObject attaqueUI;
     public List<GameObject> countryList = new List<GameObject>();
 
@@ -298,8 +299,8 @@ public class CountryManager : MonoBehaviour
             }
         }
 
-
         this.nbTroupePhase1 = this.nbTerritoire();
+        SetTextPhase();
         TintCountries();
 
         
@@ -377,12 +378,14 @@ public class CountryManager : MonoBehaviour
             this.nbTroupePhase1 = this.nbTerritoire();
             this.phaseEnCours = 1;
         }
+        SetTextPhase();
     }
     
     public void ResetPhase()
     {
         this.nbTroupePhase1 = this.nbTerritoire();
         this.phaseEnCours = 1;
+        SetTextPhase();
     }
 
     public Color32 getCouleurTeam()
@@ -433,7 +436,24 @@ public class CountryManager : MonoBehaviour
         valueSlider.text = nbTroupePhaseUn.value.ToString();
     }
 
+    public void SetTextPhase()
+    {
+        String res = "";
+        switch (PhaseEnCours)
+        {
+            case 1 :
+                res = "Déploiement";
+                break;
+            case 2 :
+                res = "Combat";
+                break;
+            case 3 :
+                res = "Déplacement";
+                break;
+        }
 
+        textPhase.text = "Phase " + PhaseEnCours.ToString() + " : " + res;
+    }
 
 
 

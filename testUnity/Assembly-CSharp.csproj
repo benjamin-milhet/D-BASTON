@@ -94,6 +94,8 @@
      <Compile Include="Assets\scripts\Country.cs" />
      <Compile Include="Assets\scripts\CountryHandler.cs" />
      <Compile Include="Assets\scripts\CountryManager.cs" />
+     <Compile Include="Assets\scripts\Dice.cs" />
+     <Compile Include="Assets\scripts\Dice2.cs" />
      <Compile Include="Assets\scripts\FightSim.cs" />
      <Compile Include="Assets\scripts\GameManager.cs" />
      <Compile Include="Assets\scripts\Joueur.cs" />

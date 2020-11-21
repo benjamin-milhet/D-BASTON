@@ -89,7 +89,7 @@ public class CountryHandler : MonoBehaviour
     /// </summary>
     void ShowGUI()
     {
-        CountryManager.instance.ShowAttackPanel(country.name + " appartient aux " + country.tribe.ToString() + ". Est-ce que vous voulez vraiment les attaquer?", country.moneyReward, country.expReward);
+        CountryManager.instance.ShowAttackPanel(country.name + " appartient aux " + country.tribe.ToString() + ". Est-ce que vous voulez vraiment les attaquer?");
         GameManager.instance.attackedCountry = country.name;
         GameManager.instance.battleHasEnded = false;
         GameManager.instance.battleWon = false;
@@ -104,29 +104,29 @@ public class CountryHandler : MonoBehaviour
     {
         if (country.tribe == (Country.theTribes) CountryManager.instance.TourJoueur) //On regarde si le territoire selectionné est bien au joueur en cours
         {
-            if (!CountryManager.instance.CountryIsSelected)
+            if (!CountryManager.instance.CountryIsSelected)//on regarde que aucun autre territoire n'a ete selectionne
             {
-                CountryManager.instance.CountryIsSelected = true;
+                CountryManager.instance.CountryIsSelected = true; //on indique qu'on a selectionne un territoire
                 
+                //On change la couleur du territoire selectionne
                 oldColor = sprite.color;
-                hoverColor = new Color32(oldColor.r, oldColor.g, oldColor.b, 190);
+                hoverColor = new Color32(oldColor.r, oldColor.g, oldColor.b, 190); 
                 sprite.color = hoverColor;
                 
+                //On affiche le slider pour choisir le nombre de troupe a ajoute
                 CountryManager.instance.ShowSliderTroupe(CountryManager.instance.NbTroupePhase1);
+                
+                //On desactive tous les autres territoires
                 CountryManager.instance.TintThisCountries(this);
 
 
             }
-            else
+            else //Si un territoire est deja selectionne
             {
-                CountryManager.instance.CountryIsSelected = false;
-                CountryManager.instance.DisableSliderTroupe();
-                CountryManager.instance.TintCountries();
+                CountryManager.instance.CountryIsSelected = false; //on indique qu'aucun territoire n'est selectionne
+                CountryManager.instance.DisableSliderTroupe(); //On desactive le slider
+                CountryManager.instance.TintCountries(); //On reaffiche tous les territoires
             }
-            
-            
-            //this.country.nbTroupe += CountryManager.instance.nbTerritoire(this.country.tribe);
-            
         }
         
     }
@@ -136,12 +136,12 @@ public class CountryHandler : MonoBehaviour
     /// </summary>
     private void PhaseDeux()
     {
-        //print("Pressed");
         if (country.tribe == (Country.theTribes)CountryManager.instance.TourJoueur && country.nbTroupe >1) //On regarde si le territoire selectionné est bien au joueur en cours et si il y a strictement plus de 1troupe sur ce territoire
         {
-            if (!CountryManager.instance.CountryIsSelected)
+            if (!CountryManager.instance.CountryIsSelected)//on regarde que aucun autre territoire n'a ete selectionne
             {
                 bool res = false;
+                //On regarde si le territoire possede des voisins a attaque
                 foreach (CountryHandler c in this.voisins)
                 {
                     if (c.country.tribe != (Country.theTribes)CountryManager.instance.TourJoueur)
@@ -149,35 +149,35 @@ public class CountryHandler : MonoBehaviour
                         res = true;
                     }
                 }
-
+                
+                //Si le territoire possede des territoires voisins a attaque
                 if (res)
                 {
-                    CountryManager.instance.CountryIsSelected = true;
+                    CountryManager.instance.CountryIsSelected = true; //On indique qu'un territoire est selectionne
 
+                    //On change la couleur du territoire
                     oldColor = sprite.color;
                     hoverColor = new Color32(oldColor.r, oldColor.g, oldColor.b, 190);
                     sprite.color = hoverColor;
 
-
+                    //On affiche ce territoire et les territoires voisins ennemis
                     CountryManager.instance.TintAttaqueCountries(this);
-
-                    CountryManager.instance.ShowAttaqueText();
+                    
                 }
             }
-            else
+            else //Si un territoire est deja selectionne
             {
-                CountryManager.instance.CountryIsSelected = false;
+                CountryManager.instance.CountryIsSelected = false; //on indique qu'aucun territoire n'est selectionne
                 CountryManager.instance.DisableAttaqueText();
-                CountryManager.instance.TintCountries();
+                CountryManager.instance.TintCountries();//On reaffiche tous les territoires
             }
 
         }
-        else if (country.tribe != (Country.theTribes)CountryManager.instance.TourJoueur && CountryManager.instance.CountryIsSelected)
+        else if (country.tribe != (Country.theTribes)CountryManager.instance.TourJoueur && CountryManager.instance.CountryIsSelected)//Si on clique sur un territoire ennemi apres avoir selectionne un de ses territoires
         {
-            CountryManager.instance.CountryIsSelected = false;
-
+            CountryManager.instance.CountryIsSelected = false; //on indique qu'aucun territoire n'est selectionne
             CountryManager.instance.DisableAttaqueText();
-            ShowGUI();
+            ShowGUI(); //On affiche l'interface d'attaque
 
         }
     }

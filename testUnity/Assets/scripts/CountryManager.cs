@@ -10,38 +10,35 @@ public class CountryManager : MonoBehaviour
 {
     public static CountryManager instance;
 
-    public GameObject attackPanel;
-    public GameObject attaqueText;
-    public Image couleurTeam;
+    //Variables
+    public GameObject attackPanel; //Panel du combat
+    public GameObject attaqueText; 
+    public Image couleurTeam; //Couleur de la team en cours
     public Slider nbTroupePhaseUn;
     public Text valueSlider;
     public Text textPhase;
     public GameObject attaqueUI;
+    private CountryHandler countrySlectedPhaseUn;
     public List<GameObject> countryList = new List<GameObject>();
-
+    private bool countryIsSelected = false;
+    private CountryHandler countrySelected = null;
+    private int phaseEnCours = 1;
     private int nbTroupePhase1 = 0;
+    private CountryHandler countrySelectedAttacked = null;
+    private int tourJoueur; //Permet de savoir le tour de quel joueur est en cours
+    private int nbJoueur = 2;
 
+    //Getter et Setter
     public int NbTroupePhase1
     {
         get => nbTroupePhase1;
         set => nbTroupePhase1 = value;
     }
-
-    private CountryHandler countrySlectedPhaseUn;
-
+    
     public CountryHandler CountrySlectedPhaseUn => countrySlectedPhaseUn;
-
-
-    private bool countryIsSelected = false;
-    private CountryHandler countrySelected = null;
-
-    private int phaseEnCours = 1;
-
+    
     public int PhaseEnCours => phaseEnCours;
-
-
-    private CountryHandler countrySelectedAttacked = null;
-
+    
     public CountryHandler CountrySelected
     {
         get => countrySelected;
@@ -54,10 +51,11 @@ public class CountryManager : MonoBehaviour
         set => countrySelectedAttacked = value;
     }
 
-    public bool CountryIsSelected { get => countryIsSelected; set => countryIsSelected = value; }
-
-    
-    private int tourJoueur; //Permet de savoir le tour de quel joueur est en cours
+    public bool CountryIsSelected
+    {
+        get => countryIsSelected;
+        set => countryIsSelected = value;
+    }
     
     public int TourJoueur
     {
@@ -65,7 +63,6 @@ public class CountryManager : MonoBehaviour
         set => tourJoueur = value;
     }
 
-    private int nbJoueur = 2;
 
     public int NbJoueur
     {
@@ -74,6 +71,7 @@ public class CountryManager : MonoBehaviour
     }
     
 
+    
     void Awake()
     {
         instance = this;
@@ -85,40 +83,37 @@ public class CountryManager : MonoBehaviour
         attackPanel.SetActive(false);
         AddCountryData();
         
-
-        /*if (GameManager.instance.battleHasEnded && GameManager.instance.battleWon)
-        {
-            CountryHandler count = GameObject.Find(GameManager.instance.attackedCountry).GetComponent<CountryHandler>();
-            count.country.tribe = (Country.theTribes)tourJoueur;
-            GameManager.instance.exp += count.country.expReward;
-            GameManager.instance.money += count.country.moneyReward;
-            TintCountries();
-
-        }*/
         GameManager.instance.Saving();
     }
 
+    /// <summary>
+    /// Permet de recuperer tout les territoires depuis UNITY
+    /// </summary>
     void AddCountryData()
     {
-        GameObject[] theArray = GameObject.FindGameObjectsWithTag("Country") as GameObject[];
-        foreach(GameObject country in theArray)
+        GameObject[] theArray = GameObject.FindGameObjectsWithTag("Country") as GameObject[]; //Recupere tous les object ayant le tag Country
+        foreach(GameObject country in theArray) //Ajoute tout les territoires dans la liste global
         {
             countryList.Add(country);
         }
-        Initialisation();
-        GameManager.instance.Loading();
-        TintCountries();
+        
+        Initialisation(); //Initialisation de la partie
+        GameManager.instance.Loading(); //Load le fichier text de sauvegarde
+        TintCountries();//Affiche tout les terriotires avec leurs informations, tribu, ...
+        
     }
 
+    /// <summary>
+    /// Permet d'afficher tout les territoires
+    /// </summary>
     public void TintCountries()
     {
-
-        for(int i = 0; i < countryList.Count; i++)
+        for(int i = 0; i < countryList.Count; i++) //On parcouts tous les territoires
         {
-            CountryHandler countHandler = countryList[i].GetComponent<CountryHandler>();
-            countryList[i].SetActive(true);
+            CountryHandler countHandler = countryList[i].GetComponent<CountryHandler>();//On recupere le CountryHandler de chaque territoires
+            countryList[i].SetActive(true);//On les affiches
 
-            switch (countHandler.country.tribe)
+            switch (countHandler.country.tribe)//On leur attribut une couleur suivant son propriétaire
             {
                 case Country.theTribes.CLONE:
                     countHandler.TintColor(new Color32(180, 0, 0, 200));
@@ -134,21 +129,26 @@ public class CountryManager : MonoBehaviour
             }
 
             this.couleurTeam.color = this.getCouleurTeam();
-            countHandler.showTroupe();
+            countHandler.showTroupe();// On affiche le nombre de troupe sur le territoire
             
         }
         
     }
 
-    public void ShowAttackPanel(string description, int moneyReward, int expReward)
+    /// <summary>
+    /// Menu d'attaque afin de preparer un combat
+    /// </summary>
+    /// <param name="description">texte a afficher dans le menu</param>
+    public void ShowAttackPanel(string description)
     {
-        attackPanel.SetActive(true);
+        attackPanel.SetActive(true);//On affiche le menu
         
-        AttackPanel gui = attackPanel.GetComponent<AttackPanel>();
-        gui.nbDe.value = 1;
-        gui.SetValueTextSlider();
-        gui.descriptionText.text = description;
+        AttackPanel gui = attackPanel.GetComponent<AttackPanel>();//On initialise le menu
+        gui.nbDe.value = 1; //On fixe la valeur du slider a 1
+        gui.SetValueTextSlider();//Permet d'afficher la valeur du slider en dessous
+        gui.descriptionText.text = description;//Affiche la description du menu
 
+        //Permet de mettre la valeur maximum du slider en fonction du nombre de troupe sur le territoire
         switch (countrySelected.country.nbTroupe)
         {
             case 1 :
@@ -161,17 +161,20 @@ public class CountryManager : MonoBehaviour
                 gui.nbDe.maxValue = 3;
                 break;
         }
-
-        
-        
     }
 
+    /// <summary>
+    /// Permet de desactiver 
+    /// </summary>
     public void DisableAttackPanel()
     {
-        attackPanel.SetActive(false);
-        TintCountries();
+        attackPanel.SetActive(false);//Desactive le menu de preparation du combat
+        TintCountries();//Reaffiche tous les territoires
     }
 
+    /// <summary>
+    /// Debute un combat
+    /// </summary>
     public void StartFight()
     {
         AttackPanel gui = attackPanel.GetComponent<AttackPanel>();
@@ -193,8 +196,6 @@ public class CountryManager : MonoBehaviour
         FightSim fightSim = new FightSim((int) gui.nbDe.value, res);
         fightSim.Fight();
         attaqueUI.SetActive(false);
-
-        //SceneManager.LoadScene(1);
     }
     
     public void ShowAttaqueText()
@@ -207,6 +208,10 @@ public class CountryManager : MonoBehaviour
         attaqueText.SetActive(false);
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="country">Le territoire selectionne allie pour le combat</param>
     public void TintAttaqueCountries(CountryHandler country)
     {
         this.countrySelected = country;
@@ -215,12 +220,10 @@ public class CountryManager : MonoBehaviour
                 if (!country.voisins.Contains(countryList[j].GetComponent<CountryHandler>()) && country != countryList[j].GetComponent<CountryHandler>())
                 {
                     countryList[j].SetActive(false);
-  
                 }
                 else
                 {
                     print(countryList[j].name);
-
                 }
                 
             }
@@ -314,6 +317,7 @@ public class CountryManager : MonoBehaviour
         
         if (this.countrySelectedAttacked.country.nbTroupe <= 0)
         {
+            this.countrySelected.country.nbTroupe -= 1;
             this.countrySelectedAttacked.country.nbTroupe = 1;
             res = true;
         }
@@ -478,7 +482,8 @@ public class CountryManager : MonoBehaviour
         if (resVictoire == countryList.Count)
         {
             GameManager.instance.DeleteSaveFile();
-            UnityEditor.EditorApplication.isPlaying = false;
+            SceneManager.LoadScene(0);
+            //UnityEditor.EditorApplication.isPlaying = false;
         }
     }
 }

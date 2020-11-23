@@ -28,6 +28,7 @@ public class CountryManager : MonoBehaviour
     private int tourJoueur; //Permet de savoir le tour de quel joueur est en cours
     private int nbJoueur = 2;
 
+    
     //Getter et Setter
     public int NbTroupePhase1
     {
@@ -126,6 +127,10 @@ public class CountryManager : MonoBehaviour
                 case Country.theTribes.JEDI:
                     countHandler.TintColor(new Color32(0, 180, 0, 200));
                     break;
+                
+                case Country.theTribes.SITH:
+                    countHandler.TintColor(new Color32(180, 90, 0, 200));
+                    break;
             }
 
             this.couleurTeam.color = this.getCouleurTeam();
@@ -223,7 +228,7 @@ public class CountryManager : MonoBehaviour
                 }
                 else
                 {
-                    print(countryList[j].name);
+                    //print(countryList[j].name);
                 }
                 
             }
@@ -253,35 +258,37 @@ public class CountryManager : MonoBehaviour
     public void Initialisation()
     {
         this.TourJoueur = 0;
-        int nbJoueur = 2;
-        int cptJ1 = 0;
-        int cptJ2 = 0;
-        for (int i = 0; i < countryList.Count; i++)
+        List<int> addTerritoire = new List<int>();
+        for (int k = 0; k < this.nbJoueur; k++)
         {
-            int t = UnityEngine.Random.Range(0, 2);
-            if (t == 0)
+            addTerritoire.Add(0);
+        }
+
+        int i = 0;
+        int nbJ;
+        if (this.nbJoueur != 4)
+        {
+             nbJ = countryList.Count / nbJoueur;
+        }
+        else
+        {
+             nbJ = 5;
+        }
+        while (i < countryList.Count)
+        {
+            int t = UnityEngine.Random.Range(0, this.nbJoueur);
+            if (addTerritoire[t] < nbJ)
             {
-                cptJ1++;
-                
+                countryList[i].GetComponent<CountryHandler>().country.tribe = (Country.theTribes)t;
+                countryList[i].GetComponent<CountryHandler>().country.nbTroupe = 1;
+                addTerritoire[t]+= 1;
+                i++;
             }
-            else
-            {
-                cptJ2++;
-            }
-            
-            if (cptJ1 > 9)
-            { 
-                t = 1;
-            }
-            else if (cptJ2 > 9)
-            {
-                t = 0;
-            }
-            countryList[i].GetComponent<CountryHandler>().country.tribe = (Country.theTribes)t;
-            countryList[i].GetComponent<CountryHandler>().country.nbTroupe = 1;
+
+
 
         }
-        for (int i = 0; i < nbJoueur; i++)
+        for (int ii = 0; ii < nbJoueur; ii++)
         {
             int nbTroupeTotalParJoueur = 30;
             Random random = new Random();
@@ -289,7 +296,7 @@ public class CountryManager : MonoBehaviour
             while (j < nbTroupeTotalParJoueur)
             {
                 int res = random.Next(countryList.Count);
-                if (countryList[res].GetComponent<CountryHandler>().country.tribe == (Country.theTribes) i)
+                if (countryList[res].GetComponent<CountryHandler>().country.tribe == (Country.theTribes) ii)
                 {
                     countryList[res].GetComponent<CountryHandler>().country.nbTroupe += 1;
                     j++;
@@ -405,6 +412,11 @@ public class CountryManager : MonoBehaviour
             case Country.theTribes.JEDI:
                 res = new Color32(0, 180, 0, 200);
                 break;
+            
+            case Country.theTribes.SITH:
+                res = new Color32(180, 90, 0, 200);
+                break;
+            
             default:
                 res = new Color32(0, 0, 0, 200);
                 break;

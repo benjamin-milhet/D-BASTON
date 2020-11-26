@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using DefaultNamespace;
 using Random = System.Random;
 
@@ -95,12 +97,37 @@ public class CountryManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        this.Loading();
         attackPanel.SetActive(false);
         AddCountryData();
         
         GameManager.instance.Saving();
     }
 
+    
+    public void Loading()
+    {
+        if (File.Exists(Application.persistentDataPath + "/SaveFileMenu.json"))
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            FileStream stream = new FileStream(Application.persistentDataPath + "/SaveFileMenu.json",FileMode.Open) ;
+
+            MenuPreparerPartie.SaveData data = (MenuPreparerPartie.SaveData)bf.Deserialize(stream);
+            stream.Close();
+
+            this.nbJoueur = data.nbJoueur;
+
+
+            CountryManager.instance.TintCountries();
+            print("Game loaded");
+        }
+        else
+        {
+            print("No SaveFile Found");
+        }
+    }
+    
+    
     /// <summary>
     /// Permet de recuperer tout les territoires depuis UNITY
     /// </summary>
@@ -625,6 +652,7 @@ public class CountryManager : MonoBehaviour
 
         if (resVictoire == countryList.Count)
         {
+            MenuPreparerPartie.DeleteSaveFile();
             GameManager.instance.DeleteSaveFile();
             SceneManager.LoadScene(0);
             //UnityEditor.EditorApplication.isPlaying = false;

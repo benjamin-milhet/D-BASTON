@@ -113,16 +113,7 @@ public class MenuManager : MonoBehaviour
     
     private void PhaseTrois()
     {
-        try
-        {
-            CountryManager.instance.CountrySelected.country.nbTroupe -= CountryManager.instance.getValueSlider();
-            CountryManager.instance.CountrySelectedAttacked.country.nbTroupe += CountryManager.instance.getValueSlider();
-        }
-        catch (Exception e)
-        {
-            //messagebox erreur
-        }
-        
+        CountryManager.instance.DisableSliderTroupe();
         CountryManager.instance.TourJoueur++;
         if (CountryManager.instance.TourJoueur > CountryManager.instance.NbJoueur)
         {

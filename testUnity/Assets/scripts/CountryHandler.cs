@@ -226,7 +226,9 @@ public class CountryHandler : MonoBehaviour
                 }
                 else if (this != CountryManager.instance.CountrySelected)
                 {
-                    CountryManager.instance.CountrySelectedAttacked = this;
+                    CountryManager.instance.CountrySelected.country.nbTroupe -= CountryManager.instance.getValueSlider();
+                    this.country.nbTroupe += CountryManager.instance.getValueSlider();
+                    MenuManager.instance.NextJoueur();
 
                 }
                 else //Si un territoire est deja selectionne

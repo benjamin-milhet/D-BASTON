@@ -506,7 +506,6 @@ public class CountryManager : MonoBehaviour
         this.phaseEnCours++;
         if (this.phaseEnCours > 3)
         {
-            this.nbTroupePhase1 = this.nbTerritoire(TourJoueur);
             this.phaseEnCours = 1;
         }
         SetTextPhase();

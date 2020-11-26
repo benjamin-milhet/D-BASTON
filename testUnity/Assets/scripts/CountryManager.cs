@@ -363,6 +363,7 @@ public class CountryManager : MonoBehaviour
         //Active uniquement les terrtoires reliées
         foreach (CountryHandler ch in global)
         {
+            print("=========================" + ch.country);
             ch.gameObject.SetActive(true);
         }
         

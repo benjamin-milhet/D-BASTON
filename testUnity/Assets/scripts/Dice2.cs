@@ -16,6 +16,12 @@ public class Dice2 : MonoBehaviour
     private int r6;
     private int r7;
     private int r8;
+    
+    public int R7
+    {
+        get => r7;
+        set => r7 = value;
+    }
 
     private static Vector2 originalPos;
     

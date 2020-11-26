@@ -31,7 +31,7 @@ public class CountryManager : MonoBehaviour
     private int nbTroupePhase1 = 0;
     private CountryHandler countrySelectedAttacked = null;
     private int tourJoueur; //Permet de savoir le tour de quel joueur est en cours
-    private int nbJoueur = 2;
+    private int nbJoueur = 4;
     
     
     private List<CountryHandler> global = new List<CountryHandler>();
@@ -78,8 +78,6 @@ public class CountryManager : MonoBehaviour
         get => nbJoueur;
         set => nbJoueur = value;
     }
-    
-
     
     void Awake()
     {
@@ -299,8 +297,7 @@ public class CountryManager : MonoBehaviour
     public void TintVoisinsCountries(CountryHandler country)
     {
         this.global.Add(country);
-        this.countrySelected = country;
-        
+
         //On repertorie tous les territories reliés
         List<CountryHandler> listTest = new List<CountryHandler>();
         foreach (CountryHandler c in country.voisins)
@@ -555,6 +552,7 @@ public class CountryManager : MonoBehaviour
     public void ShowSliderTroupe(int max)
     {
         valueSlider.gameObject.SetActive(true);
+        nbTroupePhaseUn.value = 0;
         nbTroupePhaseUn.maxValue = max;
         nbTroupePhaseUn.gameObject.SetActive(true);
     }

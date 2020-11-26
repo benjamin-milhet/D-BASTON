@@ -24,7 +24,9 @@ public class MenuManager : MonoBehaviour
         
     }
 
-
+    /// <summary>
+    /// Permet d'afficher toute les information des menus
+    /// </summary>
     void AddMenuData()
     {
         GameObject[] theArray = GameObject.FindGameObjectsWithTag("Menu") as GameObject[];
@@ -35,6 +37,9 @@ public class MenuManager : MonoBehaviour
         TintMenu();
     }
     
+    /// <summary>
+    /// Permet d'afficher tous les boutons des menus
+    /// </summary>
     public void TintMenu()
     {
 
@@ -45,16 +50,25 @@ public class MenuManager : MonoBehaviour
         
     }
     
+    /// <summary>
+    /// Permet d'activer le menu parametre
+    /// </summary>
     public void ShowMenu()
     {
         menu.SetActive(true);
     }
 
+    /// <summary>
+    /// Permet de desactiver le menu parametre
+    /// </summary>
     public void DisableMenu()
     {
         menu.SetActive(false);
     }
 
+    /// <summary>
+    /// Permet de quitter le jeu depuis le menu parametre
+    /// </summary>
     public void QuitGame()
     {
         menu.SetActive(false);
@@ -63,7 +77,10 @@ public class MenuManager : MonoBehaviour
         UnityEditor.EditorApplication.isPlaying = false;
     }
 
-    public void NextJoueur()
+    /// <summary>
+    /// Permet de changer d'action suivant le phase de jeu
+    /// </summary>
+    public void NextAction()
     {
         switch (CountryManager.instance.PhaseEnCours)
         {
@@ -102,11 +119,6 @@ public class MenuManager : MonoBehaviour
             CountryManager.instance.ChangementPhase();
 
         }
-        
-            
-        
-        
-        
 
     }
 

@@ -11,27 +11,40 @@ public class MenuPreparerPartie : MonoBehaviour
 {
     public Dropdown nbJoueur;
 
+    /// <summary>
+    /// Lance la partie avec le bon nombre de joueur
+    /// </summary>
     public void chargerPartie()
     {
         this.Saving();
         SceneManager.LoadScene(1);
     }
 
+    /// <summary>
+    ///Quitte le jeu
+    /// </summary>
     public void QuitGame()
     {
         UnityEditor.EditorApplication.isPlaying = false;
     }
     
+    /// <summary>
+    /// Donnee a sauvegarder entre 2 scenes
+    /// </summary>
     [System.Serializable]
     public class SaveData
     {
         public int nbJoueur;
     }
     
+    /// <summary>
+    /// Permet de sauvegarder dans un fichier json le nombre de joueur
+    /// </summary>
     public void Saving()
     {
         SaveData data = new SaveData();
 
+        //On recupere le nombre de joueur depuis le dropdown
         switch (nbJoueur.value)
         {
             case 0 :
@@ -53,22 +66,19 @@ public class MenuPreparerPartie : MonoBehaviour
 
         bf.Serialize(stream, data);
         stream.Close();
-        print("Saved Game");
 
     }
 
+    /// <summary>
+    /// Permet de supprimer le fichier json
+    /// </summary>
     public static void DeleteSaveFile()
     {
         if (File.Exists(Application.persistentDataPath + "/SaveFileMenu.json"))
         {
             File.Delete(Application.persistentDataPath + "/SaveFileMenu.json");
-            print("SaveFile Delete");
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 
-        }
-        else
-        {
-            print("No SaveFileMenu Delete Found");
         }
     }
 }

@@ -17,7 +17,7 @@ public class MenuHandler : MonoBehaviour
         }
         else if (name == "passer")
         {
-            MenuManager.instance.NextJoueur();
+            MenuManager.instance.NextAction();
         }
         {
             

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System;
+using DefaultNamespace;
 using Random = System.Random;
 
 public class CountryManager : MonoBehaviour
@@ -18,6 +19,10 @@ public class CountryManager : MonoBehaviour
     public Text valueSlider;
     public Text textPhase;
     public GameObject attaqueUI;
+    public Canvas Team1;
+    public Canvas Team2;
+    public Canvas Team3;
+    public Canvas Team4;
     private CountryHandler countrySlectedPhaseUn;
     public List<GameObject> countryList = new List<GameObject>();
     private bool countryIsSelected = false;
@@ -27,6 +32,9 @@ public class CountryManager : MonoBehaviour
     private CountryHandler countrySelectedAttacked = null;
     private int tourJoueur; //Permet de savoir le tour de quel joueur est en cours
     private int nbJoueur = 2;
+    
+    
+    private List<CountryHandler> global = new List<CountryHandler>();
 
     
     //Getter et Setter
@@ -133,11 +141,53 @@ public class CountryManager : MonoBehaviour
                     break;
             }
 
-            this.couleurTeam.color = this.getCouleurTeam();
+            this.global = new List<CountryHandler>();
+            this.couleurTeam.color = this.getCouleurTeam(TourJoueur);
             countHandler.showTroupe();// On affiche le nombre de troupe sur le territoire
-            
+            this.AfficherTeam();    
+
         }
         
+    }
+
+    public void AfficherTeam()
+    {
+        
+        teamPanel teamPanel = Team1.GetComponent<teamPanel>();
+        teamPanel.nbCountry.text = CountryManager.instance.nbTerritoireTotal(0).ToString();
+        Country.theTribes tribe = (Country.theTribes) 0;
+        teamPanel.nomTeam.text = tribe.ToString();
+        teamPanel.nbTroupe.text = CountryManager.instance.nbTroupeTotal(0).ToString();
+        teamPanel.bgcolor.color = this.getCouleurTeam(0);
+        
+        teamPanel teamPanel2 = Team2.GetComponent<teamPanel>();
+        teamPanel2.nbCountry.text = CountryManager.instance.nbTerritoireTotal(1).ToString();
+        tribe = (Country.theTribes) 1;
+        teamPanel2.nomTeam.text = tribe.ToString();
+        teamPanel2.nbTroupe.text = CountryManager.instance.nbTroupeTotal(1).ToString();
+        teamPanel2.bgcolor.color = this.getCouleurTeam(1);
+
+        if (nbJoueur >= 3)
+        {
+            Team3.gameObject.SetActive(true);
+            teamPanel teamPanel3 = Team3.GetComponent<teamPanel>();
+            teamPanel3.nbCountry.text = CountryManager.instance.nbTerritoireTotal(2).ToString();
+            tribe = (Country.theTribes) 2;
+            teamPanel3.nomTeam.text = tribe.ToString();
+            teamPanel3.nbTroupe.text = CountryManager.instance.nbTroupeTotal(2).ToString();
+            teamPanel3.bgcolor.color = this.getCouleurTeam(2);
+
+            if (nbJoueur >= 4)
+            {
+                Team4.gameObject.SetActive(true);
+                teamPanel teamPanel4 = Team4.GetComponent<teamPanel>();
+                teamPanel4.nbCountry.text = CountryManager.instance.nbTerritoireTotal(3).ToString();
+                tribe = (Country.theTribes) 3;
+                teamPanel4.nomTeam.text = tribe.ToString();
+                teamPanel4.nbTroupe.text = CountryManager.instance.nbTroupeTotal(3).ToString();
+                teamPanel4.bgcolor.color = this.getCouleurTeam(3);
+            }
+        }
     }
 
     /// <summary>
@@ -241,6 +291,50 @@ public class CountryManager : MonoBehaviour
             }
 
     }
+
+    /// <summary>
+    /// Permet d'afficher tous les territoires reliées au territoire données en parametre
+    /// </summary>
+    /// <param name="country">territoire sélectionné</param>
+    public void TintVoisinsCountries(CountryHandler country)
+    {
+        this.global.Add(country);
+        this.countrySelected = country;
+        
+        //On repertorie tous les territories reliés
+        List<CountryHandler> listTest = new List<CountryHandler>();
+        foreach (CountryHandler c in country.voisins)
+        {
+            if (c.country.tribe == (Country.theTribes)tourJoueur){
+                if (!this.global.Contains(c))
+                {
+                    listTest.Add(c);
+                }
+            }
+        }
+
+        //On rappelle cette fonction autant de fois que ce territoire a de voisins allié
+        if (listTest.Count>0)
+        {
+            foreach (CountryHandler c in listTest)
+            {
+                this.TintVoisinsCountries(c);
+            }
+        }
+        
+        //Desactive tous les territoires
+        for (int j = 0; j < countryList.Count; j++)
+        {
+            countryList[j].SetActive(false);
+        }
+        
+        //Active uniquement les terrtoires reliées
+        foreach (CountryHandler ch in global)
+        {
+            ch.gameObject.SetActive(true);
+        }
+        
+    }
     
     public void TintThisCountries(CountryHandler country)
     {
@@ -306,7 +400,7 @@ public class CountryManager : MonoBehaviour
             }
         }
 
-        this.nbTroupePhase1 = this.nbTerritoire();
+        this.nbTroupePhase1 = this.nbTerritoire(TourJoueur);
         SetTextPhase();
         TintCountries();
 
@@ -349,9 +443,9 @@ public class CountryManager : MonoBehaviour
         GameManager.instance.Saving();
     }
 
-    public int nbTerritoire()
+    public int nbTerritoire(int tourJ)
     {
-        Country.theTribes tribe = (Country.theTribes) TourJoueur;
+        Country.theTribes tribe = (Country.theTribes) tourJ;
         int count = 0;
         int res = 0;
         for (int i = 0; i < countryList.Count; i++)
@@ -377,13 +471,45 @@ public class CountryManager : MonoBehaviour
         }
         return res;
     }
+    
+    public int nbTerritoireTotal(int tourJ)
+    {
+        Country.theTribes tribe = (Country.theTribes) tourJ;
+        int count = 0;
+        for (int i = 0; i < countryList.Count; i++)
+        {
+            CountryHandler countHandler = countryList[i].GetComponent<CountryHandler>();
+            if (countHandler.country.tribe == tribe)
+            {
+                count++;
+            }
+        }
+        
+        return count;
+    }
+    public int nbTroupeTotal(int tourJ)
+    {
+        Country.theTribes tribe = (Country.theTribes) tourJ;
+        int count = 0;
+        for (int i = 0; i < countryList.Count; i++)
+        {
+            CountryHandler countHandler = countryList[i].GetComponent<CountryHandler>();
+            if (countHandler.country.tribe == tribe)
+            {
+                count += countHandler.country.nbTroupe;
+            }
+        }
+        
+        return count;
+    }
 
     public void ChangementPhase()
     {
+        CountryManager.instance.CountryIsSelected = false;
         this.phaseEnCours++;
-        if (this.phaseEnCours >= 3)
+        if (this.phaseEnCours > 3)
         {
-            this.nbTroupePhase1 = this.nbTerritoire();
+            this.nbTroupePhase1 = this.nbTerritoire(TourJoueur);
             this.phaseEnCours = 1;
         }
         SetTextPhase();
@@ -391,15 +517,16 @@ public class CountryManager : MonoBehaviour
     
     public void ResetPhase()
     {
-        this.nbTroupePhase1 = this.nbTerritoire();
+        CountryManager.instance.CountryIsSelected = false;
+        this.nbTroupePhase1 = this.nbTerritoire(TourJoueur);
         this.phaseEnCours = 1;
         SetTextPhase();
     }
 
-    public Color32 getCouleurTeam()
+    public Color32 getCouleurTeam(int tourJ)
     {
         Color32 res;
-        switch ((Country.theTribes)tourJoueur)
+        switch ((Country.theTribes)tourJ)
         {
             case Country.theTribes.CLONE:
                 res = new Color32(180, 0, 0, 200);

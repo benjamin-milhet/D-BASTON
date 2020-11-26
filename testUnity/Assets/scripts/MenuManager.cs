@@ -72,6 +72,9 @@ public class MenuManager : MonoBehaviour
             case 2 :
                 this.PhaseDeux();
                 break;
+            case 3 :
+                this.PhaseTrois();
+                break;
         }
         
 
@@ -103,12 +106,19 @@ public class MenuManager : MonoBehaviour
 
     private void PhaseDeux()
     {
+        CountryManager.instance.ChangementPhase();
+        CountryManager.instance.TintCountries();
+        GameManager.instance.Saving();
+    }  
+    
+    private void PhaseTrois()
+    {
         CountryManager.instance.TourJoueur++;
-        if (CountryManager.instance.TourJoueur > CountryManager.instance.NbJoueur-1)
+        if (CountryManager.instance.TourJoueur > CountryManager.instance.NbJoueur)
         {
             CountryManager.instance.TourJoueur = 0;
         }
-        CountryManager.instance.ResetPhase();
+        CountryManager.instance.ChangementPhase();
         CountryManager.instance.TintCountries();
         GameManager.instance.Saving();
     }

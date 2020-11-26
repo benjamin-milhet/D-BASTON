@@ -122,6 +122,7 @@ public class FightSim : MonoBehaviour
             value = dice7.GetComponent<Dice>();
             r = value.value();
             resultat.Add((int)r+1);
+            print("0000000000000000000000000" + r);
 
             if(nbDe == 2) {
                 if(tourJoueur == 0) {
@@ -152,6 +153,8 @@ public class FightSim : MonoBehaviour
             value4 = dice8.GetComponent<Dice2>();
             r4 = value4.value();
             resultatAttacked.Add((int)r4+1);
+            
+            print("''''''''''''''''''''''''''''''''''''" + r4);
 
             if(nbAt == 2) {
                 if(tourJoueur == 1) {
@@ -160,6 +163,7 @@ public class FightSim : MonoBehaviour
                 value5 = dice5.GetComponent<Dice2>();
                 r5 = value5.value();
                 resultatAttacked.Add((int)r5+1);
+                print("''''''''''''''''''''''''''''''''''''" + r5);
             }
             else if(nbAt == 3) {
                 if(tourJoueur == 1) {
@@ -172,6 +176,8 @@ public class FightSim : MonoBehaviour
                 r6 = value6.value();
                 resultatAttacked.Add((int)r5+1);
                 resultatAttacked.Add((int)r6+1);
+                print("''''''''''''''''''''''''''''''''''''" + r5);
+                print("''''''''''''''''''''''''''''''''''''" + r6);
             }
 
             coroutine4 = jet2(tourJoueur);
@@ -179,6 +185,14 @@ public class FightSim : MonoBehaviour
 
             resultat.Sort();
             resultatAttacked.Sort();
+            foreach (int i in resultat)
+            {
+                print("=================" + i);
+            }
+            foreach (int i in resultatAttacked)
+            {
+                print("=================" + i);
+            }
 
             //Démarre les 2 couroutines 
             coroutine = wait(tourJoueur);
@@ -279,6 +293,15 @@ public class FightSim : MonoBehaviour
     IEnumerator battle(List<int> resultat, List<int> resultatAttacked)
     {
         yield return new WaitForSeconds(10.0f);
+        foreach (int i in resultat)
+        {
+            print("=================" + i);
+        }
+        foreach (int i in resultatAttacked)
+        {
+            print("=================" + i);
+        }
+        
         int res = 0;
         int resAttacked = 0;
 
@@ -313,6 +336,8 @@ public class FightSim : MonoBehaviour
                 res++;
             }
         }
+        print("-------------------" + res);
+        print("-------------------" + resAttacked);
 
         //Applique le résultat sur les territoires 
         bool fin = CountryManager.instance.ResAttaque(res,resAttacked);

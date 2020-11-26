@@ -65,6 +65,9 @@ public class CountryHandler : MonoBehaviour
             case 2 :
                 this.PhaseDeux();
                 break;
+            case 3 :
+                this.PhaseTrois();
+                break;
         }
         
     }
@@ -180,5 +183,38 @@ public class CountryHandler : MonoBehaviour
             ShowGUI(); //On affiche l'interface d'attaque
 
         }
+    }
+    
+    /// <summary>
+    /// Permet de selectionner un territoire et de desactiver tous les autres
+    /// Il change de couleur, si on reclique dessus, annule l'action
+    /// </summary>
+    private void PhaseTrois()
+    {
+        if (country.tribe == (Country.theTribes) CountryManager.instance.TourJoueur) //On regarde si le territoire selectionné est bien au joueur en cours
+        {
+            if (!CountryManager.instance.CountryIsSelected)//on regarde que aucun autre territoire n'a ete selectionne
+            {
+                CountryManager.instance.CountryIsSelected = true; //on indique qu'on a selectionne un territoire
+                
+                //On change la couleur du territoire selectionne
+                oldColor = sprite.color;
+                hoverColor = new Color32(oldColor.r, oldColor.g, oldColor.b, 190); 
+                sprite.color = hoverColor;
+                
+                //On affiche le slider pour choisir le nombre de troupe a ajoute
+                CountryManager.instance.ShowSliderTroupe(CountryManager.instance.NbTroupePhase1);
+                
+                //Affiche tout les voisins alliés relié a ce territoire
+                CountryManager.instance.TintVoisinsCountries(this);
+            }
+            else //Si un territoire est deja selectionne
+            {
+                CountryManager.instance.CountryIsSelected = false; //on indique qu'aucun territoire n'est selectionne
+                CountryManager.instance.DisableSliderTroupe(); //On desactive le slider
+                CountryManager.instance.TintCountries(); //On reaffiche tous les territoires
+            }
+        }
+        
     }
 }

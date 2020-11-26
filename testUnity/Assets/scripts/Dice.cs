@@ -37,7 +37,7 @@ public class Dice : MonoBehaviour {
 
         originalPos = new Vector2(transform.position.x, transform.position.y);
     }
-	
+    
     public double value() => r7;
 
     //Update is called once per frame

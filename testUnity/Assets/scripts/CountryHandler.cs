@@ -217,22 +217,22 @@ public class CountryHandler : MonoBehaviour
                     oldColor = sprite.color;
                     hoverColor = new Color32(oldColor.r, oldColor.g, oldColor.b, 190);
                     sprite.color = hoverColor;
-
-                    //On affiche le slider pour choisir le nombre de troupe a ajoute
-                    CountryManager.instance.ShowSliderTroupe(this.country.nbTroupe-1);
+                    
 
                     //Affiche tout les voisins alliés relié a ce territoire
                     CountryManager.instance.TintVoisinsCountries(this);
                 }
                 else if (this != CountryManager.instance.CountrySelected)
                 {
-                    CountryManager.instance.CountrySelected.country.nbTroupe -= CountryManager.instance.getValueSlider();
-                    this.country.nbTroupe += CountryManager.instance.getValueSlider();
-                    MenuManager.instance.NextJoueur();
+                    //On affiche le slider pour choisir le nombre de troupe a ajoute
+                    CountryManager.instance.ShowSliderTroupe(CountryManager.instance.CountrySelected.country.nbTroupe-1);
+                    CountryManager.instance.CountrySelectedAttacked = this;
+                    CountryManager.instance.CountryIsSelectedAttacked = true;
 
                 }
                 else //Si un territoire est deja selectionne
                 {
+                    CountryManager.instance.CountryIsSelectedAttacked = false;
                     CountryManager.instance.CountryIsSelected = false; //on indique qu'aucun territoire n'est selectionne
                     CountryManager.instance.DisableSliderTroupe(); //On desactive le slider
                     CountryManager.instance.TintCountries(); //On reaffiche tous les territoires

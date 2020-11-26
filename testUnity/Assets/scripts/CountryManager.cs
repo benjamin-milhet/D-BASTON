@@ -32,8 +32,9 @@ public class CountryManager : MonoBehaviour
     private CountryHandler countrySelectedAttacked = null;
     private int tourJoueur; //Permet de savoir le tour de quel joueur est en cours
     private int nbJoueur = 4;
-    
-    
+    private bool countryIsSelectedAttacked;
+
+
     private List<CountryHandler> global = new List<CountryHandler>();
 
     
@@ -79,6 +80,13 @@ public class CountryManager : MonoBehaviour
         set => nbJoueur = value;
     }
     
+    
+    public bool CountryIsSelectedAttacked
+    {
+        get => countryIsSelectedAttacked;
+        set => countryIsSelectedAttacked = value;
+    }
+
     void Awake()
     {
         instance = this;

@@ -82,25 +82,19 @@ public class MenuManager : MonoBehaviour
 
     private void PhaseUn()
     {
-        print("1 - " + CountryManager.instance.NbTroupePhase1);
         try
         {
-            print("2 - " + CountryManager.instance.NbTroupePhase1);
             CountryManager.instance.NbTroupePhase1 -= CountryManager.instance.getValueSlider();
-            print("3 - " + CountryManager.instance.NbTroupePhase1);
             CountryManager.instance.CountrySlectedPhaseUn.country.nbTroupe += CountryManager.instance.getValueSlider();
-            print("4 - " + CountryManager.instance.NbTroupePhase1);
         }
         catch (Exception e)
         {
             //messagebox erreur
         }
-        print(CountryManager.instance.NbTroupePhase1);
         CountryManager.instance.DisableSliderTroupe();
         CountryManager.instance.nbTroupePhaseUn.value = 0;
         CountryManager.instance.CountryIsSelected = false;
         CountryManager.instance.TintCountries();
-        print("ééééééééééééééééééééééééééééééééé" + CountryManager.instance.NbTroupePhase1);
         
         if (CountryManager.instance.NbTroupePhase1 <= 0)
         {
@@ -124,6 +118,13 @@ public class MenuManager : MonoBehaviour
     
     private void PhaseTrois()
     {
+        if (CountryManager.instance.CountryIsSelectedAttacked)
+        {
+            CountryManager.instance.CountrySelected.country.nbTroupe -= CountryManager.instance.getValueSlider();
+            CountryManager.instance.CountrySelectedAttacked.country.nbTroupe += CountryManager.instance.getValueSlider();
+        }
+
+        CountryManager.instance.CountryIsSelectedAttacked = false;
         CountryManager.instance.DisableSliderTroupe();
         CountryManager.instance.TourJoueur++;
         if (CountryManager.instance.TourJoueur > CountryManager.instance.NbJoueur-1)

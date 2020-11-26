@@ -15046,6 +15046,7 @@ MonoBehaviour:
   - {fileID: 443329431}
   - {fileID: 852349006}
   - {fileID: 6018683}
+  - {fileID: 2126366341}
 --- !u!60 &1691677018
 PolygonCollider2D:
   m_ObjectHideFlags: 0

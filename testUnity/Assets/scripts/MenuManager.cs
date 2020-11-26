@@ -115,7 +115,7 @@ public class MenuManager : MonoBehaviour
     {
         CountryManager.instance.DisableSliderTroupe();
         CountryManager.instance.TourJoueur++;
-        if (CountryManager.instance.TourJoueur > CountryManager.instance.NbJoueur)
+        if (CountryManager.instance.TourJoueur > CountryManager.instance.NbJoueur-1)
         {
             CountryManager.instance.TourJoueur = 0;
         }

@@ -31,7 +31,7 @@ public class CountryManager : MonoBehaviour
     private CountryHandler countrySelected = null;
     private int phaseEnCours = 1;
     private int nbTroupePhase1 = 0;
-    private CountryHandler countrySelectedAttacked = null;
+    public CountryHandler countrySelectedAttacked = null;
     private int tourJoueur; //Permet de savoir le tour de quel joueur est en cours
     private int nbJoueur = 4;
     private bool countryIsSelectedAttacked;
@@ -363,10 +363,8 @@ public class CountryManager : MonoBehaviour
         //Active uniquement les terrtoires reliées
         foreach (CountryHandler ch in global)
         {
-            print("=========================" + ch.country);
             ch.gameObject.SetActive(true);
         }
-        
     }
     
     public void TintThisCountries(CountryHandler country)
@@ -444,6 +442,8 @@ public class CountryManager : MonoBehaviour
 
     public bool ResAttaque(int t1, int t2)
     {
+        print(t1);
+        print(t2);
         bool res = false;
         this.countrySelected.country.nbTroupe -= t1;
         this.countrySelectedAttacked.country.nbTroupe -= t2;

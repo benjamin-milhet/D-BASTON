@@ -11,20 +11,32 @@ public class FightSim : MonoBehaviour
     //Liste des territoires 
     public List<GameObject> countryList;
 
+    //Listes des résultats des dés 
+    private static List<int> resultat = new List<int>();
+    private static List<int> resultatAttacked = new List<int>();
+
+    //Tous les types de dés
+    public GameObject diceRD;
+    public GameObject diceRG;
+    public GameObject diceBD;
+    public GameObject diceBG;
+    public GameObject diceVD;
+    public GameObject diceVG;
+    public GameObject diceJD;
+    public GameObject diceJG;
+
     //Dés 
-    public GameObject dice;
+    private GameObject dice1;
     private GameObject dice2;
     private GameObject dice3;
-    private GameObject dice7;
 
     //Dés adverses 
-    public GameObject dice4;
+    private GameObject dice4;
     private GameObject dice5;
     private GameObject dice6;
-    private GameObject dice8;
 
     //Valeur renvoyée par les dés 
-    private static double r = 0;
+    private static int r = 0;
     private static double r2 = 0;
     private static double r3 = 0;
 
@@ -32,16 +44,6 @@ public class FightSim : MonoBehaviour
     private static double r4 = 0;
     private static double r5 = 0;
     private static double r6 = 0;
-
-    //Variables permettant de récupérer une instance de dé
-    private Dice value;
-    private Dice value2;
-    private Dice value3;
-
-    //Variables permettant de récupérer une instance de dé adverse
-    private Dice2 value4;
-    private Dice2 value5;
-    private Dice2 value6;
 
     //Variable permettant de savoir si les territoires sont actifs ou non
     private static bool active = false; 
@@ -56,9 +58,29 @@ public class FightSim : MonoBehaviour
     private IEnumerator coroutine3;
     private IEnumerator coroutine4;
 
+    //GameObject à désactiver + fonds à activer 
     public GameObject menu;
     public GameObject passer;
     public GameObject jetDes;
+    public GameObject jetBVJ;
+    public GameObject jetBVV;
+    public GameObject jetJVR;
+    public GameObject jetVVJ;
+    public GameObject jetVVR;
+
+    //Instance des dés pour récupérer la valeur
+    private Dice value11;
+    private Dice value12;
+    private Dice value13;
+    private Dice value14;
+    private Dice value15;
+    private Dice value16;
+    private Dice2 value21;
+    private Dice2 value22;
+    private Dice2 value23;
+    private Dice2 value24;
+    private Dice2 value25;
+    private Dice2 value26;
 
     //Constructeur qui récupère les valeurs du slide du nombre de dés  
     public FightSim(int valueDe, int valueDeAttacked)
@@ -83,121 +105,285 @@ public class FightSim : MonoBehaviour
             active = true;
         }
 
-        int tourJoueur = CountryManager.instance.TourJoueur;
-
-        if(tourJoueur == 0) {
-            nbDe = this.valueDe;
-            nbAt = this.valueDeAttacked;
-        }
-        else {
-            nbDe = this.valueDeAttacked;
-            nbAt = this.valueDe;
-        }
+        nbDe = this.valueDe;
+        nbAt = this.valueDeAttacked;
     } 
 
     //Méthode qui gère les dés et le résultat
     void Update() {
+
+        //Si tous les territoires sont désactivés (pour les collisions)
         if(active) {
 
-            dice2 = Instantiate<GameObject>(dice);
-            dice3 = Instantiate<GameObject>(dice);
-            dice7 = Instantiate<GameObject>(dice);
-
-            dice5 = Instantiate<GameObject>(dice4);
-            dice6 = Instantiate<GameObject>(dice4);
-            dice8 = Instantiate<GameObject>(dice4);
-
-            int tourJoueur = CountryManager.instance.TourJoueur;
-
-            List<int> resultat = new List<int>();
-            List<int> resultatAttacked = new List<int>();
-
+            //Désactivation des "boutons" passer et menu (pour les collisions)
             passer.SetActive(false);
-            jetDes.SetActive(true);
+            menu.SetActive(false);
+
+            //Variables pour savoir qui attaque et qui se fait attaquer
+            int tourJoueur = CountryManager.instance.TourJoueur;
+            int nbJoueurAtt = (int) CountryManager.instance.countrySelectedAttacked.country.tribe;
+
+            //Variable pour savoir si le dé part de la gauche ou la droite
+            bool startDroite = false;
+
+            //Case of pour savoir quels dés instancier en fonction de qui attaque et de qui se fait attaquer
+            switch (tourJoueur)
+            {
+                //Le joueur rouge attaque...
+                case 0: 
+                    //Instantiation des dés sur le modèle du dé "R"ouge à "D"roite 
+                    dice1 = Instantiate<GameObject>(diceRD);
+                    dice2 = Instantiate<GameObject>(diceRD);
+                    dice3 = Instantiate<GameObject>(diceRD);
+                    value11 = dice1.GetComponent<Dice>();
+                    value12 = dice2.GetComponent<Dice>();
+                    value13 = dice3.GetComponent<Dice>();
+                    switch (nbJoueurAtt)
+                    {
+                        //...le joueur bleu
+                        case 1:
+                            dice4 = Instantiate<GameObject>(diceBG);
+                            dice5 = Instantiate<GameObject>(diceBG);
+                            dice6 = Instantiate<GameObject>(diceBG);
+                            value24 = dice4.GetComponent<Dice2>();
+                            value25 = dice5.GetComponent<Dice2>();
+                            value26 = dice6.GetComponent<Dice2>();
+                            jetDes.SetActive(true);
+                        break;
+                        //...le joueur vert
+                        case 2:
+                            dice4 = Instantiate<GameObject>(diceVG);
+                            dice5 = Instantiate<GameObject>(diceVG);
+                            dice6 = Instantiate<GameObject>(diceVG);
+                            value24 = dice4.GetComponent<Dice2>();
+                            value25 = dice5.GetComponent<Dice2>();
+                            value26 = dice6.GetComponent<Dice2>();
+                            jetVVR.SetActive(true);
+                        break;
+                        //...le joueur jaune
+                        case 3: 
+                            dice4 = Instantiate<GameObject>(diceJG);
+                            dice5 = Instantiate<GameObject>(diceJG);
+                            dice6 = Instantiate<GameObject>(diceJG);
+                            value24 = dice4.GetComponent<Dice2>();
+                            value25 = dice5.GetComponent<Dice2>();
+                            value26 = dice6.GetComponent<Dice2>();
+                            jetJVR.SetActive(true);
+                        break;
+                    }
+                    startDroite = true;
+                break;
+                //Le joueur bleu attaque...
+                case 1:
+                    dice1 = Instantiate<GameObject>(diceBG);
+                    dice2 = Instantiate<GameObject>(diceBG);
+                    dice3 = Instantiate<GameObject>(diceBG);
+                    value21 = dice1.GetComponent<Dice2>();
+                    value22 = dice2.GetComponent<Dice2>();
+                    value23 = dice3.GetComponent<Dice2>();
+                    switch (nbJoueurAtt)
+                    {
+                        //...le joueur rouge
+                        case 0:
+                            dice4 = Instantiate<GameObject>(diceRD);
+                            dice5 = Instantiate<GameObject>(diceRD);
+                            dice6 = Instantiate<GameObject>(diceRD);
+                            value14 = dice4.GetComponent<Dice>();
+                            value15 = dice5.GetComponent<Dice>();
+                            value16 = dice6.GetComponent<Dice>();
+                            jetDes.SetActive(true);
+                        break;
+                        //...le joueur vert
+                        case 2:
+                            dice4 = Instantiate<GameObject>(diceVD);
+                            dice5 = Instantiate<GameObject>(diceVD);
+                            dice6 = Instantiate<GameObject>(diceVD);
+                            value14 = dice4.GetComponent<Dice>();
+                            value15 = dice5.GetComponent<Dice>();
+                            value16 = dice6.GetComponent<Dice>();
+                            jetBVV.SetActive(true);
+                        break;
+                        //...le joueur jaune
+                        case 3: 
+                            dice4 = Instantiate<GameObject>(diceJD);
+                            dice5 = Instantiate<GameObject>(diceJD);
+                            dice6 = Instantiate<GameObject>(diceJD);
+                            value14 = dice4.GetComponent<Dice>();
+                            value15 = dice5.GetComponent<Dice>();
+                            value16 = dice6.GetComponent<Dice>();
+                            jetBVJ.SetActive(true);
+                        break;
+                    }
+                break;
+                //Le joueur vert attaque...
+                case 2:
+                    switch (nbJoueurAtt)
+                    {
+                        //...le joueur rouge
+                        case 0:
+                            dice1 = Instantiate<GameObject>(diceVG);
+                            dice2 = Instantiate<GameObject>(diceVG);
+                            dice3 = Instantiate<GameObject>(diceVG);
+                            value21 = dice1.GetComponent<Dice2>();
+                            value22 = dice2.GetComponent<Dice2>();
+                            value23 = dice3.GetComponent<Dice2>();
+                            dice4 = Instantiate<GameObject>(diceRD);
+                            dice5 = Instantiate<GameObject>(diceRD);
+                            dice6 = Instantiate<GameObject>(diceRD);
+                            value14 = dice4.GetComponent<Dice>();
+                            value15 = dice5.GetComponent<Dice>();
+                            value16 = dice6.GetComponent<Dice>();
+                            jetVVR.SetActive(true);
+                        break;
+                        //...le joueur bleu
+                        case 1:
+                            dice1 = Instantiate<GameObject>(diceVD);
+                            dice2 = Instantiate<GameObject>(diceVD);
+                            dice3 = Instantiate<GameObject>(diceVD);
+                            value11 = dice1.GetComponent<Dice>();
+                            value12 = dice2.GetComponent<Dice>();
+                            value13 = dice3.GetComponent<Dice>();
+                            dice4 = Instantiate<GameObject>(diceBG);
+                            dice5 = Instantiate<GameObject>(diceBG);
+                            dice6 = Instantiate<GameObject>(diceBG);
+                            value24 = dice4.GetComponent<Dice2>();
+                            value25 = dice5.GetComponent<Dice2>();
+                            value26 = dice6.GetComponent<Dice2>();
+                            jetBVV.SetActive(true);
+                            startDroite = true;
+                        break;
+                        //...le joueur jaune
+                        case 3: 
+                            dice1 = Instantiate<GameObject>(diceVG);
+                            dice2 = Instantiate<GameObject>(diceVG);
+                            dice3 = Instantiate<GameObject>(diceVG);
+                            value21 = dice1.GetComponent<Dice2>();
+                            value22 = dice2.GetComponent<Dice2>();
+                            value23 = dice3.GetComponent<Dice2>();
+                            dice4 = Instantiate<GameObject>(diceJD);
+                            dice5 = Instantiate<GameObject>(diceJD);
+                            dice6 = Instantiate<GameObject>(diceJD);
+                            value14 = dice4.GetComponent<Dice>();
+                            value15 = dice5.GetComponent<Dice>();
+                            value16 = dice6.GetComponent<Dice>();
+                            jetVVJ.SetActive(true);
+                        break;
+                    }
+                break;
+                //Le joueur jaune attaque...
+                case 3:
+                    switch (nbJoueurAtt)
+                    {
+                        //...le joueur rouge
+                        case 0:
+                            dice1 = Instantiate<GameObject>(diceJG);
+                            dice2 = Instantiate<GameObject>(diceJG);
+                            dice3 = Instantiate<GameObject>(diceJG);
+                            value21 = dice1.GetComponent<Dice2>();
+                            value22 = dice2.GetComponent<Dice2>();
+                            value23 = dice3.GetComponent<Dice2>();
+                            dice4 = Instantiate<GameObject>(diceRD);
+                            dice5 = Instantiate<GameObject>(diceRD);
+                            dice6 = Instantiate<GameObject>(diceRD);
+                            value14 = dice4.GetComponent<Dice>();
+                            value15 = dice5.GetComponent<Dice>();
+                            value16 = dice6.GetComponent<Dice>();
+                            jetJVR.SetActive(true);
+                        break;
+                        //...le joueur bleu
+                        case 1:
+                            dice1 = Instantiate<GameObject>(diceJD);
+                            dice2 = Instantiate<GameObject>(diceJD);
+                            dice3 = Instantiate<GameObject>(diceJD);
+                            value11 = dice1.GetComponent<Dice>();
+                            value12 = dice2.GetComponent<Dice>();
+                            value13 = dice3.GetComponent<Dice>();
+                            dice4 = Instantiate<GameObject>(diceBG);
+                            dice5 = Instantiate<GameObject>(diceBG);
+                            dice6 = Instantiate<GameObject>(diceBG);
+                            value24 = dice4.GetComponent<Dice2>();
+                            value25 = dice5.GetComponent<Dice2>();
+                            value26 = dice6.GetComponent<Dice2>();
+                            jetBVJ.SetActive(true);
+                            startDroite = true;
+                        break;
+                        //...le joueur vert
+                        case 2: 
+                            dice1 = Instantiate<GameObject>(diceJD);
+                            dice2 = Instantiate<GameObject>(diceJD);
+                            dice3 = Instantiate<GameObject>(diceJD);
+                            value11 = dice1.GetComponent<Dice>();
+                            value12 = dice2.GetComponent<Dice>();
+                            value13 = dice3.GetComponent<Dice>();
+                            dice4 = Instantiate<GameObject>(diceVG);
+                            dice5 = Instantiate<GameObject>(diceVG);
+                            dice6 = Instantiate<GameObject>(diceVG);
+                            value24 = dice4.GetComponent<Dice2>();
+                            value25 = dice5.GetComponent<Dice2>();
+                            value26 = dice6.GetComponent<Dice2>();
+                            jetVVJ.SetActive(true);
+                            startDroite = true;
+                        break;
+                    }
+                break;
+            }
 
             //Instancie le nombre de dés en fonction de la valeur du slider et récupère son résultat
-            if(tourJoueur == 0) {
-                dice7.SetActive(true);
-            }
-            value = dice7.GetComponent<Dice>();
-            r = value.value();
-            resultat.Add((int)r+1);
-            print("0000000000000000000000000" + r);
+            dice1.SetActive(true);
 
+            //Si le dé part de droite... 
+            if(startDroite = true) {
+                r = value11.value();
+            }
+            else {
+                r = value21.value();
+            }
+            resultat.Add((int)r+1);
+
+            //Si deux dés 
             if(nbDe == 2) {
-                if(tourJoueur == 0) {
-                    dice2.SetActive(true);
-                }   
-                value2 = dice2.GetComponent<Dice>();
-                r2 = value2.value();
+                dice2.SetActive(true);
+                if(startDroite = true) {
+                    r2 = value12.value();
+                }
+                else {
+                    r2 = value22.value();
+                }
                 resultat.Add((int)r2+1);
             }
+
+            //Si trois dés
             else if(nbDe == 3) {
-                if(tourJoueur == 0) {
-                    dice2.SetActive(true);
-                    dice3.SetActive(true);
-                } 
-                value2 = dice2.GetComponent<Dice>();
-                r2 = value2.value();
-                value3 = dice3.GetComponent<Dice>();
-                r3 = value3.value();
+                dice2.SetActive(true);
+                if(startDroite = true) {
+                    r2 = value12.value();
+                }
+                else {
+                    r2 = value22.value();
+                }
+                dice3.SetActive(true);
+                if(startDroite = true) {
+                    r3 = value13.value();
+                }
+                else {
+                    r3 = value23.value();
+                }
                 resultat.Add((int)r2+1);
                 resultat.Add((int)r3+1);
             }
 
-
-            if(tourJoueur == 1) {
-                menu.SetActive(false);
-                dice8.SetActive(true);
-            }
-            value4 = dice8.GetComponent<Dice2>();
-            r4 = value4.value();
-            resultatAttacked.Add((int)r4+1);
-            
-            print("''''''''''''''''''''''''''''''''''''" + r4);
-
-            if(nbAt == 2) {
-                if(tourJoueur == 1) {
-                    dice5.SetActive(true);
-                }
-                value5 = dice5.GetComponent<Dice2>();
-                r5 = value5.value();
-                resultatAttacked.Add((int)r5+1);
-                print("''''''''''''''''''''''''''''''''''''" + r5);
-            }
-            else if(nbAt == 3) {
-                if(tourJoueur == 1) {
-                    dice5.SetActive(true);
-                    dice6.SetActive(true);
-                }
-                value5 = dice5.GetComponent<Dice2>();
-                r5 = value5.value();
-                value6 = dice6.GetComponent<Dice2>();
-                r6 = value6.value();
-                resultatAttacked.Add((int)r5+1);
-                resultatAttacked.Add((int)r6+1);
-                print("''''''''''''''''''''''''''''''''''''" + r5);
-                print("''''''''''''''''''''''''''''''''''''" + r6);
-            }
-
-            coroutine4 = jet2(tourJoueur);
+            //Début de la couroutine pour les autres dés
+            coroutine4 = jet2(startDroite);
             StartCoroutine(coroutine4);
 
+            //Trie du tableau contenant les résultats des dés
             resultat.Sort();
-            resultatAttacked.Sort();
-            foreach (int i in resultat)
-            {
-                print("=================" + i);
-            }
-            foreach (int i in resultatAttacked)
-            {
-                print("=================" + i);
-            }
+            //resultatAttacked.Sort();
 
             //Démarre les 2 couroutines 
-            coroutine = wait(tourJoueur);
+            coroutine = wait();
             StartCoroutine(coroutine);
-            coroutine2 = wait2(tourJoueur);
+            coroutine2 = wait2();
             StartCoroutine(coroutine2);
             coroutine3 = battle(resultat, resultatAttacked);
             StartCoroutine(coroutine3);
@@ -208,100 +394,97 @@ public class FightSim : MonoBehaviour
     }
 
     //Couroutine qui après 5 secondes, lance les dés adverses
-    IEnumerator jet2(int TJ)
+    IEnumerator jet2(bool startDroite)
     {
         yield return new WaitForSeconds(5.0f);
 
         //Instancie le nombre de dés adverses en fonction de la valeur du slider et récupère son résultat
-        if(TJ == 0) {
-            menu.SetActive(false);
-            dice8.SetActive(true);
-
-            if(nbAt == 2) {
-                dice5.SetActive(true);
-            }
-            else if(nbAt == 3) {
-                dice5.SetActive(true);
-                dice6.SetActive(true);
-            }
+        //Si le dé part de droite
+        dice4.SetActive(true);
+        if(startDroite = true) {
+            r4 = value24.value();
         }
         else {
-            dice7.SetActive(true);
-
-            if(nbDe == 2) {
-                dice2.SetActive(true);
-            }
-            else if(nbDe == 3) {
-                dice2.SetActive(true);
-                dice3.SetActive(true);
-            }
+            r4 = value14.value();
         }
+        resultatAttacked.Add((int)r4+1);
+
+        //Si deux dés 
+        if(nbAt == 2) {
+            dice5.SetActive(true);
+            if(startDroite = true) {
+                r5 = value25.value();
+            }
+            else {
+                r5 = value15.value();
+            }
+            resultatAttacked.Add((int)r5+1);
+        }
+
+        //Si trois dés 
+        else if(nbAt == 3) {
+            dice5.SetActive(true);
+            dice6.SetActive(true);
+            if(startDroite = true) {
+                r5 = value25.value();
+            }
+            else {
+                r5 = value15.value();
+            }
+            if(startDroite = true) {
+                r6 = value26.value();
+            }
+            else {
+                r6 = value16.value();
+            }
+            resultatAttacked.Add((int)r5+1);
+            resultatAttacked.Add((int)r6+1);
+        }
+
+        resultatAttacked.Sort();
     }   
 
     //Couroutine qui après 5 secondes, désactive les dés et réinitialise leur position
-    IEnumerator wait(int TJ)
+    IEnumerator wait()
     {
         yield return new WaitForSeconds(5.0f);
 
-        if(TJ == 0) {
-            dice7.SetActive(false);
-            dice7.transform.position = new Vector2(8.9f, 6.83f);
-            dice2.SetActive(false);
-            dice2.transform.position = new Vector2(8.9f, 6.83f);
-            dice3.SetActive(false);
-            dice3.transform.position = new Vector2(8.9f, 6.83f);
-        }
-        else {
-            dice8.SetActive(false);
-            dice8.transform.position = new Vector2(-8.9f, 6.83f);
-            dice5.SetActive(false);
-            dice5.transform.position = new Vector2(-8.9f, 6.83f);
-            dice6.SetActive(false);
-            dice6.transform.position = new Vector2(-8.9f, 6.83f);
-            menu.SetActive(true);
-        }
+        dice1.SetActive(false);
+        dice1.transform.position = new Vector2(8.9f, 6.83f);
+        dice2.SetActive(false);
+        dice2.transform.position = new Vector2(8.9f, 6.83f);
+        dice3.SetActive(false);
+        dice3.transform.position = new Vector2(8.9f, 6.83f);
     }   
 
     //Couroutine qui après 10 secondes, désactive les dés adverses et réinitialise leur position
-    IEnumerator wait2(int TJ)
+    IEnumerator wait2()
     {
         yield return new WaitForSeconds(10.0f);
 
-        if(TJ == 0) {
-            dice8.SetActive(false);
-            dice8.transform.position = new Vector2(-8.9f, 6.83f);
-            dice5.SetActive(false);
-            dice5.transform.position = new Vector2(-8.9f, 6.83f);
-            dice6.SetActive(false);
-            dice6.transform.position = new Vector2(-8.9f, 6.83f);
-            menu.SetActive(true);
-        }
-        else {
-            dice7.SetActive(false);
-            dice7.transform.position = new Vector2(8.9f, 6.83f);
-            dice2.SetActive(false);
-            dice2.transform.position = new Vector2(8.9f, 6.83f);
-            dice3.SetActive(false);
-            dice3.transform.position = new Vector2(8.9f, 6.83f);
-        }
+        dice4.SetActive(false);
+        dice4.transform.position = new Vector2(-8.9f, 6.83f);
+        dice5.SetActive(false);
+        dice5.transform.position = new Vector2(-8.9f, 6.83f);
+        dice6.SetActive(false);
+        dice6.transform.position = new Vector2(-8.9f, 6.83f);
+        menu.SetActive(true);
 
+        menu.SetActive(true);
         passer.SetActive(true);
         jetDes.SetActive(false);
+        jetBVJ.SetActive(false);
+        jetBVV.SetActive(false);
+        jetJVR.SetActive(false);
+        jetVVJ.SetActive(false);
+        jetVVR.SetActive(false);
     }   
 
     //Couroutine qui calcul les points en moins des deux territoires 
     IEnumerator battle(List<int> resultat, List<int> resultatAttacked)
     {
         yield return new WaitForSeconds(10.0f);
-        foreach (int i in resultat)
-        {
-            print("=================" + i);
-        }
-        foreach (int i in resultatAttacked)
-        {
-            print("=================" + i);
-        }
-        
+             
         int res = 0;
         int resAttacked = 0;
 
@@ -336,8 +519,6 @@ public class FightSim : MonoBehaviour
                 res++;
             }
         }
-        print("-------------------" + res);
-        print("-------------------" + resAttacked);
 
         //Applique le résultat sur les territoires 
         bool fin = CountryManager.instance.ResAttaque(res,resAttacked);

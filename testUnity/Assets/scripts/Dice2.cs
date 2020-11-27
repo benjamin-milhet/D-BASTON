@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class Dice2 : MonoBehaviour
 {
+    //Dé
+    public GameObject dice;
+
     //Gère les sprites et les faces
     private Sprite[] diceSides;
     private SpriteRenderer rend;
 
+    //Variables des faces du dé
     private int r1;
     private int r2;
     private int r3;
@@ -16,23 +20,16 @@ public class Dice2 : MonoBehaviour
     private int r6;
     private int r7;
     private int r8;
-    
-    public int R7
-    {
-        get => r7;
-        set => r7 = value;
-    }
 
+    //Variable qui permet de renvoyer la valeur finale du dé
+    private static int aled;
+
+    //Position originale du dé
     private static Vector2 originalPos;
-    
-    //Start is called before the first frame update
-    private void Start () {
 
-        //Initialisation des sprites pour chaque face depuis le dossier "Dice" dans les ressources
-        rend = GetComponent<SpriteRenderer>();
-        diceSides = Resources.LoadAll<Sprite>("Dice2/");
+    private void Awake() {
 
-        //Assignation d'une valeur aléatoire correspondant à un sprite
+        //Initialisation des valeurs du dé
         r1 = Random.Range(0, 5);
         r2 = Random.Range(0, 5);
         r3 = Random.Range(0, 5);
@@ -42,10 +39,30 @@ public class Dice2 : MonoBehaviour
         r7 = Random.Range(0, 5);
         r8 = Random.Range(0, 5);
 
+        aled = r7;
+    }
+    
+    //Start is called before the first frame update
+    private void Start () {
+
+        //Initialisation des sprites pour chaque face depuis le dossier "Dice" dans les ressources
+        rend = GetComponent<SpriteRenderer>();
+
+        if(dice.name.Contains("R")) {
+            diceSides = Resources.LoadAll<Sprite>("Dice/");
+        }  
+        else if(dice.name.Contains("B")) {
+            diceSides = Resources.LoadAll<Sprite>("Dice2/");
+        }
+        else if(dice.name.Contains("V")) {
+            diceSides = Resources.LoadAll<Sprite>("Dice3/");
+        }
+        else if(dice.name.Contains("J")) {
+            diceSides = Resources.LoadAll<Sprite>("Dice4/");
+        }
+
         originalPos = new Vector2(transform.position.x, transform.position.y);
     }
-	
-    public double value() => r7;
 
     //Update is called once per frame
     private void Update()
@@ -105,5 +122,10 @@ public class Dice2 : MonoBehaviour
             GetComponent<Rigidbody2D>().velocity = new Vector2(speedX, GetComponent<Rigidbody2D>().velocity.x);
             rend.sprite = diceSides[r8];
         }
+    }
+
+    //Getter de la valeur finale du dé
+    public int value() {
+        return aled;
     }
 }

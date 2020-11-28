@@ -71,10 +71,10 @@ public class MenuManager : MonoBehaviour
     /// </summary>
     public void QuitGame()
     {
-        menu.SetActive(false);
+        /*menu.SetActive(false);
         MenuPreparerPartie.DeleteSaveFile();
         GameManager.instance.DeleteSaveFile();
-        UnityEditor.EditorApplication.isPlaying = false;
+        UnityEditor.EditorApplication.isPlaying = false;*/
     }
 
     /// <summary>

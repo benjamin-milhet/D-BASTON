@@ -25,7 +25,7 @@ public class MenuPreparerPartie : MonoBehaviour
     /// </summary>
     public void QuitGame()
     {
-        UnityEditor.EditorApplication.isPlaying = false;
+        //UnityEditor.EditorApplication.isPlaying = false;
     }
     
     /// <summary>

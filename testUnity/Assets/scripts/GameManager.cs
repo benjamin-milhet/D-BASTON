@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -29,10 +30,14 @@ public class GameManager : MonoBehaviour
 
         public List<Country> SavedCountry { get => savedCountry; set => savedCountry = value; }
     }
-    
+
+    private void Start()
+    {
+        this.DeleteSaveFile();
+    }
+
     void Awake()
     {
-        //DeleteSaveFile();
         if (instance == null)
         {
             instance = this;
@@ -46,7 +51,6 @@ public class GameManager : MonoBehaviour
 
     public void Saving()
     {
-        
         SaveData data = new SaveData();
         for (int i = 0; i < CountryManager.instance.countryList.Count; i++)
         {

@@ -16,7 +16,7 @@ PlayerSettings:
   productName: testUnity
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
-  m_SplashScreenBackgroundColor: {r: 0.2784314, g: 0.2784314, b: 0.2784314, a: 1}
+  m_SplashScreenBackgroundColor: {r: 0.20392157, g: 0.22745098, b: 0.2509804, a: 1}
   m_ShowUnitySplashScreen: 1
   m_ShowUnitySplashLogo: 1
   m_SplashScreenOverlayOpacity: 0.75
@@ -46,7 +46,7 @@ PlayerSettings:
   m_HolographicTrackingLossScreen: {fileID: 0}
   defaultScreenWidth: 1024
   defaultScreenHeight: 768
-  defaultScreenWidthWeb: 1050
+  defaultScreenWidthWeb: 1150
   defaultScreenHeightWeb: 600
   m_StereoRenderingPath: 0
   m_ActiveColorSpace: 0

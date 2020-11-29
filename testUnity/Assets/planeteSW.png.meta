@@ -1,0 +1,488 @@
+fileFormatVersion: 2
+guid: 668eb640f46cf0445b11d3536eb852e4
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -9072553904827105893
+    second: planeteSW_0
+  - first:
+      213: 3256255269916074348
+    second: planeteSW_1
+  - first:
+      213: -4961844401166783888
+    second: planeteSW_2
+  - first:
+      213: -5970140460733520993
+    second: planeteSW_3
+  - first:
+      213: 8660379498566350077
+    second: planeteSW_4
+  - first:
+      213: 8912816165760737230
+    second: planeteSW_5
+  - first:
+      213: 5240809346486774549
+    second: planeteSW_6
+  - first:
+      213: -6346808908826043491
+    second: planeteSW_7
+  - first:
+      213: 4520603373138429760
+    second: planeteSW_8
+  - first:
+      213: -5248693478059278390
+    second: planeteSW_9
+  - first:
+      213: 2884421269643172471
+    second: planeteSW_10
+  - first:
+      213: -3747305612539955653
+    second: planeteSW_11
+  - first:
+      213: -2984265418065349170
+    second: planeteSW_12
+  - first:
+      213: 5480742940499116135
+    second: planeteSW_13
+  - first:
+      213: 2545315746430675556
+    second: planeteSW_14
+  - first:
+      213: 5446414075897076546
+    second: planeteSW_15
+  - first:
+      213: 3049051929565672702
+    second: planeteSW_16
+  - first:
+      213: 427182258993525860
+    second: planeteSW_17
+  - first:
+      213: -7482692149972563430
+    second: planeteSW_18
+  - first:
+      213: 8061008360859977702
+    second: planeteSW_19
+  - first:
+      213: 6408719532659748020
+    second: planeteSW_20
+  - first:
+      213: -4854148054907343942
+    second: planeteSW_21
+  - first:
+      213: -462222421855889953
+    second: planeteSW_22
+  - first:
+      213: 5029453438283492843
+    second: planeteSW_23
+  - first:
+      213: 7365298830918109790
+    second: planeteSW_24
+  - first:
+      213: 5722150104867244289
+    second: planeteSW_25
+  - first:
+      213: -5550332854028092679
+    second: planeteSW_26
+  - first:
+      213: -3027070295144013368
+    second: planeteSW_27
+  - first:
+      213: -9007477691148236355
+    second: planeteSW_28
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: planeteSW_2
+      rect:
+        serializedVersion: 2
+        x: 1191
+        y: 573
+        width: 101
+        height: 106
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 07a61bd5eccf32bb0800000000000000
+      internalID: -4961844401166783888
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: planeteSW_3
+      rect:
+        serializedVersion: 2
+        x: 460
+        y: 365
+        width: 228
+        height: 222
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f93aac2d1ecc52da0800000000000000
+      internalID: -5970140460733520993
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: planeteSW_4
+      rect:
+        serializedVersion: 2
+        x: 733
+        y: 437
+        width: 140
+        height: 151
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: df47f10f449df2870800000000000000
+      internalID: 8660379498566350077
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: planeteSW_7
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 445
+        width: 117
+        height: 118
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d9b932c9cea9be7a0800000000000000
+      internalID: -6346808908826043491
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: planeteSW_8
+      rect:
+        serializedVersion: 2
+        x: 238
+        y: 467
+        width: 93
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 047495211d86cbe30800000000000000
+      internalID: 4520603373138429760
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: planeteSW_17
+      rect:
+        serializedVersion: 2
+        x: 267
+        y: 247
+        width: 150
+        height: 145
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 46478a15008ade500800000000000000
+      internalID: 427182258993525860
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: planeteSW_22
+      rect:
+        serializedVersion: 2
+        x: 94
+        y: 281
+        width: 86
+        height: 85
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fd51f02082bd599f0800000000000000
+      internalID: -462222421855889953
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: planeteSW_23
+      rect:
+        serializedVersion: 2
+        x: 692
+        y: 14
+        width: 312
+        height: 310
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bed214341453cc540800000000000000
+      internalID: 5029453438283492843
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: planeteSW_24
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 0
+        width: 226
+        height: 213
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e5a4971834cc63660800000000000000
+      internalID: 7365298830918109790
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: planeteSW_25
+      rect:
+        serializedVersion: 2
+        x: 503
+        y: 88
+        width: 62
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 10983100439296f40800000000000000
+      internalID: 5722150104867244289
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: planeteSW_26
+      rect:
+        serializedVersion: 2
+        x: 1172
+        y: 25
+        width: 105
+        height: 101
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9fab97a1da149f2b0800000000000000
+      internalID: -5550332854028092679
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: planeteSW_27
+      rect:
+        serializedVersion: 2
+        x: 449
+        y: 22
+        width: 60
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8c1edcbca9fadf5d0800000000000000
+      internalID: -3027070295144013368
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: planeteSW_28
+      rect:
+        serializedVersion: 2
+        x: 545
+        y: 5
+        width: 68
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: db98ad873c20ff280800000000000000
+      internalID: -9007477691148236355
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

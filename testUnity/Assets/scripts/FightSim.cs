@@ -332,7 +332,7 @@ public class FightSim : MonoBehaviour
             dice1.SetActive(true);
 
             //Si le dé part de droite... 
-            if(startDroite = true) {
+            if(startDroite == true) {
                 r = value11.value();
             }
             else {
@@ -343,7 +343,7 @@ public class FightSim : MonoBehaviour
             //Si deux dés 
             if(nbDe == 2) {
                 dice2.SetActive(true);
-                if(startDroite = true) {
+                if(startDroite == true) {
                     r2 = value12.value();
                 }
                 else {
@@ -355,14 +355,14 @@ public class FightSim : MonoBehaviour
             //Si trois dés
             else if(nbDe == 3) {
                 dice2.SetActive(true);
-                if(startDroite = true) {
+                if(startDroite == true) {
                     r2 = value12.value();
                 }
                 else {
                     r2 = value22.value();
                 }
                 dice3.SetActive(true);
-                if(startDroite = true) {
+                if(startDroite == true) {
                     r3 = value13.value();
                 }
                 else {
@@ -401,7 +401,7 @@ public class FightSim : MonoBehaviour
         //Instancie le nombre de dés adverses en fonction de la valeur du slider et récupère son résultat
         //Si le dé part de droite
         dice4.SetActive(true);
-        if(startDroite = true) {
+        if(startDroite == true) {
             r4 = value24.value();
         }
         else {
@@ -412,7 +412,7 @@ public class FightSim : MonoBehaviour
         //Si deux dés 
         if(nbAt == 2) {
             dice5.SetActive(true);
-            if(startDroite = true) {
+            if(startDroite == true) {
                 r5 = value25.value();
             }
             else {
@@ -425,13 +425,13 @@ public class FightSim : MonoBehaviour
         else if(nbAt == 3) {
             dice5.SetActive(true);
             dice6.SetActive(true);
-            if(startDroite = true) {
+            if(startDroite == true) {
                 r5 = value25.value();
             }
             else {
                 r5 = value15.value();
             }
-            if(startDroite = true) {
+            if(startDroite == true) {
                 r6 = value26.value();
             }
             else {

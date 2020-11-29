@@ -415,7 +415,7 @@ public class CountryManager : MonoBehaviour
         }
         for (int ii = 0; ii < nbJoueur; ii++)
         {
-            int nbTroupeTotalParJoueur = 30;
+            int nbTroupeTotalParJoueur = 10;
             Random random = new Random();
             int j = 0;
             while (j < nbTroupeTotalParJoueur)

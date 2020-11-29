@@ -140,15 +140,30 @@ public class MenuManager : MonoBehaviour
         CountryManager.instance.CountryIsSelectedAttacked = false;
         CountryManager.instance.DisableSliderTroupe();
         CountryManager.instance.TourJoueur++;
-        if (CountryManager.instance.TourJoueur > CountryManager.instance.NbJoueur-1)
-        {
-            CountryManager.instance.TourJoueur = 0;
-        }
+        
+        this.Verification();
+        
+        
         CountryManager.instance.NbTroupePhase1 = CountryManager.instance.nbTerritoire(CountryManager.instance.TourJoueur);
         CountryManager.instance.nbTroupePhaseUn.value = 0;
         CountryManager.instance.ChangementPhase();
         CountryManager.instance.TintCountries();
         GameManager.instance.Saving();
+    }
+
+    public void Verification()
+    {
+        if (CountryManager.instance.TourJoueur > CountryManager.instance.NbJoueur-1)
+        {
+            CountryManager.instance.TourJoueur = 0;
+        }
+        
+        if (CountryManager.instance.nbTerritoireTotal(CountryManager.instance.TourJoueur) == 0)
+        {
+            CountryManager.instance.TourJoueur++;
+            
+            this.Verification();
+        }
     }
     
     

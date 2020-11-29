@@ -9,10 +9,10 @@ public class Country {
     /// </summary>
     public enum theTribes
     {
-        CLONE = 0,
-        DROIDE = 1,
-        JEDI = 2,
-        SITH = 3
+        ALLEMAGNE = 0,
+        FRANCE = 1,
+        ANGLETERRE = 2,
+        ESPAGNE = 3
     }
 
 

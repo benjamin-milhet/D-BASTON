@@ -11386,6 +11386,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nbJoueur: {fileID: 1541092428}
+  choixMap: {fileID: 321232909}
 --- !u!4 &1499337019
 Transform:
   m_ObjectHideFlags: 0

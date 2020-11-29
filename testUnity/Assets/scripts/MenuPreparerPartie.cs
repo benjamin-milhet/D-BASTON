@@ -10,6 +10,7 @@ using UnityEngine.UI;
 public class MenuPreparerPartie : MonoBehaviour
 {
     public Dropdown nbJoueur;
+    public Dropdown choixMap;
 
     /// <summary>
     /// Lance la partie avec le bon nombre de joueur
@@ -17,7 +18,20 @@ public class MenuPreparerPartie : MonoBehaviour
     public void chargerPartie()
     {
         this.Saving();
-        SceneManager.LoadScene(1);
+        
+        switch (choixMap.value)
+        {
+            case 0 :
+                SceneManager.LoadScene(1);
+                break;
+            case 1 :
+                SceneManager.LoadScene(2);
+                break;
+            default:
+                SceneManager.LoadScene(1);
+                break;
+        }
+        
     }
 
     /// <summary>

@@ -157,19 +157,19 @@ public class CountryManager : MonoBehaviour
 
             switch (countHandler.country.tribe)//On leur attribut une couleur suivant son propriétaire
             {
-                case Country.theTribes.CLONE:
+                case Country.theTribes.ALLEMAGNE:
                     countHandler.TintColor(new Color32(180, 0, 0, 200));
                     break;
 
-                case Country.theTribes.DROIDE:
+                case Country.theTribes.FRANCE:
                     countHandler.TintColor(new Color32(0, 24, 114, 200));
                     break;
 
-                case Country.theTribes.JEDI:
+                case Country.theTribes.ANGLETERRE:
                     countHandler.TintColor(new Color32(0, 180, 0, 200));
                     break;
                 
-                case Country.theTribes.SITH:
+                case Country.theTribes.ESPAGNE:
                     countHandler.TintColor(new Color32(180, 90, 0, 200));
                     break;
             }
@@ -261,7 +261,7 @@ public class CountryManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Debute un combat
+    /// Debute un combat avec le bon nombre de dé pour le defenseur suivant son nombre de troupe
     /// </summary>
     public void StartFight()
     {
@@ -415,7 +415,7 @@ public class CountryManager : MonoBehaviour
         }
         for (int ii = 0; ii < nbJoueur; ii++)
         {
-            int nbTroupeTotalParJoueur = 10;
+            int nbTroupeTotalParJoueur = 20;
             Random random = new Random();
             int j = 0;
             while (j < nbTroupeTotalParJoueur)
@@ -560,19 +560,19 @@ public class CountryManager : MonoBehaviour
         Color32 res;
         switch ((Country.theTribes)tourJ)
         {
-            case Country.theTribes.CLONE:
+            case Country.theTribes.ALLEMAGNE:
                 res = new Color32(180, 0, 0, 200);
                 break;
 
-            case Country.theTribes.DROIDE:
+            case Country.theTribes.FRANCE:
                 res = new Color32(0, 24, 114, 200);
                 break;
 
-            case Country.theTribes.JEDI:
+            case Country.theTribes.ANGLETERRE:
                 res = new Color32(0, 180, 0, 200);
                 break;
             
-            case Country.theTribes.SITH:
+            case Country.theTribes.ESPAGNE:
                 res = new Color32(180, 90, 0, 200);
                 break;
             

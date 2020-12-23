@@ -11,6 +11,8 @@ public class MenuPreparerPartie : MonoBehaviour
 {
     public Dropdown nbJoueur;
     public Dropdown choixMap;
+    public Slider volumeMusique;
+    public AudioSource audioMusique;
 
     /// <summary>
     /// Lance la partie avec le bon nombre de joueur
@@ -31,7 +33,6 @@ public class MenuPreparerPartie : MonoBehaviour
                 SceneManager.LoadScene(1);
                 break;
         }
-        
     }
 
     /// <summary>
@@ -49,6 +50,7 @@ public class MenuPreparerPartie : MonoBehaviour
     public class SaveData
     {
         public int nbJoueur;
+        public int map;
     }
     
     /// <summary>
@@ -74,6 +76,20 @@ public class MenuPreparerPartie : MonoBehaviour
                 data.nbJoueur = 2;
                 break;
         }
+        
+        //On recupere la map depuis le dropdown
+        switch (choixMap.value)
+        {
+            case 0 :
+                data.map = 0;
+                break;
+            case 1 :
+                data.map = 1;
+                break;
+            default:
+                data.map = 0;
+                break;
+        }
 
         BinaryFormatter bf = new BinaryFormatter();
         FileStream stream = new FileStream(Application.persistentDataPath + "/SaveFileMenu.json", FileMode.Create);
@@ -94,5 +110,10 @@ public class MenuPreparerPartie : MonoBehaviour
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 
         }
+    }
+
+    public void SetVolumeMusique()
+    {
+        this.audioMusique.volume = this.volumeMusique.value;
     }
 }

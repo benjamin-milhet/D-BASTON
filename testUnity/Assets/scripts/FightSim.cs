@@ -121,7 +121,7 @@ public class FightSim : MonoBehaviour
 
             //Variables pour savoir qui attaque et qui se fait attaquer
             int tourJoueur = CountryManager.instance.TourJoueur;
-            int nbJoueurAtt = (int) CountryManager.instance.countrySelectedAttacked.country.tribe;
+            int nbJoueurAtt = Country.theTribes.IndexOf(CountryManager.instance.countrySelectedAttacked.country.tribe);
 
             //Variable pour savoir si le dé part de la gauche ou la droite
             bool startDroite = false;

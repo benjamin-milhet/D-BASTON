@@ -105,7 +105,7 @@ public class CountryHandler : MonoBehaviour
     /// </summary>
     private void PhaseUn()
     {
-        if (country.tribe == (Country.theTribes) CountryManager.instance.TourJoueur) //On regarde si le territoire selectionné est bien au joueur en cours
+        if (country.tribe == Country.theTribes[CountryManager.instance.TourJoueur]) //On regarde si le territoire selectionné est bien au joueur en cours
         {
             if (!CountryManager.instance.CountryIsSelected)//on regarde que aucun autre territoire n'a ete selectionne
             {
@@ -117,7 +117,7 @@ public class CountryHandler : MonoBehaviour
                 sprite.color = hoverColor;
                 
                 //On affiche le slider pour choisir le nombre de troupe a ajoute
-                CountryManager.instance.ShowSliderTroupe(CountryManager.instance.NbTroupePhase1);
+                CountryManager.instance.ShowSliderTroupe(CountryManager.instance.NbTroupePhase1,0);
                 
                 //On desactive tous les autres territoires
                 CountryManager.instance.TintThisCountries(this);
@@ -139,7 +139,9 @@ public class CountryHandler : MonoBehaviour
     /// </summary>
     private void PhaseDeux()
     {
-        if (country.tribe == (Country.theTribes)CountryManager.instance.TourJoueur && country.nbTroupe >1) //On regarde si le territoire selectionné est bien au joueur en cours et si il y a strictement plus de 1troupe sur ce territoire
+        int minimum = 1;
+
+        if (country.tribe == Country.theTribes[CountryManager.instance.TourJoueur] && country.nbTroupe > minimum) //On regarde si le territoire selectionné est bien au joueur en cours et si il y a strictement plus de 1troupe sur ce territoire
         {
             if (!CountryManager.instance.CountryIsSelected)//on regarde que aucun autre territoire n'a ete selectionne
             {
@@ -147,7 +149,7 @@ public class CountryHandler : MonoBehaviour
                 //On regarde si le territoire possede des voisins a attaque
                 foreach (CountryHandler c in this.voisins)
                 {
-                    if (c.country.tribe != (Country.theTribes)CountryManager.instance.TourJoueur)
+                    if (c.country.tribe != Country.theTribes[CountryManager.instance.TourJoueur])
                     {
                         res = true;
                     }
@@ -176,7 +178,7 @@ public class CountryHandler : MonoBehaviour
             }
 
         }
-        else if (country.tribe != (Country.theTribes)CountryManager.instance.TourJoueur && CountryManager.instance.CountryIsSelected)//Si on clique sur un territoire ennemi apres avoir selectionne un de ses territoires
+        else if (country.tribe != Country.theTribes[CountryManager.instance.TourJoueur] && CountryManager.instance.CountryIsSelected)//Si on clique sur un territoire ennemi apres avoir selectionne un de ses territoires
         {
             CountryManager.instance.CountryIsSelected = false; //on indique qu'aucun territoire n'est selectionne
             CountryManager.instance.DisableAttaqueText();
@@ -191,14 +193,13 @@ public class CountryHandler : MonoBehaviour
     /// </summary>
     private void PhaseTrois()
     {
-        if (country.tribe == (Country.theTribes) CountryManager.instance.TourJoueur
-        ) //On regarde si le territoire selectionné est bien au joueur en cours
+        if (country.tribe == Country.theTribes[CountryManager.instance.TourJoueur]) //On regarde si le territoire selectionné est bien au joueur en cours
         {
             bool res = false;
             //On regarde si le territoire possede des voisins a attaque
             foreach (CountryHandler c in this.voisins)
             {
-                if (c.country.tribe == (Country.theTribes) CountryManager.instance.TourJoueur)
+                if (c.country.tribe == Country.theTribes[CountryManager.instance.TourJoueur])
                 {
                     res = true;
                 }
@@ -207,8 +208,7 @@ public class CountryHandler : MonoBehaviour
             if (res)
             {
 
-                if (!CountryManager.instance.CountryIsSelected
-                ) //on regarde que aucun autre territoire n'a ete selectionne
+                if (!CountryManager.instance.CountryIsSelected) //on regarde que aucun autre territoire n'a ete selectionne
                 {
                     CountryManager.instance.CountryIsSelected = true; //on indique qu'on a selectionne un territoire
                     CountryManager.instance.CountrySelected = this;
@@ -224,8 +224,10 @@ public class CountryHandler : MonoBehaviour
                 }
                 else if (this != CountryManager.instance.CountrySelected)
                 {
+                    int minimum = 0;
+                    
                     //On affiche le slider pour choisir le nombre de troupe a ajoute
-                    CountryManager.instance.ShowSliderTroupe(CountryManager.instance.CountrySelected.country.nbTroupe-1);
+                    CountryManager.instance.ShowSliderTroupe(CountryManager.instance.CountrySelected.country.nbTroupe-1, minimum);
                     CountryManager.instance.CountrySelectedAttacked = this;
                     CountryManager.instance.CountryIsSelectedAttacked = true;
 

@@ -23,7 +23,7 @@ using System.Threading.Tasks;
         {
             for (int i = 0; i < nbJoueur; i++)
             {
-                this.listJoueurs.Add(new Joueur(i, "test",(Country.theTribes)i));
+                this.listJoueurs.Add(new Joueur(i, "test",Country.theTribes[i]));
             }
             
         }

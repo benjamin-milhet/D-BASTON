@@ -3,12 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using Random = System.Random;
 
 
 public class MenuManager : MonoBehaviour
 {
     public static MenuManager instance;
     public GameObject menu;
+    public Slider volumeMusique;
+    public AudioSource audioMusique;
 
     public List<GameObject> menuList = new List<GameObject>();
 
@@ -133,8 +137,48 @@ public class MenuManager : MonoBehaviour
     {
         if (CountryManager.instance.CountryIsSelectedAttacked)
         {
+            int value_slider = CountryManager.instance.getValueSlider();
+            if (CountryManager.instance.Map == 1)
+            {
+                if (CountryManager.instance.CountrySelected.country.name == "Mos_Eisley_Tatooine" && CountryManager.instance.CountrySelectedAttacked.country.name == "Coruscant")
+                {
+                    if (CountryManager.instance.CountrySelected.country.nbTroupe > 1)
+                    {
+                        Random random = new Random();
+                        int res = random.Next(value_slider);
+                        value_slider -= res;
+                    }
+                }
+                if (CountryManager.instance.CountrySelected.country.name == "Coruscant" && CountryManager.instance.CountrySelectedAttacked.country.name == "Mos_Eisley_Tatooine")
+                {
+                    if (CountryManager.instance.CountrySelected.country.nbTroupe > 1)
+                    {
+                        Random random = new Random();
+                        int res = random.Next(value_slider);
+                        value_slider -= res;
+                    }
+                }
+                if (CountryManager.instance.CountrySelected.country.name == "Alderaan" && CountryManager.instance.CountrySelectedAttacked.country.name == "Coruscant")
+                {
+                    if (CountryManager.instance.CountrySelected.country.nbTroupe > 1)
+                    {
+                        Random random = new Random();
+                        int res = random.Next(value_slider);
+                        value_slider -= res;
+                    }
+                }
+                if (CountryManager.instance.CountrySelected.country.name == "Coruscant" && CountryManager.instance.CountrySelectedAttacked.country.name == "Alderaan")
+                {
+                    if (CountryManager.instance.CountrySelected.country.nbTroupe > 1)
+                    {
+                        Random random = new Random();
+                        int res = random.Next(value_slider);
+                        value_slider -= res;
+                    }
+                }
+            }
             CountryManager.instance.CountrySelected.country.nbTroupe -= CountryManager.instance.getValueSlider();
-            CountryManager.instance.CountrySelectedAttacked.country.nbTroupe += CountryManager.instance.getValueSlider();
+            CountryManager.instance.CountrySelectedAttacked.country.nbTroupe += value_slider;
         }
 
         CountryManager.instance.CountryIsSelectedAttacked = false;
@@ -165,6 +209,12 @@ public class MenuManager : MonoBehaviour
             this.Verification();
         }
     }
+    
+    public void SetVolumeMusique()
+    {
+        this.audioMusique.volume = this.volumeMusique.value;
+    }
+    
     
     
 }

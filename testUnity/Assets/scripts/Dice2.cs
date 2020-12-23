@@ -48,17 +48,35 @@ public class Dice2 : MonoBehaviour
         //Initialisation des sprites pour chaque face depuis le dossier "Dice" dans les ressources
         rend = GetComponent<SpriteRenderer>();
 
-        if(dice.name.Contains("R")) {
-            diceSides = Resources.LoadAll<Sprite>("Dice/");
-        }  
-        else if(dice.name.Contains("B")) {
-            diceSides = Resources.LoadAll<Sprite>("Dice2/");
+        if (CountryManager.instance.Map == 0)
+        {
+            if(dice.name.Contains("R")) {
+                diceSides = Resources.LoadAll<Sprite>("Dice/");
+            }  
+            else if(dice.name.Contains("B")) {
+                diceSides = Resources.LoadAll<Sprite>("Dice2/");
+            }
+            else if(dice.name.Contains("V")) {
+                diceSides = Resources.LoadAll<Sprite>("Dice3/");
+            }
+            else if(dice.name.Contains("J")) {
+                diceSides = Resources.LoadAll<Sprite>("Dice4/");
+            }
         }
-        else if(dice.name.Contains("V")) {
-            diceSides = Resources.LoadAll<Sprite>("Dice3/");
-        }
-        else if(dice.name.Contains("J")) {
-            diceSides = Resources.LoadAll<Sprite>("Dice4/");
+        else
+        {
+            if(dice.name.Contains("R")) {
+                diceSides = Resources.LoadAll<Sprite>("Dice/");
+            }  
+            else if(dice.name.Contains("B")) {
+                diceSides = Resources.LoadAll<Sprite>("Dice3/");
+            }
+            else if(dice.name.Contains("V")) {
+                diceSides = Resources.LoadAll<Sprite>("Dice5/");
+            }
+            else if(dice.name.Contains("J")) {
+                diceSides = Resources.LoadAll<Sprite>("Dice2/");
+            }
         }
 
         originalPos = new Vector2(transform.position.x, transform.position.y);

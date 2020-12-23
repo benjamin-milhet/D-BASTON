@@ -10,9 +10,9 @@ using System.Threading.Tasks;
         private int id;
         private String name;
         private List<Country> territoire;
-        private Country.theTribes theTribe;
+        private string theTribe;
 
-        public Joueur(int id, string name, Country.theTribes theTribes)
+        public Joueur(int id, string name, string theTribes)
         {
             this.id = id;
             this.name = name;
@@ -21,6 +21,6 @@ using System.Threading.Tasks;
         }
 
         public List<Country> Territoire { get => territoire; set => territoire = value; }
-        public Country.theTribes TheTribes { get => theTribe; set => theTribe = value; }
+        public string TheTribes { get => theTribe; set => theTribe = value; }
     }
 

@@ -7,6 +7,7 @@ using System;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using DefaultNamespace;
+using TMPro;
 using Random = System.Random;
 
 public class CountryManager : MonoBehaviour
@@ -15,7 +16,8 @@ public class CountryManager : MonoBehaviour
 
     //Variables
     public GameObject attackPanel; //Panel du combat
-    public GameObject attaqueText; 
+    public GameObject attaqueText;
+    public GameObject finFightPanel;
     public Image couleurTeam; //Couleur de la team en cours
     public Slider nbTroupePhaseUn;
     public Text valueSlider;
@@ -25,6 +27,8 @@ public class CountryManager : MonoBehaviour
     public Canvas Team2;
     public Canvas Team3;
     public Canvas Team4;
+    public Slider sliderVictoire;
+    public TextMeshProUGUI textSliderVictoire;
     private CountryHandler countrySlectedPhaseUn;
     public List<GameObject> countryList = new List<GameObject>();
     private bool countryIsSelected = false;
@@ -35,8 +39,11 @@ public class CountryManager : MonoBehaviour
     private int tourJoueur; //Permet de savoir le tour de quel joueur est en cours
     private int nbJoueur = 4;
     private bool countryIsSelectedAttacked;
-
-
+    private int map;
+    
+    
+    
+    
     private List<CountryHandler> global = new List<CountryHandler>();
 
     
@@ -88,6 +95,12 @@ public class CountryManager : MonoBehaviour
         get => countryIsSelectedAttacked;
         set => countryIsSelectedAttacked = value;
     }
+    
+    public int Map
+    {
+        get => map;
+        set => map = value;
+    }
 
     void Awake()
     {
@@ -97,7 +110,31 @@ public class CountryManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
         this.Loading();
+        
+        switch (this.map)
+        {
+            case 0:
+                Country.theTribes.Add("Allemagne");
+                Country.theTribes.Add("France");
+                Country.theTribes.Add("Angleterre");
+                Country.theTribes.Add("Espagne");
+                break;
+            case 1:
+                Country.theTribes.Add("Empire");
+                Country.theTribes.Add("Rebelle");
+                Country.theTribes.Add("Mandalorien");
+                Country.theTribes.Add("Jedi");
+                break;
+            default:
+                Country.theTribes.Add("Allemagne");
+                Country.theTribes.Add("France");
+                Country.theTribes.Add("Angleterre");
+                Country.theTribes.Add("Espagne");
+                break;
+        }
+        
         attackPanel.SetActive(false);
         AddCountryData();
         
@@ -116,6 +153,7 @@ public class CountryManager : MonoBehaviour
             stream.Close();
 
             this.nbJoueur = data.nbJoueur;
+            this.map = data.map;
 
 
             CountryManager.instance.TintCountries();
@@ -157,20 +195,36 @@ public class CountryManager : MonoBehaviour
 
             switch (countHandler.country.tribe)//On leur attribut une couleur suivant son propriétaire
             {
-                case Country.theTribes.ALLEMAGNE:
+                case "Allemagne":
                     countHandler.TintColor(new Color32(180, 0, 0, 200));
                     break;
 
-                case Country.theTribes.FRANCE:
+                case "France":
                     countHandler.TintColor(new Color32(0, 24, 114, 200));
                     break;
 
-                case Country.theTribes.ANGLETERRE:
+                case "Angleterre":
                     countHandler.TintColor(new Color32(0, 180, 0, 200));
                     break;
                 
-                case Country.theTribes.ESPAGNE:
+                case "Espagne":
                     countHandler.TintColor(new Color32(180, 90, 0, 200));
+                    break;
+                
+                case "Empire":
+                    countHandler.TintColor(new Color32(180, 0, 0, 200));
+                    break;
+
+                case "Rebelle":
+                    countHandler.TintColor(new Color32(71, 175, 14, 200));
+                    break;
+
+                case "Mandalorien":
+                    countHandler.TintColor(new Color32(80, 80, 80, 200));
+                    break;
+                
+                case "Jedi":
+                    countHandler.TintColor(new Color32(48, 110, 186, 200));
                     break;
             }
 
@@ -188,14 +242,14 @@ public class CountryManager : MonoBehaviour
         
         teamPanel teamPanel = Team1.GetComponent<teamPanel>();
         teamPanel.nbCountry.text = CountryManager.instance.nbTerritoireTotal(0).ToString();
-        Country.theTribes tribe = (Country.theTribes) 0;
+        string tribe = Country.theTribes[0];
         teamPanel.nomTeam.text = tribe.ToString();
         teamPanel.nbTroupe.text = CountryManager.instance.nbTroupeTotal(0).ToString();
         teamPanel.bgcolor.color = this.getCouleurTeam(0);
         
         teamPanel teamPanel2 = Team2.GetComponent<teamPanel>();
         teamPanel2.nbCountry.text = CountryManager.instance.nbTerritoireTotal(1).ToString();
-        tribe = (Country.theTribes) 1;
+        tribe = Country.theTribes[1];
         teamPanel2.nomTeam.text = tribe.ToString();
         teamPanel2.nbTroupe.text = CountryManager.instance.nbTroupeTotal(1).ToString();
         teamPanel2.bgcolor.color = this.getCouleurTeam(1);
@@ -205,7 +259,7 @@ public class CountryManager : MonoBehaviour
             Team3.gameObject.SetActive(true);
             teamPanel teamPanel3 = Team3.GetComponent<teamPanel>();
             teamPanel3.nbCountry.text = CountryManager.instance.nbTerritoireTotal(2).ToString();
-            tribe = (Country.theTribes) 2;
+            tribe = Country.theTribes[2];
             teamPanel3.nomTeam.text = tribe.ToString();
             teamPanel3.nbTroupe.text = CountryManager.instance.nbTroupeTotal(2).ToString();
             teamPanel3.bgcolor.color = this.getCouleurTeam(2);
@@ -215,7 +269,7 @@ public class CountryManager : MonoBehaviour
                 Team4.gameObject.SetActive(true);
                 teamPanel teamPanel4 = Team4.GetComponent<teamPanel>();
                 teamPanel4.nbCountry.text = CountryManager.instance.nbTerritoireTotal(3).ToString();
-                tribe = (Country.theTribes) 3;
+                tribe = Country.theTribes[3];
                 teamPanel4.nomTeam.text = tribe.ToString();
                 teamPanel4.nbTroupe.text = CountryManager.instance.nbTroupeTotal(3).ToString();
                 teamPanel4.bgcolor.color = this.getCouleurTeam(3);
@@ -317,7 +371,7 @@ public class CountryManager : MonoBehaviour
             }
             foreach (CountryHandler c in country.voisins)
             {
-                if (c.country.tribe == (Country.theTribes)tourJoueur)
+                if (c.country.tribe == Country.theTribes[tourJoueur])
                 {
                     c.gameObject.SetActive(false);
                 }
@@ -337,7 +391,7 @@ public class CountryManager : MonoBehaviour
         List<CountryHandler> listTest = new List<CountryHandler>();
         foreach (CountryHandler c in country.voisins)
         {
-            if (c.country.tribe == (Country.theTribes)tourJoueur){
+            if (c.country.tribe == Country.theTribes[tourJoueur]){
                 if (!this.global.Contains(c))
                 {
                     listTest.Add(c);
@@ -390,28 +444,48 @@ public class CountryManager : MonoBehaviour
         }
 
         int i = 0;
-        int nbJ;
-        if (this.nbJoueur != 4)
+        int nbJ = 0;
+        if (this.map == 0)
         {
-             nbJ = countryList.Count / nbJoueur;
+            if (this.nbJoueur == 3)
+            {
+                nbJ = 6;
+            }
+            else if (this.nbJoueur == 2)
+            {
+                nbJ = 9;
+            }
+            else
+            {
+                nbJ = 5;
+            }
         }
         else
         {
-             nbJ = 5;
+            if (this.nbJoueur == 3)
+            {
+                nbJ = 6;
+            }
+            else if (this.nbJoueur == 2)
+            {
+                nbJ = 8;
+            }
+            else
+            {
+                nbJ = 4;
+            }
         }
+        
         while (i < countryList.Count)
         {
             int t = UnityEngine.Random.Range(0, this.nbJoueur);
             if (addTerritoire[t] < nbJ)
             {
-                countryList[i].GetComponent<CountryHandler>().country.tribe = (Country.theTribes)t;
+                countryList[i].GetComponent<CountryHandler>().country.tribe = Country.theTribes[t];
                 countryList[i].GetComponent<CountryHandler>().country.nbTroupe = 1;
                 addTerritoire[t]+= 1;
                 i++;
             }
-
-
-
         }
         for (int ii = 0; ii < nbJoueur; ii++)
         {
@@ -421,7 +495,7 @@ public class CountryManager : MonoBehaviour
             while (j < nbTroupeTotalParJoueur)
             {
                 int res = random.Next(countryList.Count);
-                if (countryList[res].GetComponent<CountryHandler>().country.tribe == (Country.theTribes) ii)
+                if (countryList[res].GetComponent<CountryHandler>().country.tribe == Country.theTribes[ii])
                 {
                     countryList[res].GetComponent<CountryHandler>().country.nbTroupe += 1;
                     j++;
@@ -466,11 +540,28 @@ public class CountryManager : MonoBehaviour
         if (GameManager.instance.battleHasEnded && GameManager.instance.battleWon)
         {
             countrySelectedAttacked.country.tribe = countrySelected.country.tribe;
-            TintCountries();
-            this.ConditionVictoire();
+            this.finFightPanel.SetActive(true);
+            this.sliderVictoire.value = 0;
+            this.sliderVictoire.maxValue = countrySelected.country.nbTroupe - 1;
 
         }
+        
+        GameManager.instance.battleWon = false;
+        GameManager.instance.battleHasEnded = false;
+        GameManager.instance.Saving();
+    }
 
+    public void finFightVictoire()
+    {
+        int valueslider = (int) this.sliderVictoire.value;
+        countrySelectedAttacked.country.nbTroupe += valueslider;
+        countrySelected.country.nbTroupe -= valueslider;
+        
+        this.finFightPanel.SetActive(false);
+
+        TintCountries();
+        this.ConditionVictoire();
+        
         GameManager.instance.battleWon = false;
         GameManager.instance.battleHasEnded = false;
         GameManager.instance.Saving();
@@ -478,7 +569,7 @@ public class CountryManager : MonoBehaviour
 
     public int nbTerritoire(int tourJ)
     {
-        Country.theTribes tribe = (Country.theTribes) tourJ;
+        string tribe = Country.theTribes[tourJ];
         int count = 0;
         int res = 0;
         for (int i = 0; i < countryList.Count; i++)
@@ -502,12 +593,49 @@ public class CountryManager : MonoBehaviour
         {
             res = 5;
         }
+
+        if (this.map == 1)
+        {
+            for (int i = 0; i < countryList.Count; i++)
+            {
+                CountryHandler countHandler = countryList[i].GetComponent<CountryHandler>();
+                if (countHandler.country.name == "Arme_Etoile_de_la_Mort" || countHandler.country.name == "Réacteur_Etoile_de_la_Mort")
+                {
+                    if (countHandler.country.tribe == tribe && tribe == "Empire")
+                    {
+                        res += 3;
+                    }
+                }
+                if (countHandler.country.name == "Endor" || countHandler.country.name == "Hoth" || countHandler.country.name == "Naboo")
+                {
+                    if (countHandler.country.tribe == tribe && tribe == "Rebelle")
+                    {
+                        res += 2;
+                    }
+                }
+                if (countHandler.country.name == "Lothal" || countHandler.country.name == "Mandalore" || countHandler.country.name == "Ilum")
+                {
+                    if (countHandler.country.tribe == tribe && tribe == "Mandalorien")
+                    {
+                        res += 2;
+                    }
+                }
+                if (countHandler.country.name == "Coruscant")
+                {
+                    if (countHandler.country.tribe == tribe && tribe == "Jedi")
+                    {
+                        res += 5;
+                    }
+                }
+            }
+        }
+        
         return res;
     }
     
     public int nbTerritoireTotal(int tourJ)
     {
-        Country.theTribes tribe = (Country.theTribes) tourJ;
+        string tribe = Country.theTribes[tourJ];
         int count = 0;
         for (int i = 0; i < countryList.Count; i++)
         {
@@ -522,7 +650,7 @@ public class CountryManager : MonoBehaviour
     }
     public int nbTroupeTotal(int tourJ)
     {
-        Country.theTribes tribe = (Country.theTribes) tourJ;
+        string tribe = Country.theTribes[tourJ];
         int count = 0;
         for (int i = 0; i < countryList.Count; i++)
         {
@@ -558,22 +686,38 @@ public class CountryManager : MonoBehaviour
     public Color32 getCouleurTeam(int tourJ)
     {
         Color32 res;
-        switch ((Country.theTribes)tourJ)
+        switch ((Country.theTribes)[tourJ])
         {
-            case Country.theTribes.ALLEMAGNE:
+            case "Allemagne":
                 res = new Color32(180, 0, 0, 200);
                 break;
 
-            case Country.theTribes.FRANCE:
+            case "France":
                 res = new Color32(0, 24, 114, 200);
                 break;
 
-            case Country.theTribes.ANGLETERRE:
+            case "Angleterre":
                 res = new Color32(0, 180, 0, 200);
                 break;
             
-            case Country.theTribes.ESPAGNE:
+            case "Espagne":
                 res = new Color32(180, 90, 0, 200);
+                break;
+            
+            case "Empire":
+                res = new Color32(180, 0, 0, 200);
+                break;
+
+            case "Rebelle":
+                res = new Color32(71, 175, 14, 200);
+                break;
+
+            case "Mandalorien":
+                res = new Color32(80, 80, 80, 200);
+                break;
+            
+            case "Jedi":
+                res = new Color32(48, 110, 186, 200);
                 break;
             
             default:
@@ -584,11 +728,12 @@ public class CountryManager : MonoBehaviour
         return res;
     }
 
-    public void ShowSliderTroupe(int max)
+    public void ShowSliderTroupe(int max, int min)
     {
         valueSlider.gameObject.SetActive(true);
-        nbTroupePhaseUn.value = 0;
+        nbTroupePhaseUn.value = min;
         nbTroupePhaseUn.maxValue = max;
+        nbTroupePhaseUn.minValue = min; 
         nbTroupePhaseUn.gameObject.SetActive(true);
     }
 
@@ -607,6 +752,11 @@ public class CountryManager : MonoBehaviour
     public void setValueTextSlider()
     {
         valueSlider.text = nbTroupePhaseUn.value.ToString();
+    }
+    
+    public void setValueTextSliderVictoire()
+    {
+        this.textSliderVictoire.text = sliderVictoire.value.ToString();
     }
 
     public void SetTextPhase()
@@ -629,23 +779,14 @@ public class CountryManager : MonoBehaviour
     }
 
 
-
-
-
-
-
-
-
-
-
-
+    
     public void ConditionVictoire()
     {
         int resVictoire = 0;
         for (int i = 0; i < countryList.Count; i++)
         {
             CountryHandler countHandler = countryList[i].GetComponent<CountryHandler>();
-            if (countHandler.country.tribe == (Country.theTribes)TourJoueur)
+            if (countHandler.country.tribe == Country.theTribes[TourJoueur])
             {
                 resVictoire++;
             }

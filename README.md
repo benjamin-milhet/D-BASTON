@@ -4,9 +4,14 @@ D-BASTON is a video game made by four students in second year of the IT Universi
 This Game is based on the rules of the RISK, a game of conquest.
 
 https://github.com/Paulobergine
+
 https://github.com/Polochon58
+
 https://github.com/EnergiaWD
+
 https://github.com/Orchanyne
+
+
 
 Check this out !
 

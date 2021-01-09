@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>D - BASTON</title>
+    <link rel="shortcut icon" href="TemplateData/favicon.ico">
+    <link rel="stylesheet" href="TemplateData/style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="TemplateData/UnityProgress.js"></script>
+    <script src="Build/UnityLoader.js"></script>
+    <script>
+      var unityInstance = UnityLoader.instantiate("unityContainer", "Build/D-BASTON WEB.json", {onProgress: UnityProgress});
+    </script>
+  </head>
+  <body>
+    <div class="modal fade" id="resetBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content border-danger">
+          <div class="modal-header border-danger bg-dark">
+            <h5 class="modal-title text-center border-danger text-white" id="staticBackdropLabel">Attention, vous allez perdre toutes les données de votre partie !</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-footer border-danger bg-dark">
+            <div class="col text-center">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+              <a href="" class="btn" style="background-color: #299ad1; color: white;" role="button" aria-pressed="true">Continuer</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <style>body{background-color: #343A40 ; max-width: 100%; overflow-x: hidden; overflow-y: auto;} a:hover{text-decoration: none;}</style>
+    <a href="index.html"><h1 style="text-align: center; color: #299ad1; font-size: 350%; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; margin-top: 2%;">D - BASTON</h1></a>
+    <div class="webgl-content">
+      <div id="unityContainer" style="width: 1150px; height: 600px"></div>
+      <div class="footer">
+        <img src="reset.png" data-toggle="modal" data-target="#resetBackdrop">
+        <div class="fullscreen" onclick="unityInstance.SetFullscreen(1)"></div>
+      </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  </body>
+</html>

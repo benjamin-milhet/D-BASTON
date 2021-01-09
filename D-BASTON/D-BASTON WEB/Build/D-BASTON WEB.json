@@ -1,0 +1,16 @@
+{
+"companyName": "Les élites du Gange",
+"productName": "D-BASTON",
+"productVersion": "1.1",
+"dataUrl": "D-BASTON WEB.data.unityweb",
+"wasmCodeUrl": "D-BASTON WEB.wasm.code.unityweb",
+"wasmFrameworkUrl": "D-BASTON WEB.wasm.framework.unityweb",
+"graphicsAPI": ["WebGL 2.0","WebGL 1.0"],
+"webglContextAttributes": {"preserveDrawingBuffer": false},
+"splashScreenStyle": "Dark",
+"backgroundColor": "#343A40",
+"cacheControl": {"default": "must-revalidate"},
+"developmentBuild": false,
+"multithreading": false,
+"unityVersion": "2019.4.10f1"
+}

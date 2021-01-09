@@ -11,6 +11,8 @@ public class MenuManager : MonoBehaviour
 {
     public static MenuManager instance;
     public GameObject menu;
+    public GameObject menuCarte;
+    public GameObject boutonCarte;
     public Slider volumeMusique;
     public AudioSource audioMusique;
 
@@ -51,6 +53,11 @@ public class MenuManager : MonoBehaviour
         {
             menuList[i].SetActive(true);
         }
+
+        if (CountryManager.instance.DataMode != 2)
+        {
+            this.boutonCarte.SetActive(false);
+        }
         
     }
     
@@ -61,6 +68,15 @@ public class MenuManager : MonoBehaviour
     {
         menu.SetActive(true);
     }
+    
+    /// <summary>
+    /// Permet d'activer le menu carte
+    /// </summary>
+    public void ShowMenuCarte()
+    {
+        CountryManager.instance.desactiverTerritoire();
+        CountryManager.instance.AfficherCarte();
+    }
 
     /// <summary>
     /// Permet de desactiver le menu parametre
@@ -68,6 +84,15 @@ public class MenuManager : MonoBehaviour
     public void DisableMenu()
     {
         menu.SetActive(false);
+    }
+    
+    /// <summary>
+    /// Permet de desactiver le menu carte
+    /// </summary>
+    public void DisableMenuCarte()
+    {
+        menuCarte.SetActive(false);
+        CountryManager.instance.TintCountries();
     }
 
     /// <summary>
@@ -113,18 +138,18 @@ public class MenuManager : MonoBehaviour
         {
             //messagebox erreur
         }
+
         CountryManager.instance.DisableSliderTroupe();
         CountryManager.instance.nbTroupePhaseUn.value = 0;
         CountryManager.instance.CountryIsSelected = false;
         CountryManager.instance.TintCountries();
-        
+
         if (CountryManager.instance.NbTroupePhase1 <= 0)
         {
             CountryManager.instance.ChangementPhase();
-
         }
 
-    }
+}
 
     private void PhaseDeux()
     {
@@ -183,6 +208,7 @@ public class MenuManager : MonoBehaviour
 
         CountryManager.instance.CountryIsSelectedAttacked = false;
         CountryManager.instance.DisableSliderTroupe();
+        
         CountryManager.instance.TourJoueur++;
         
         this.Verification();
@@ -197,7 +223,12 @@ public class MenuManager : MonoBehaviour
 
     public void Verification()
     {
-        if (CountryManager.instance.TourJoueur > CountryManager.instance.NbJoueur-1)
+        int verif = (CountryManager.instance.NbJoueur - 1);
+        if (CountryManager.instance.NbJoueur > 4)
+        {
+            verif = 3;
+        }
+        if (CountryManager.instance.TourJoueur > verif)
         {
             CountryManager.instance.TourJoueur = 0;
         }
@@ -213,6 +244,13 @@ public class MenuManager : MonoBehaviour
     public void SetVolumeMusique()
     {
         this.audioMusique.volume = this.volumeMusique.value;
+    }
+    
+    public void retourMenu()
+    {
+        MenuPreparerPartie.DeleteSaveFile();
+        GameManager.instance.DeleteSaveFile();
+        SceneManager.LoadScene(0);
     }
     
     

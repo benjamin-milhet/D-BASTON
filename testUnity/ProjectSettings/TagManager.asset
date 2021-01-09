@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Country
   - Menu
+  - rebelle
+  - empire
   layers:
   - Default
   - TransparentFX

@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,6 +14,7 @@ public class FightSim : MonoBehaviour
     //Listes des résultats des dés 
     private static List<int> resultat = new List<int>();
     private static List<int> resultatAttacked = new List<int>();
+    public static bool fin;
 
     //Tous les types de dés
     public GameObject diceRD;
@@ -57,6 +58,7 @@ public class FightSim : MonoBehaviour
     private IEnumerator coroutine2;
     private IEnumerator coroutine3;
     private IEnumerator coroutine4;
+    private IEnumerator coroutine5;
 
     //GameObject à désactiver + fonds à activer 
     public GameObject menu;
@@ -67,6 +69,11 @@ public class FightSim : MonoBehaviour
     public GameObject jetJVR;
     public GameObject jetVVJ;
     public GameObject jetVVR;
+
+    //Images et textes finaux
+    public Canvas resAttackCanva;
+    public Canvas resAttackedCanva;
+    public Canvas resBastonCanva;
 
     //Instance des dés pour récupérer la valeur
     private Dice value11;
@@ -372,21 +379,20 @@ public class FightSim : MonoBehaviour
                 resultat.Add((int)r3+1);
             }
 
+            //Trie du tableau contenant les résultats des dés
+            resultat.Sort();
+
             //Début de la couroutine pour les autres dés
             coroutine4 = jet2(startDroite);
             StartCoroutine(coroutine4);
 
-            //Trie du tableau contenant les résultats des dés
-            resultat.Sort();
-            //resultatAttacked.Sort();
-
             //Démarre les 2 couroutines 
             coroutine = wait();
             StartCoroutine(coroutine);
-            coroutine2 = wait2();
+            coroutine2 = wait2(resultat, resultatAttacked);
             StartCoroutine(coroutine2);
-            coroutine3 = battle(resultat, resultatAttacked);
-            StartCoroutine(coroutine3);
+            coroutine5 = resBattle(resultat, resultatAttacked);
+            StartCoroutine(coroutine5);
 
             //Les territoires redevienent actifs 
             active = false;
@@ -457,8 +463,8 @@ public class FightSim : MonoBehaviour
         dice3.transform.position = new Vector2(8.9f, 6.83f);
     }   
 
-    //Couroutine qui après 10 secondes, désactive les dés adverses et réinitialise leur position
-    IEnumerator wait2()
+    //Couroutine qui après 10 secondes, désactive les dés adverses et réinitialise leur position, et affiche les images et valeurs de fin de baston
+    IEnumerator wait2(List<int> resultat, List<int> resultatAttacked)
     {
         yield return new WaitForSeconds(10.0f);
 
@@ -468,23 +474,8 @@ public class FightSim : MonoBehaviour
         dice5.transform.position = new Vector2(-8.9f, 6.83f);
         dice6.SetActive(false);
         dice6.transform.position = new Vector2(-8.9f, 6.83f);
-        menu.SetActive(true);
 
-        menu.SetActive(true);
-        passer.SetActive(true);
-        jetDes.SetActive(false);
-        jetBVJ.SetActive(false);
-        jetBVV.SetActive(false);
-        jetJVR.SetActive(false);
-        jetVVJ.SetActive(false);
-        jetVVR.SetActive(false);
-    }   
-
-    //Couroutine qui calcul les points en moins des deux territoires 
-    IEnumerator battle(List<int> resultat, List<int> resultatAttacked)
-    {
-        yield return new WaitForSeconds(10.0f);
-             
+        //Calcul pour savoir si c'est une victoire ou une défaite
         int res = 0;
         int resAttacked = 0;
 
@@ -523,6 +514,43 @@ public class FightSim : MonoBehaviour
         //Applique le résultat sur les territoires 
         bool fin = CountryManager.instance.ResAttaque(res,resAttacked);
 
+        resAttackCanva.gameObject.SetActive(true);
+        resAttackedCanva.gameObject.SetActive(true);
+        resBastonCanva.gameObject.SetActive(true);
+        bastonPanel bastonPanel = resBastonCanva.GetComponent<bastonPanel>();
+
+        string s1 = "";
+        string s2 = "";
+        if(res < resAttacked) {
+            s1 = Country.theTribes[CountryManager.instance.TourJoueur];
+            s2 = CountryManager.instance.countrySelectedAttacked.country.tribe;
+            if (Country.theTribes.Count > 4)
+            {
+                s1 = Country.theTribes[CountryManager.instance.TourJoueur + 4];
+                s2 = Country.theTribes[Country.theTribes.IndexOf(CountryManager.instance.countrySelectedAttacked.country.tribe) + 4];
+            }
+            
+            bastonPanel.infoBaston.text = "Le joueur " + s1 + " a gagné la baston !";
+            bastonPanel.infoPertes.text = "Le joueur " + s2 +  " perd " + resAttacked + " troupes";
+        }
+        else if (res == resAttacked)
+        {
+            bastonPanel.infoBaston.text = "Egalité !";
+            bastonPanel.infoPertes.text = "Les deux joueurs perdent une troupe";
+        }
+        else {
+            s1 = Country.theTribes[CountryManager.instance.TourJoueur];
+            s2 = CountryManager.instance.countrySelectedAttacked.country.tribe;
+            if (Country.theTribes.Count > 4)
+            {
+                s1 = Country.theTribes[CountryManager.instance.TourJoueur + 4];
+                s2 = Country.theTribes[Country.theTribes.IndexOf(CountryManager.instance.countrySelectedAttacked.country.tribe) + 4];
+            }
+            
+            bastonPanel.infoBaston.text = "Le joueur " + s2 + " a gagné la baston !";
+            bastonPanel.infoPertes.text = "Le joueur " + s1 + " perd " + res + " troupes";
+        }
+
         if (fin)
         {
             GameManager.instance.battleWon = true;
@@ -531,7 +559,42 @@ public class FightSim : MonoBehaviour
         {
             GameManager.instance.battleWon = false;
         }
+
+        resBastonPanel resBastonPanel = resAttackCanva.GetComponent<resBastonPanel>();
+        resBastonPanel resBastonPanel2 = resAttackedCanva.GetComponent<resBastonPanel>();
+        string resValue = "";
+        string resValueAtt = "";
+        for(int i = 0; i < resultat.Count; i++) {
+            resValue += "= " + resultat[i] + "\n";
+        }
+        for(int i = 0; i < resultatAttacked.Count; i++) {
+            resValueAtt += "= " + resultatAttacked[i] + "\n";
+        }
+        resBastonPanel.resDes.text = resValue;
+        resBastonPanel2.resDes.text = resValueAtt;
+    }   
+
+    IEnumerator resBattle(List<int> resultat, List<int> resultatAttacked) {
+        yield return new WaitForSeconds(17.0f);
+
+        jetDes.SetActive(false);
+        jetBVJ.SetActive(false);
+        jetBVV.SetActive(false);
+        jetJVR.SetActive(false);
+        jetVVJ.SetActive(false);
+        jetVVR.SetActive(false);
+
+        resAttackCanva.gameObject.SetActive(false);
+        resAttackedCanva.gameObject.SetActive(false);
+        resBastonCanva.gameObject.SetActive(false);
+
+        menu.SetActive(true);
+        passer.SetActive(true);
+
+        resultat.Clear();
+        resultatAttacked.Clear();
+
         GameManager.instance.battleHasEnded = true;
         CountryManager.instance.finFight();
-    }   
+    }
 }

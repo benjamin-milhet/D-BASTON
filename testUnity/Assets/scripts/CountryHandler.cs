@@ -92,7 +92,16 @@ public class CountryHandler : MonoBehaviour
     /// </summary>
     void ShowGUI()
     {
-        CountryManager.instance.ShowAttackPanel(country.name + " appartient aux " + country.tribe.ToString() + ". Est-ce que vous voulez vraiment les attaquer?");
+        string tribe;
+        if (Country.theTribes.Count > 4)
+        {
+            tribe = Country.theTribes[Country.theTribes.IndexOf(country.tribe) + 4];
+        }
+        else
+        {
+            tribe = country.tribe.ToString();
+        }
+        CountryManager.instance.ShowAttackPanel(country.name + " appartient aux " + tribe + ". Est-ce que vous voulez vraiment les attaquer?");
         GameManager.instance.attackedCountry = country.name;
         GameManager.instance.battleHasEnded = false;
         GameManager.instance.battleWon = false;

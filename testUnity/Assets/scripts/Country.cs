@@ -4,16 +4,6 @@ using UnityEngine;
 
 [System.Serializable]
 public class Country {
-    /// <summary>
-    /// Enumeration des equipes possibles
-    /// </summary>
-    /*public enum theTribes
-    {
-        ALLEMAGNE = 0,
-        FRANCE = 1,
-        ANGLETERRE = 2,
-        ESPAGNE = 3
-    }*/
     
     public static List<string> theTribes = new List<string>();
     
@@ -22,8 +12,9 @@ public class Country {
     public int moneyReward;
     public int expReward;
     public int nbTroupe;//Nombre de troupe sur ce territoire
-    
-     
+    public string camp;
+
+
 
 }
 

@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SWGame.unity
     guid: 6f232b0236e95ff4d9b4069b9d9015c5
+  - enabled: 1
+    path: Assets/Scenes/SWSpecial.unity
+    guid: ce3a59e7322d0694b8b104e5d0785bd3
   m_configObjects: {}

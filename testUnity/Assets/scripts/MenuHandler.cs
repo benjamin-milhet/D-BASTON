@@ -19,9 +19,11 @@ public class MenuHandler : MonoBehaviour
         {
             MenuManager.instance.NextAction();
         }
+        else if (name == "carte")
         {
-            
+            MenuManager.instance.ShowMenuCarte();
         }
+        
     }
     
     private void OnDrawGizmos()

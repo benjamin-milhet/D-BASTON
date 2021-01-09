@@ -18,10 +18,13 @@ public class CountryManager : MonoBehaviour
     public GameObject attackPanel; //Panel du combat
     public GameObject attaqueText;
     public GameObject finFightPanel;
+    public GameObject finPartiePanel;
+    public GameObject cartePanel;
     public Image couleurTeam; //Couleur de la team en cours
     public Slider nbTroupePhaseUn;
     public Text valueSlider;
     public Text textPhase;
+    public Text textCombat;
     public GameObject attaqueUI;
     public Canvas Team1;
     public Canvas Team2;
@@ -29,6 +32,20 @@ public class CountryManager : MonoBehaviour
     public Canvas Team4;
     public Slider sliderVictoire;
     public TextMeshProUGUI textSliderVictoire;
+    public TextMeshProUGUI textJ1;
+    public TextMeshProUGUI textJ2;
+    public TextMeshProUGUI textJ3;
+    public TextMeshProUGUI textJ4;
+    public Button carte1;
+    public Button carte2;
+    public Button carte3;
+    public TextMeshProUGUI valueCarte1;
+    public TextMeshProUGUI valueCarte2;
+    public TextMeshProUGUI valueCarte3;
+    public GameObject boutonCarte;
+    public GameObject boutonSuivant;
+    public GameObject boutonMenu;
+    
     private CountryHandler countrySlectedPhaseUn;
     public List<GameObject> countryList = new List<GameObject>();
     private bool countryIsSelected = false;
@@ -40,10 +57,22 @@ public class CountryManager : MonoBehaviour
     private int nbJoueur = 4;
     private bool countryIsSelectedAttacked;
     private int map;
+    private int nbTroupe;
+    private int nombreAttaque = 0;
+    private int dataNbAttaque = 4;
+    private int dataMode = 1;
     
+
+    private int isBonus = 1;
+
+    private List<int> carteJoueurRouge = new List<int>();
+    private List<int> carteJoueurBleu = new List<int>();
+    private List<int> carteJoueurVert = new List<int>();
+    private List<int> carteJoueurOrange = new List<int>();
     
+    public static bool territoireActive = false; 
     
-    
+    private List<string> classement = new List<string>();
     private List<CountryHandler> global = new List<CountryHandler>();
 
     
@@ -88,8 +117,7 @@ public class CountryManager : MonoBehaviour
         get => nbJoueur;
         set => nbJoueur = value;
     }
-    
-    
+
     public bool CountryIsSelectedAttacked
     {
         get => countryIsSelectedAttacked;
@@ -101,6 +129,24 @@ public class CountryManager : MonoBehaviour
         get => map;
         set => map = value;
     }
+    
+    public int NombreAttaque
+    {
+        get => nombreAttaque;
+        set => nombreAttaque = value;
+    }
+    
+    public int DataMode
+    {
+        get => dataMode;
+        set => dataMode = value;
+    }
+    
+    public List<string> Classement
+    {
+        get => classement;
+        set => classement = value;
+    }
 
     void Awake()
     {
@@ -110,31 +156,8 @@ public class CountryManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
         this.Loading();
-        
-        switch (this.map)
-        {
-            case 0:
-                Country.theTribes.Add("Allemagne");
-                Country.theTribes.Add("France");
-                Country.theTribes.Add("Angleterre");
-                Country.theTribes.Add("Espagne");
-                break;
-            case 1:
-                Country.theTribes.Add("Empire");
-                Country.theTribes.Add("Rebelle");
-                Country.theTribes.Add("Mandalorien");
-                Country.theTribes.Add("Jedi");
-                break;
-            default:
-                Country.theTribes.Add("Allemagne");
-                Country.theTribes.Add("France");
-                Country.theTribes.Add("Angleterre");
-                Country.theTribes.Add("Espagne");
-                break;
-        }
-        
+
         attackPanel.SetActive(false);
         AddCountryData();
         
@@ -154,6 +177,11 @@ public class CountryManager : MonoBehaviour
 
             this.nbJoueur = data.nbJoueur;
             this.map = data.map;
+            this.nbTroupe = data.nbTroupe;
+            Country.theTribes = data.tribe;
+            this.dataNbAttaque = data.nbAttaque;
+            this.dataMode = data.choixMode;
+            this.isBonus = data.isBonus;
 
 
             CountryManager.instance.TintCountries();
@@ -188,6 +216,12 @@ public class CountryManager : MonoBehaviour
     /// </summary>
     public void TintCountries()
     {
+        this.boutonMenu.SetActive(true);
+        this.boutonSuivant.SetActive(true);
+        if (this.nombreAttaque == this.dataNbAttaque)
+        {
+            this.ChangementPhase();
+        }
         for(int i = 0; i < countryList.Count; i++) //On parcouts tous les territoires
         {
             CountryHandler countHandler = countryList[i].GetComponent<CountryHandler>();//On recupere le CountryHandler de chaque territoires
@@ -231,6 +265,7 @@ public class CountryManager : MonoBehaviour
             this.global = new List<CountryHandler>();
             this.couleurTeam.color = this.getCouleurTeam(TourJoueur);
             countHandler.showTroupe();// On affiche le nombre de troupe sur le territoire
+            this.textCombat.text = "Combat restant : " + (this.dataNbAttaque - this.nombreAttaque).ToString();
             this.AfficherTeam();    
 
         }
@@ -242,14 +277,29 @@ public class CountryManager : MonoBehaviour
         
         teamPanel teamPanel = Team1.GetComponent<teamPanel>();
         teamPanel.nbCountry.text = CountryManager.instance.nbTerritoireTotal(0).ToString();
-        string tribe = Country.theTribes[0];
+        string tribe;
+        if (Country.theTribes.Count >= 5)
+        {
+             tribe = Country.theTribes[4];
+        }
+        else
+        {
+            tribe = Country.theTribes[0];
+        }
         teamPanel.nomTeam.text = tribe.ToString();
         teamPanel.nbTroupe.text = CountryManager.instance.nbTroupeTotal(0).ToString();
         teamPanel.bgcolor.color = this.getCouleurTeam(0);
         
         teamPanel teamPanel2 = Team2.GetComponent<teamPanel>();
         teamPanel2.nbCountry.text = CountryManager.instance.nbTerritoireTotal(1).ToString();
-        tribe = Country.theTribes[1];
+        if (Country.theTribes.Count >= 6)
+        {
+            tribe = Country.theTribes[5];
+        }
+        else
+        {
+            tribe = Country.theTribes[1];
+        }
         teamPanel2.nomTeam.text = tribe.ToString();
         teamPanel2.nbTroupe.text = CountryManager.instance.nbTroupeTotal(1).ToString();
         teamPanel2.bgcolor.color = this.getCouleurTeam(1);
@@ -259,7 +309,14 @@ public class CountryManager : MonoBehaviour
             Team3.gameObject.SetActive(true);
             teamPanel teamPanel3 = Team3.GetComponent<teamPanel>();
             teamPanel3.nbCountry.text = CountryManager.instance.nbTerritoireTotal(2).ToString();
-            tribe = Country.theTribes[2];
+            if (Country.theTribes.Count >= 7)
+            {
+                tribe = Country.theTribes[6];
+            }
+            else
+            {
+                tribe = Country.theTribes[2];
+            }
             teamPanel3.nomTeam.text = tribe.ToString();
             teamPanel3.nbTroupe.text = CountryManager.instance.nbTroupeTotal(2).ToString();
             teamPanel3.bgcolor.color = this.getCouleurTeam(2);
@@ -269,7 +326,14 @@ public class CountryManager : MonoBehaviour
                 Team4.gameObject.SetActive(true);
                 teamPanel teamPanel4 = Team4.GetComponent<teamPanel>();
                 teamPanel4.nbCountry.text = CountryManager.instance.nbTerritoireTotal(3).ToString();
-                tribe = Country.theTribes[3];
+                if (Country.theTribes.Count == 8)
+                {
+                    tribe = Country.theTribes[7];
+                }
+                else
+                {
+                    tribe = Country.theTribes[3];
+                }
                 teamPanel4.nomTeam.text = tribe.ToString();
                 teamPanel4.nbTroupe.text = CountryManager.instance.nbTroupeTotal(3).ToString();
                 teamPanel4.bgcolor.color = this.getCouleurTeam(3);
@@ -436,98 +500,202 @@ public class CountryManager : MonoBehaviour
 
     public void Initialisation()
     {
-        this.TourJoueur = 0;
-        List<int> addTerritoire = new List<int>();
-        for (int k = 0; k < this.nbJoueur; k++)
+        if (this.map == 2)
         {
-            addTerritoire.Add(0);
-        }
-
-        int i = 0;
-        int nbJ = 0;
-        if (this.map == 0)
-        {
-            if (this.nbJoueur == 3)
+            this.TourJoueur = 0;
+            int i = 0;
+            
+            while (i < countryList.Count)
             {
-                nbJ = 6;
+                if (countryList[i].GetComponent<CountryHandler>().country.camp == "rebelle" || countryList[i].GetComponent<CountryHandler>().country.camp == "rebelle1")
+                {
+                    countryList[i].GetComponent<CountryHandler>().country.tribe = Country.theTribes[1];
+                }
+                else
+                {
+                    countryList[i].GetComponent<CountryHandler>().country.tribe = Country.theTribes[0];
+                }
+                countryList[i].GetComponent<CountryHandler>().country.nbTroupe = 1;
+                i++;
             }
-            else if (this.nbJoueur == 2)
+            for (int ii = 0; ii < nbJoueur; ii++)
             {
-                nbJ = 9;
+                Random random = new Random();
+                int j = 0;
+                int totalTroupe = this.nbTroupe;
+                if (ii == 0)
+                {
+                    totalTroupe += 10;
+                }
+                while (j < totalTroupe)
+                {
+                    int res = random.Next(countryList.Count);
+                    if (countryList[res].GetComponent<CountryHandler>().country.tribe == Country.theTribes[ii])
+                    {
+                        countryList[res].GetComponent<CountryHandler>().country.nbTroupe += 1;
+                        j++;
+                    }
+                }
             }
-            else
-            {
-                nbJ = 5;
-            }
+            
         }
         else
         {
-            if (this.nbJoueur == 3)
+            this.TourJoueur = 0;
+            List<int> addTerritoire = new List<int>();
+            for (int k = 0; k < this.nbJoueur; k++)
             {
-                nbJ = 6;
+                addTerritoire.Add(0);
             }
-            else if (this.nbJoueur == 2)
+
+            int i = 0;
+            int nbJ = 0;
+            if (this.map == 0)
             {
-                nbJ = 8;
+                if (this.nbJoueur == 3)
+                {
+                    nbJ = 6;
+                }
+                else if (this.nbJoueur == 2)
+                {
+                    nbJ = 9;
+                }
+                else
+                {
+                    nbJ = 5;
+                }
             }
             else
             {
-                nbJ = 4;
-            }
-        }
-        
-        while (i < countryList.Count)
-        {
-            int t = UnityEngine.Random.Range(0, this.nbJoueur);
-            if (addTerritoire[t] < nbJ)
-            {
-                countryList[i].GetComponent<CountryHandler>().country.tribe = Country.theTribes[t];
-                countryList[i].GetComponent<CountryHandler>().country.nbTroupe = 1;
-                addTerritoire[t]+= 1;
-                i++;
-            }
-        }
-        for (int ii = 0; ii < nbJoueur; ii++)
-        {
-            int nbTroupeTotalParJoueur = 20;
-            Random random = new Random();
-            int j = 0;
-            while (j < nbTroupeTotalParJoueur)
-            {
-                int res = random.Next(countryList.Count);
-                if (countryList[res].GetComponent<CountryHandler>().country.tribe == Country.theTribes[ii])
+                if (this.nbJoueur == 3)
                 {
-                    countryList[res].GetComponent<CountryHandler>().country.nbTroupe += 1;
-                    j++;
+                    nbJ = 6;
+                }
+                else if (this.nbJoueur == 2)
+                {
+                    nbJ = 8;
+                }
+                else
+                {
+                    nbJ = 4;
+                }
+            }
+        
+            while (i < countryList.Count)
+            {
+                int t = UnityEngine.Random.Range(0, this.nbJoueur);
+                if (addTerritoire[t] < nbJ)
+                {
+                    countryList[i].GetComponent<CountryHandler>().country.tribe = Country.theTribes[t];
+                    countryList[i].GetComponent<CountryHandler>().country.nbTroupe = 1;
+                    addTerritoire[t]+= 1;
+                    i++;
+                }
+            }
+            for (int ii = 0; ii < nbJoueur; ii++)
+            {
+                Random random = new Random();
+                int j = 0;
+                while (j < this.nbTroupe)
+                {
+                    int res = random.Next(countryList.Count);
+                    if (countryList[res].GetComponent<CountryHandler>().country.tribe == Country.theTribes[ii])
+                    {
+                        countryList[res].GetComponent<CountryHandler>().country.nbTroupe += 1;
+                        j++;
 
                     
+                    }
                 }
             }
         }
-
+        
+        
+        
+        
         this.nbTroupePhase1 = this.nbTerritoire(TourJoueur);
         SetTextPhase();
-        TintCountries();
 
         
-       
+        this.carteJoueurRouge.Add(0);
+        this.carteJoueurRouge.Add(0);
+        this.carteJoueurRouge.Add(0);
         
+        this.carteJoueurBleu.Add(0);
+        this.carteJoueurBleu.Add(0);
+        this.carteJoueurBleu.Add(0);
+        
+        this.carteJoueurVert.Add(0);
+        this.carteJoueurVert.Add(0);
+        this.carteJoueurVert.Add(0);
+        
+        this.carteJoueurOrange.Add(0);
+        this.carteJoueurOrange.Add(0);
+        this.carteJoueurOrange.Add(0);
+        
+        TintCountries();
+
     }
 
     public bool ResAttaque(int t1, int t2)
     {
-        print(t1);
-        print(t2);
+        this.nombreAttaque++;
         bool res = false;
+        
         this.countrySelected.country.nbTroupe -= t1;
         this.countrySelectedAttacked.country.nbTroupe -= t2;
+        //this.countrySelectedAttacked.country.nbTroupe -= 500;
 
+        int modifNbTroupe = 0;
+        if (this.Map == 1 && this.isBonus == 1)
+            {
+                if (this.CountrySelected.country.name == "Mos_Eisley_Tatooine" && this.CountrySelectedAttacked.country.name == "Coruscant")
+                {
+                    if (this.CountrySelected.country.nbTroupe > 1)
+                    {
+                        Random random = new Random();
+                        int resRandom = random.Next(this.countrySelected.country.nbTroupe - 1);
+                        modifNbTroupe = resRandom;
+                    }
+                }
+                if (this.CountrySelected.country.name == "Coruscant" && this.CountrySelectedAttacked.country.name == "Mos_Eisley_Tatooine")
+                {
+                    if (CountryManager.instance.CountrySelected.country.nbTroupe > 1)
+                    {
+                        Random random = new Random();
+                        int resRandom = random.Next(this.countrySelected.country.nbTroupe - 1);
+                        modifNbTroupe = resRandom;
+                    }
+                }
+                if (this.CountrySelected.country.name == "Alderaan" && this.CountrySelectedAttacked.country.name == "Coruscant")
+                {
+                    if (this.CountrySelected.country.nbTroupe > 1)
+                    {
+                        Random random = new Random();
+                        int resRandom = random.Next(this.countrySelected.country.nbTroupe - 1);
+                        modifNbTroupe = resRandom;
+                    }
+                }
+                if (this.CountrySelected.country.name == "Coruscant" && this.CountrySelectedAttacked.country.name == "Alderaan")
+                {
+                    if (this.CountrySelected.country.nbTroupe > 1)
+                    {
+                        Random random = new Random();
+                        int resRandom = random.Next(this.countrySelected.country.nbTroupe - 1);
+                        modifNbTroupe = resRandom;
+                    } 
+                }
+
+                this.countrySelected.country.nbTroupe -= modifNbTroupe;
+            }
+            
         
         if (this.countrySelectedAttacked.country.nbTroupe <= 0)
         {
             this.countrySelected.country.nbTroupe -= 1;
             this.countrySelectedAttacked.country.nbTroupe = 1;
             res = true;
+            
         }
         TintCountries();
         
@@ -539,11 +707,25 @@ public class CountryManager : MonoBehaviour
     {
         if (GameManager.instance.battleHasEnded && GameManager.instance.battleWon)
         {
+            if (this.nbTerritoireTotal(Country.theTribes.IndexOf(countrySelectedAttacked.country.tribe)) == 1)
+            {
+                if (!this.Classement.Contains(Country.theTribes.IndexOf(countrySelectedAttacked.country.tribe).ToString()))
+                {
+                    this.Classement.Add(Country.theTribes.IndexOf(countrySelectedAttacked.country.tribe).ToString());
+                }
+            }
             countrySelectedAttacked.country.tribe = countrySelected.country.tribe;
-            this.finFightPanel.SetActive(true);
-            this.sliderVictoire.value = 0;
-            this.sliderVictoire.maxValue = countrySelected.country.nbTroupe - 1;
-
+            if (this.ConditionVictoire())
+            {
+                this.Victoire();
+                
+            }
+            else
+            {
+                this.finFightPanel.SetActive(true);
+                this.sliderVictoire.value = 0;
+                this.sliderVictoire.maxValue = countrySelected.country.nbTroupe - 1;
+            }
         }
         
         GameManager.instance.battleWon = false;
@@ -553,18 +735,43 @@ public class CountryManager : MonoBehaviour
 
     public void finFightVictoire()
     {
-        int valueslider = (int) this.sliderVictoire.value;
-        countrySelectedAttacked.country.nbTroupe += valueslider;
-        countrySelected.country.nbTroupe -= valueslider;
+       
         
-        this.finFightPanel.SetActive(false);
+            int valueslider = (int) this.sliderVictoire.value;
+            countrySelectedAttacked.country.nbTroupe += valueslider;
+            countrySelected.country.nbTroupe -= valueslider;
+        
+            this.finFightPanel.SetActive(false);
+            
+            Random random = new Random();
+            int res = random.Next(2);
+            print("=======" + res);
 
-        TintCountries();
-        this.ConditionVictoire();
+            switch (this.tourJoueur)
+            {
+                case 0:
+                    this.carteJoueurRouge[res]++;
+                    break;
+                case 1:
+                    this.carteJoueurBleu[res]++;
+                    break;
+                case 2:
+                    this.carteJoueurVert[res]++;
+                    break;
+                case 3:
+                    this.carteJoueurOrange[res]++;
+                    break;
+
+            }
+            
+            TintCountries();
         
-        GameManager.instance.battleWon = false;
-        GameManager.instance.battleHasEnded = false;
-        GameManager.instance.Saving();
+        
+            GameManager.instance.battleWon = false;
+            GameManager.instance.battleHasEnded = false;
+            GameManager.instance.Saving();
+        
+        
     }
 
     public int nbTerritoire(int tourJ)
@@ -594,7 +801,7 @@ public class CountryManager : MonoBehaviour
             res = 5;
         }
 
-        if (this.map == 1)
+        if (this.map == 1 && this.isBonus == 1)
         {
             for (int i = 0; i < countryList.Count; i++)
             {
@@ -668,11 +875,33 @@ public class CountryManager : MonoBehaviour
     {
         CountryManager.instance.CountryIsSelected = false;
         this.phaseEnCours++;
+        if (this.phaseEnCours == 2)
+        {
+            this.boutonCarte.SetActive(false);
+            this.textCombat.gameObject.SetActive(true);
+        }
+        if (this.phaseEnCours == 3)
+        {
+            this.textCombat.gameObject.SetActive(false);
+            this.nombreAttaque = 0;
+        }
         if (this.phaseEnCours > 3)
         {
             this.phaseEnCours = 1;
+            /*if (this.dataMode == 2)
+            {
+                this.AfficherCarte();
+            }*/
         }
         SetTextPhase();
+        if (this.phaseEnCours == 1)
+        {
+            if (this.dataMode == 2)
+            {
+                this.boutonCarte.SetActive(true);
+            }
+            
+        }
     }
     
     public void ResetPhase()
@@ -780,24 +1009,473 @@ public class CountryManager : MonoBehaviour
 
 
     
-    public void ConditionVictoire()
+    public bool ConditionVictoire()
     {
         int resVictoire = 0;
-        for (int i = 0; i < countryList.Count; i++)
+        bool res = false;
+        if (this.map == 2)
         {
-            CountryHandler countHandler = countryList[i].GetComponent<CountryHandler>();
-            if (countHandler.country.tribe == Country.theTribes[TourJoueur])
+            int resVictoireRebelle = 0;
+            int resVictoireEmpire = 0;
+            for (int i = 0; i < countryList.Count; i++)
             {
-                resVictoire++;
+                if (countryList[i].GetComponent<CountryHandler>().country.camp == "rebelle1")
+                {
+                    if (countryList[i].GetComponent<CountryHandler>().country.tribe == Country.theTribes[0])
+                    {
+                        resVictoireRebelle++;
+                    }
+                }
+                if (countryList[i].GetComponent<CountryHandler>().country.camp == "empire1")
+                {
+                    if (countryList[i].GetComponent<CountryHandler>().country.tribe == Country.theTribes[1])
+                    {
+                        resVictoireEmpire++;
+                    }
+                }
+            }
+
+            if (resVictoireRebelle == 4)
+            {
+                this.Classement.Add(Country.theTribes.IndexOf(Country.theTribes[1]).ToString());
+                res = true;
+            }
+            else if (resVictoireEmpire == 2)
+            {
+                this.Classement.Add(Country.theTribes.IndexOf(Country.theTribes[0]).ToString());
+                res = true;
+            }
+        }
+        else
+        {
+            for (int i = 0; i < countryList.Count; i++)
+            {
+                CountryHandler countHandler = countryList[i].GetComponent<CountryHandler>();
+                if (countHandler.country.tribe == Country.theTribes[TourJoueur])
+                {
+                    resVictoire++;
+                }
+            }
+
+            if (resVictoire == countryList.Count)
+            {
+                res = true;
+            }
+        }
+        
+        
+
+        return res;
+    }
+    
+    public void Victoire()
+    {
+        this.finPartiePanel.SetActive(true);
+            this.textJ3.gameObject.SetActive(false);
+            this.textJ4.gameObject.SetActive(false);
+            for (int i = 0; i < this.nbJoueur; i++)
+            {
+                if (!this.Classement.Contains(i.ToString()))
+                {
+                    this.Classement.Add(i.ToString());
+                }
+            }
+        
+            this.Classement.Reverse();
+            int position = 0;
+            int position2 = 0;
+            if (Country.theTribes.Count > 4)
+            {
+                position2 = 4;
+            }
+            this.textJ1.text = Country.theTribes[int.Parse(this.Classement[position])+position2];
+            this.textJ2.text = Country.theTribes[int.Parse(this.Classement[position + 1])+position2];
+            
+            if (this.nbJoueur >= 3)
+            {
+                this.textJ3.gameObject.SetActive(true);
+                this.textJ3.text = Country.theTribes[int.Parse(this.Classement[position + 2])];
+                if (this.nbJoueur == 4)
+                {
+                    this.textJ4.gameObject.SetActive(false);
+                    this.textJ4.text = Country.theTribes[int.Parse(this.Classement[position + 3])];
+                }
+            }
+            
+            //UnityEditor.EditorApplication.isPlaying = false;
+        }
+
+
+    public void AfficherCarte()
+    {
+        this.cartePanel.gameObject.SetActive(true);
+        if (this.map == 0)
+        {
+            switch (this.tourJoueur)
+            {
+                case 0:
+                    this.carte1.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteRouge1");
+                    this.carte2.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteRouge2");
+                    this.carte3.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteRouge3");
+                    this.valueCarte1.text = this.carteJoueurRouge[0].ToString();
+                    this.valueCarte2.text = this.carteJoueurRouge[1].ToString();
+                    this.valueCarte3.text = this.carteJoueurRouge[2].ToString();
+                    break;
+                case 1:
+                    this.carte1.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteBleu1");
+                    this.carte2.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteBleu2");
+                    this.carte3.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteBleu3");
+                    this.valueCarte1.text = this.carteJoueurBleu[0].ToString();
+                    this.valueCarte2.text = this.carteJoueurBleu[1].ToString();
+                    this.valueCarte3.text = this.carteJoueurBleu[2].ToString();
+                    break;
+                case 2:
+                    this.carte1.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteVert1");
+                    this.carte2.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteVert2");
+                    this.carte3.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteVert3");
+                    this.valueCarte1.text = this.carteJoueurVert[0].ToString();
+                    this.valueCarte2.text = this.carteJoueurVert[1].ToString();
+                    this.valueCarte3.text = this.carteJoueurVert[2].ToString();
+                    break;
+                case 3:
+                    this.carte1.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteOrange1");
+                    this.carte2.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteOrange2");
+                    this.carte3.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteOrange3");
+                    this.valueCarte1.text = this.carteJoueurOrange[0].ToString();
+                    this.valueCarte2.text = this.carteJoueurOrange[1].ToString();
+                    this.valueCarte3.text = this.carteJoueurOrange[2].ToString();
+                    break;
+                default:
+                    this.carte1.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteRouge1");
+                    this.carte2.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteRouge2");
+                    this.carte3.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteRouge3");
+                    this.valueCarte1.text = this.carteJoueurRouge[0].ToString();
+                    this.valueCarte2.text = this.carteJoueurRouge[1].ToString();
+                    this.valueCarte3.text = this.carteJoueurRouge[2].ToString();
+                    break;
+            }
+        }
+        else
+        {
+            switch (this.tourJoueur)
+            {
+                case 0:
+                    this.carte1.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteStarRouge1");
+                    this.carte2.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteStarRouge2");
+                    this.carte3.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteStarRouge3");
+                    this.valueCarte1.text = this.carteJoueurRouge[0].ToString();
+                    this.valueCarte2.text = this.carteJoueurRouge[1].ToString();
+                    this.valueCarte3.text = this.carteJoueurRouge[2].ToString();
+                    break;
+                case 1:
+                    this.carte1.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteStarVert1");
+                    this.carte2.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteStarVert2");
+                    this.carte3.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteStarVert3");
+                    this.valueCarte1.text = this.carteJoueurBleu[0].ToString();
+                    this.valueCarte2.text = this.carteJoueurBleu[1].ToString();
+                    this.valueCarte3.text = this.carteJoueurBleu[2].ToString();
+                    break;
+                case 2:
+                    this.carte1.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteStarGris1");
+                    this.carte2.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteStarGris2");
+                    this.carte3.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteStarGris3");
+                    this.valueCarte1.text = this.carteJoueurVert[0].ToString();
+                    this.valueCarte2.text = this.carteJoueurVert[1].ToString();
+                    this.valueCarte3.text = this.carteJoueurVert[2].ToString();
+                    break;
+                case 3:
+                    this.carte1.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteStarBleu1");
+                    this.carte2.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteStarBleu2");
+                    this.carte3.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteStarBleu3");
+                    this.valueCarte1.text = this.carteJoueurOrange[0].ToString();
+                    this.valueCarte2.text = this.carteJoueurOrange[1].ToString();
+                    this.valueCarte3.text = this.carteJoueurOrange[2].ToString();
+                    break;
+                default:
+                    this.carte1.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteStarRouge1");
+                    this.carte2.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteStarRouge2");
+                    this.carte3.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteStarRouge3");
+                    this.valueCarte1.text = this.carteJoueurRouge[0].ToString();
+                    this.valueCarte2.text = this.carteJoueurRouge[1].ToString();
+                    this.valueCarte3.text = this.carteJoueurRouge[2].ToString();
+                    break;
             }
         }
 
-        if (resVictoire == countryList.Count)
-        {
-            MenuPreparerPartie.DeleteSaveFile();
-            GameManager.instance.DeleteSaveFile();
-            SceneManager.LoadScene(0);
-            //UnityEditor.EditorApplication.isPlaying = false;
-        }
+
     }
+
+
+    public void BonusCarte1()
+    {
+        if (this.map == 0)
+        {
+            switch (this.tourJoueur)
+            {
+                case 0:
+                    if (this.carteJoueurRouge[0] > 0)
+                    {
+                        this.nbTroupePhase1 += 1;
+                        this.carteJoueurRouge[0]--;
+                        this.cartePanel.gameObject.SetActive(false);
+                    }
+
+                    break;
+                case 1:
+                    if (this.carteJoueurBleu[0] > 0)
+                    {
+                        this.nbTroupePhase1 += 1;
+                        this.carteJoueurBleu[0]--;
+                        this.cartePanel.gameObject.SetActive(false);
+                    }
+
+                    break;
+                case 2:
+                    if (this.carteJoueurVert[0] > 0)
+                    {
+                        this.nbTroupePhase1 += 2;
+                        this.carteJoueurVert[0]--;
+                        this.cartePanel.gameObject.SetActive(false);
+                    }
+
+                    break;
+                case 3:
+                    if (this.carteJoueurOrange[0] > 0)
+                    {
+                        this.nbTroupePhase1 += 1;
+                        this.carteJoueurOrange[0]--;
+                        this.cartePanel.gameObject.SetActive(false);
+                    }
+
+                    break;
+            }
+        }
+        else
+        {
+            switch (this.tourJoueur)
+            {
+                case 0:
+                    if (this.carteJoueurRouge[0] > 0)
+                    {
+                        this.nbTroupePhase1 += 2;
+                        this.carteJoueurRouge[0]--;
+                        this.cartePanel.gameObject.SetActive(false);
+                    }
+
+                    break;
+                case 1:
+                    if (this.carteJoueurBleu[0] > 0)
+                    {
+                        this.nbTroupePhase1 += 2;
+                        this.carteJoueurBleu[0]--;
+                        this.cartePanel.gameObject.SetActive(false);
+                    }
+
+                    break;
+                case 2:
+                    if (this.carteJoueurVert[0] > 0)
+                    {
+                        this.nbTroupePhase1 += 2;
+                        this.carteJoueurVert[0]--;
+                        this.cartePanel.gameObject.SetActive(false);
+                    }
+
+                    break;
+                case 3:
+                    if (this.carteJoueurOrange[0] > 0)
+                    {
+                        this.nbTroupePhase1 += 2;
+                        this.carteJoueurOrange[0]--;
+                        this.cartePanel.gameObject.SetActive(false);
+                    }
+
+                    break;
+            }
+        }
+
+        this.TintCountries();
+    }
+    
+    public void BonusCarte2()
+    {
+        if (this.map == 0)
+        {
+            switch (this.tourJoueur)
+            {
+                case 0:
+                    if (this.carteJoueurRouge[1] > 0)
+                    {
+                        this.nbTroupePhase1 += 3;
+                        this.carteJoueurRouge[1]--;
+                        this.cartePanel.gameObject.SetActive(false);
+                    }
+                    break;
+                case 1:
+                    if (this.carteJoueurBleu[1] > 0)
+                    {
+                        this.nbTroupePhase1 += 4;
+                        this.carteJoueurBleu[1]--;
+                        this.cartePanel.gameObject.SetActive(false);
+                    }
+                    break;
+                case 2:
+                    if (this.carteJoueurVert[1] > 0)
+                    {
+                        this.nbTroupePhase1 += 3;
+                        this.carteJoueurVert[1]--;
+                        this.cartePanel.gameObject.SetActive(false);
+                    }
+                    break;
+                case 3:
+                    if (this.carteJoueurOrange[1] > 0)
+                    {
+                        this.nbTroupePhase1 += 4;
+                        this.carteJoueurOrange[1]--;
+                        this.cartePanel.gameObject.SetActive(false);
+                    }
+                    break;
+            } 
+        }
+        else
+        {
+            switch (this.tourJoueur)
+            {
+                case 0:
+                    if (this.carteJoueurRouge[1] > 0)
+                    {
+                        this.nbTroupePhase1 += 6;
+                        this.carteJoueurRouge[1]--;
+                        this.cartePanel.gameObject.SetActive(false);
+                    }
+                    break;
+                case 1:
+                    if (this.carteJoueurBleu[1] > 0)
+                    {
+                        this.nbTroupePhase1 += 6;
+                        this.carteJoueurBleu[1]--;
+                        this.cartePanel.gameObject.SetActive(false);
+                    }
+                    break;
+                case 2:
+                    if (this.carteJoueurVert[1] > 0)
+                    {
+                        this.nbTroupePhase1 += 6;
+                        this.carteJoueurVert[1]--;
+                        this.cartePanel.gameObject.SetActive(false);
+                    }
+                    break;
+                case 3:
+                    if (this.carteJoueurOrange[1] > 0)
+                    {
+                        this.nbTroupePhase1 += 6;
+                        this.carteJoueurOrange[1]--;
+                        this.cartePanel.gameObject.SetActive(false);
+                    }
+                    break;
+            }
+        }
+        
+        this.TintCountries();
+    }
+    
+    public void BonusCarte3()
+    {
+        if (this.map == 0)
+        {
+            switch (this.tourJoueur)
+            {
+                case 0:
+                    if (this.carteJoueurRouge[2] > 0)
+                    {
+                        this.nbTroupePhase1 += 8;
+                        this.carteJoueurRouge[2]--;
+                        this.cartePanel.gameObject.SetActive(false);
+                    }
+                    break;
+                case 1:
+                    if (this.carteJoueurBleu[2] > 0)
+                    {
+                        this.nbTroupePhase1 += 7;
+                        this.carteJoueurBleu[2]--;
+                        this.cartePanel.gameObject.SetActive(false);
+                    }
+                    break;
+                case 2:
+                    if (this.carteJoueurVert[2] > 0)
+                    {
+                        this.nbTroupePhase1 += 7;
+                        this.carteJoueurVert[2]--;
+                        this.cartePanel.gameObject.SetActive(false);
+                    }
+                    break;
+                case 3:
+                    if (this.carteJoueurOrange[2] > 0)
+                    {
+                        this.nbTroupePhase1 += 7;
+                        this.carteJoueurOrange[2]--;
+                        this.cartePanel.gameObject.SetActive(false);
+                    }
+                    break;
+            }
+        }
+        else
+        {
+            switch (this.tourJoueur)
+            {
+                case 0:
+                    if (this.carteJoueurRouge[2] > 0)
+                    {
+                        this.nbTroupePhase1 += 9;
+                        this.carteJoueurRouge[2]--;
+                        this.cartePanel.gameObject.SetActive(false);
+                    }
+                    break;
+                case 1:
+                    if (this.carteJoueurBleu[2] > 0)
+                    {
+                        this.nbTroupePhase1 += 9;
+                        this.carteJoueurBleu[2]--;
+                        this.cartePanel.gameObject.SetActive(false);
+                    }
+                    break;
+                case 2:
+                    if (this.carteJoueurVert[2] > 0)
+                    {
+                        this.nbTroupePhase1 += 9;
+                        this.carteJoueurVert[2]--;
+                        this.cartePanel.gameObject.SetActive(false);
+                    }
+                    break;
+                case 3:
+                    if (this.carteJoueurOrange[2] > 0)
+                    {
+                        this.nbTroupePhase1 += 9;
+                        this.carteJoueurOrange[2]--;
+                        this.cartePanel.gameObject.SetActive(false);
+                    }
+                    break;
+            }
+        }
+       
+        this.TintCountries();
+    }
+
+    public void desactiverTerritoire()
+    {
+        //Récupère la liste de touts les territoires et les désactives 
+        for(int i = 0; i < countryList.Count; i++)
+        {
+            CountryHandler countHandler = countryList[i].GetComponent<CountryHandler>();
+            countryList[i].SetActive(false);
+        }
+
+        //Indique si tous les territoires ont été désactivés 
+        if(!countryList[(countryList.Count)-1].activeSelf) {
+            territoireActive = true;
+        }
+        
+        this.boutonMenu.SetActive(false);
+        this.boutonSuivant.SetActive(false);
+    }
+    
 }

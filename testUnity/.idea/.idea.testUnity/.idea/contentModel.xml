@@ -12,6 +12,7 @@
         <e p="scripts" t="Include">
           <e p="AffichageTroupe.cs" t="Include" />
           <e p="AttackPanel.cs" t="Include" />
+          <e p="bastonPanel.cs" t="Include" />
           <e p="Country.cs" t="Include" />
           <e p="CountryHandler.cs" t="Include" />
           <e p="CountryManager.cs" t="Include" />
@@ -26,6 +27,7 @@
           <e p="MenuPreparerPartie.cs" t="Include" />
           <e p="opacity.cs" t="Include" />
           <e p="Partie.cs" t="Include" />
+          <e p="resBastonPanel.cs" t="Include" />
           <e p="teamPanel.cs" t="Include" />
         </e>
         <e p="TextMesh Pro" t="Include">

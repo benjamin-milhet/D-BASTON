@@ -738,6 +738,18 @@
  </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Carte_Europe_D-BASTON.PNG" />
+    <Content Include="Combat_2_D-BASTON.PNG" />
+    <Content Include="Combat_3_D-BASTON.PNG" />
+    <Content Include="Combat_D-BASTON.PNG" />
+    <Content Include="Conquête_D-BASTON.PNG" />
+    <Content Include="Europe_D-BASTON.PNG" />
+    <Content Include="Menu_2_D-BASTON.PNG" />
+    <Content Include="Menu_D-BASTON.PNG" />
+    <Content Include="Regle_2_D-BASTON.PNG" />
+    <Content Include="Regle_D-BASTON.PNG" />
+    <Content Include="SW_Carte_D-BASTON.PNG" />
+    <Content Include="SW_D-BASTON.PNG" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

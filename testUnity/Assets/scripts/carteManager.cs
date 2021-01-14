@@ -67,33 +67,33 @@ public class carteManager : MonoBehaviour
             switch (CountryManager.instance.TourJoueur)
             {
                 case 0:
-                    this.carte1.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteRouge1");
-                    this.carte2.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteRouge2");
-                    this.carte3.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteRouge3");
+                    this.carte1.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteEurope/carteRouge1");
+                    this.carte2.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteEurope/carteRouge2");
+                    this.carte3.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteEurope/carteRouge3");
                     this.valueCarte1.text = this.carteJoueurRouge[0].ToString();
                     this.valueCarte2.text = this.carteJoueurRouge[1].ToString();
                     this.valueCarte3.text = this.carteJoueurRouge[2].ToString();
                     break;
                 case 1:
-                    this.carte1.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteBleu1");
-                    this.carte2.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteBleu2");
-                    this.carte3.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteBleu3");
+                    this.carte1.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteEurope/carteBleu1");
+                    this.carte2.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteEurope/carteBleu2");
+                    this.carte3.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteEurope/carteBleu3");
                     this.valueCarte1.text = this.carteJoueurBleu[0].ToString();
                     this.valueCarte2.text = this.carteJoueurBleu[1].ToString();
                     this.valueCarte3.text = this.carteJoueurBleu[2].ToString();
                     break;
                 case 2:
-                    this.carte1.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteVert1");
-                    this.carte2.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteVert2");
-                    this.carte3.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteVert3");
+                    this.carte1.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteEurope/carteVert1");
+                    this.carte2.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteEurope/carteVert2");
+                    this.carte3.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteEurope/carteVert3");
                     this.valueCarte1.text = this.carteJoueurVert[0].ToString();
                     this.valueCarte2.text = this.carteJoueurVert[1].ToString();
                     this.valueCarte3.text = this.carteJoueurVert[2].ToString();
                     break;
                 case 3:
-                    this.carte1.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteOrange1");
-                    this.carte2.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteOrange2");
-                    this.carte3.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteOrange3");
+                    this.carte1.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteEurope/carteOrange1");
+                    this.carte2.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteEurope/carteOrange2");
+                    this.carte3.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteEurope/carteOrange3");
                     this.valueCarte1.text = this.carteJoueurOrange[0].ToString();
                     this.valueCarte2.text = this.carteJoueurOrange[1].ToString();
                     this.valueCarte3.text = this.carteJoueurOrange[2].ToString();
@@ -114,41 +114,41 @@ public class carteManager : MonoBehaviour
             switch (CountryManager.instance.TourJoueur)
             {
                 case 0:
-                    this.carte1.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteStarRouge1");
-                    this.carte2.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteStarRouge2");
-                    this.carte3.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteStarRouge3");
+                    this.carte1.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteSW/carteStarRouge1");
+                    this.carte2.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteSW/carteStarRouge2");
+                    this.carte3.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteSW/carteStarRouge3");
                     this.valueCarte1.text = this.carteJoueurRouge[0].ToString();
                     this.valueCarte2.text = this.carteJoueurRouge[1].ToString();
                     this.valueCarte3.text = this.carteJoueurRouge[2].ToString();
                     break;
                 case 1:
-                    this.carte1.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteStarVert1");
-                    this.carte2.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteStarVert2");
-                    this.carte3.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteStarVert3");
+                    this.carte1.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteSW/carteStarVert1");
+                    this.carte2.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteSW/carteStarVert2");
+                    this.carte3.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteSW/carteStarVert3");
                     this.valueCarte1.text = this.carteJoueurBleu[0].ToString();
                     this.valueCarte2.text = this.carteJoueurBleu[1].ToString();
                     this.valueCarte3.text = this.carteJoueurBleu[2].ToString();
                     break;
                 case 2:
-                    this.carte1.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteStarGris1");
-                    this.carte2.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteStarGris2");
-                    this.carte3.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteStarGris3");
+                    this.carte1.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteSW/carteStarGris1");
+                    this.carte2.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteSW/carteStarGris2");
+                    this.carte3.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteSW/carteStarGris3");
                     this.valueCarte1.text = this.carteJoueurVert[0].ToString();
                     this.valueCarte2.text = this.carteJoueurVert[1].ToString();
                     this.valueCarte3.text = this.carteJoueurVert[2].ToString();
                     break;
                 case 3:
-                    this.carte1.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteStarBleu1");
-                    this.carte2.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteStarBleu2");
-                    this.carte3.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteStarBleu3");
+                    this.carte1.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteSW/carteStarBleu1");
+                    this.carte2.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteSW/carteStarBleu2");
+                    this.carte3.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteSW/carteStarBleu3");
                     this.valueCarte1.text = this.carteJoueurOrange[0].ToString();
                     this.valueCarte2.text = this.carteJoueurOrange[1].ToString();
                     this.valueCarte3.text = this.carteJoueurOrange[2].ToString();
                     break;
                 default:
-                    this.carte1.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteStarRouge1");
-                    this.carte2.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteStarRouge2");
-                    this.carte3.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteStarRouge3");
+                    this.carte1.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteSW/carteStarRouge1");
+                    this.carte2.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteSW/carteStarRouge2");
+                    this.carte3.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteSW/carteStarRouge3");
                     this.valueCarte1.text = this.carteJoueurRouge[0].ToString();
                     this.valueCarte2.text = this.carteJoueurRouge[1].ToString();
                     this.valueCarte3.text = this.carteJoueurRouge[2].ToString();

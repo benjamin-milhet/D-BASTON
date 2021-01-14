@@ -8,19 +8,20 @@ public class carteManager : MonoBehaviour
 {
     public static carteManager instance; //Instance du menu en cours
     
-    public GameObject cartePanel;
-    public Button carte1;
-    public Button carte2;
-    public Button carte3;
-    public TextMeshProUGUI valueCarte1;
-    public TextMeshProUGUI valueCarte2;
-    public TextMeshProUGUI valueCarte3;
+    public GameObject cartePanel; //Panel pour afficher le menu des cartes bonus
+    public Button carte1; // carte numero 1
+    public Button carte2; // carte numero 2
+    public Button carte3; // carte numero 3
+    public TextMeshProUGUI valueCarte1; //Nombre de carte numero 1
+    public TextMeshProUGUI valueCarte2; //Nombre de carte numero 2
+    public TextMeshProUGUI valueCarte3; //Nombre de carte numero 3
     
-    private List<int> carteJoueurRouge = new List<int>();
-    private List<int> carteJoueurBleu = new List<int>();
-    private List<int> carteJoueurVert = new List<int>();
-    private List<int> carteJoueurOrange = new List<int>();
+    private List<int> carteJoueurRouge = new List<int>(); //Liste des cartes du joueur 1
+    private List<int> carteJoueurBleu = new List<int>(); //Liste des cartes du joueur 2
+    private List<int> carteJoueurVert = new List<int>(); //Liste des cartes du joueur 3
+    private List<int> carteJoueurOrange = new List<int>(); //Liste des cartes du joueur 4
     
+    //Properties
     public List<int> CarteJoueurRouge
     {
         get => carteJoueurRouge;

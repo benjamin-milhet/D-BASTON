@@ -422,8 +422,8 @@ public class MenuPreparerPartie : MonoBehaviour
         {
             this.choixMap.options.Clear();
             info1 = new Dropdown.OptionData();
-            info1 = new Dropdown.OptionData();
-            info2.text = "Europe";
+            info2 = new Dropdown.OptionData();
+            info1.text = "Europe";
             info2.text = "Star Wars";
             this.choixMap.options.Add(info1);
             this.choixMap.options.Add(info2);

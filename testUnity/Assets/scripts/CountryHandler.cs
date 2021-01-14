@@ -102,9 +102,9 @@ public class CountryHandler : MonoBehaviour
             tribe = country.tribe.ToString();
         }
         CountryManager.instance.ShowAttackPanel(country.name + " appartient aux " + tribe + ". Est-ce que vous voulez vraiment les attaquer?");
-        GameManager.instance.attackedCountry = country.name;
-        GameManager.instance.battleHasEnded = false;
-        GameManager.instance.battleWon = false;
+        CountryManager.instance.CountrySelected.country.name = country.name;
+        CountryManager.instance.battleHasEnded = false;
+        CountryManager.instance.battleWon = false;
         CountryManager.instance.CountrySelectedAttacked = this;
     }
 
@@ -182,7 +182,6 @@ public class CountryHandler : MonoBehaviour
             else //Si un territoire est deja selectionne
             {
                 CountryManager.instance.CountryIsSelected = false; //on indique qu'aucun territoire n'est selectionne
-                CountryManager.instance.DisableAttaqueText();
                 CountryManager.instance.TintCountries();//On reaffiche tous les territoires
             }
 
@@ -190,7 +189,6 @@ public class CountryHandler : MonoBehaviour
         else if (country.tribe != Country.theTribes[CountryManager.instance.TourJoueur] && CountryManager.instance.CountryIsSelected)//Si on clique sur un territoire ennemi apres avoir selectionne un de ses territoires
         {
             CountryManager.instance.CountryIsSelected = false; //on indique qu'aucun territoire n'est selectionne
-            CountryManager.instance.DisableAttaqueText();
             ShowGUI(); //On affiche l'interface d'attaque
 
         }

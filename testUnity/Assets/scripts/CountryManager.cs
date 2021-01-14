@@ -16,10 +16,8 @@ public class CountryManager : MonoBehaviour
 
     //Variables
     public GameObject attackPanel; //Panel du combat
-    public GameObject attaqueText;
     public GameObject finFightPanel;
     public GameObject finPartiePanel;
-    public GameObject cartePanel;
     public Image couleurTeam; //Couleur de la team en cours
     public Slider nbTroupePhaseUn;
     public Text valueSlider;
@@ -36,12 +34,7 @@ public class CountryManager : MonoBehaviour
     public TextMeshProUGUI textJ2;
     public TextMeshProUGUI textJ3;
     public TextMeshProUGUI textJ4;
-    public Button carte1;
-    public Button carte2;
-    public Button carte3;
-    public TextMeshProUGUI valueCarte1;
-    public TextMeshProUGUI valueCarte2;
-    public TextMeshProUGUI valueCarte3;
+    
     public GameObject boutonCarte;
     public GameObject boutonSuivant;
     public GameObject boutonMenu;
@@ -51,7 +44,7 @@ public class CountryManager : MonoBehaviour
     private bool countryIsSelected = false;
     private CountryHandler countrySelected = null;
     private int phaseEnCours = 1;
-    private int nbTroupePhase1 = 0;
+    public int nbTroupePhase1 = 0;
     public CountryHandler countrySelectedAttacked = null;
     private int tourJoueur; //Permet de savoir le tour de quel joueur est en cours
     private int nbJoueur = 4;
@@ -61,14 +54,11 @@ public class CountryManager : MonoBehaviour
     private int nombreAttaque = 0;
     private int dataNbAttaque = 4;
     private int dataMode = 1;
+    public bool battleHasEnded;
+    public bool battleWon;
     
 
     private int isBonus = 1;
-
-    private List<int> carteJoueurRouge = new List<int>();
-    private List<int> carteJoueurBleu = new List<int>();
-    private List<int> carteJoueurVert = new List<int>();
-    private List<int> carteJoueurOrange = new List<int>();
     
     public static bool territoireActive = false; 
     
@@ -160,8 +150,6 @@ public class CountryManager : MonoBehaviour
 
         attackPanel.SetActive(false);
         AddCountryData();
-        
-        GameManager.instance.Saving();
     }
 
     
@@ -206,7 +194,6 @@ public class CountryManager : MonoBehaviour
         }
         
         Initialisation(); //Initialisation de la partie
-        GameManager.instance.Loading(); //Load le fichier text de sauvegarde
         TintCountries();//Affiche tout les terriotires avec leurs informations, tribu, ...
         
     }
@@ -370,7 +357,7 @@ public class CountryManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Permet de desactiver 
+    /// Permet de desactiver le panel de préparation du combat et réaffiche la carte 
     /// </summary>
     public void DisableAttackPanel()
     {
@@ -404,34 +391,21 @@ public class CountryManager : MonoBehaviour
         attaqueUI.SetActive(false);
     }
     
-    public void ShowAttaqueText()
-    {
-        attaqueText.SetActive(true);
-    }
-
-    public void DisableAttaqueText()
-    {
-        attaqueText.SetActive(false);
-    }
-
+    
     /// <summary>
-    /// 
+    /// Permet d'afficher tous les territoires ennemies adjacent au territoire alliées sélectionnées
     /// </summary>
     /// <param name="country">Le territoire selectionne allie pour le combat</param>
     public void TintAttaqueCountries(CountryHandler country)
     {
         this.countrySelected = country;
+            //Sur tout les territoires, on désactive toux ceux qui ne font pas partie de sa liste de voisin ou qui appartiene a la même equipe
             for (int j = 0; j < countryList.Count; j++)
             {
                 if (!country.voisins.Contains(countryList[j].GetComponent<CountryHandler>()) && country != countryList[j].GetComponent<CountryHandler>())
                 {
                     countryList[j].SetActive(false);
                 }
-                else
-                {
-                    //print(countryList[j].name);
-                }
-                
             }
             foreach (CountryHandler c in country.voisins)
             {
@@ -485,6 +459,10 @@ public class CountryManager : MonoBehaviour
         }
     }
     
+    /// <summary>
+    /// Permet de desactiver tous les territoires sauf celui sélectionné
+    /// </summary>
+    /// <param name="country">territoire sélectionné</param>
     public void TintThisCountries(CountryHandler country)
     {
         this.countrySlectedPhaseUn = country;
@@ -498,6 +476,9 @@ public class CountryManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Initialise tous les paramètre de la partie
+    /// </summary>
     public void Initialisation()
     {
         if (this.map == 2)
@@ -610,33 +591,36 @@ public class CountryManager : MonoBehaviour
             }
         }
         
-        
-        
-        
-        this.nbTroupePhase1 = this.nbTerritoire(TourJoueur);
+        this.nbTroupePhase1 = this.nbtroupeTerritoire(TourJoueur);
         SetTextPhase();
 
         
-        this.carteJoueurRouge.Add(0);
-        this.carteJoueurRouge.Add(0);
-        this.carteJoueurRouge.Add(0);
+        carteManager.instance.CarteJoueurRouge.Add(0);
+        carteManager.instance.CarteJoueurRouge.Add(0);
+        carteManager.instance.CarteJoueurRouge.Add(0);
         
-        this.carteJoueurBleu.Add(0);
-        this.carteJoueurBleu.Add(0);
-        this.carteJoueurBleu.Add(0);
+        carteManager.instance.CarteJoueurBleu.Add(0);
+        carteManager.instance.CarteJoueurBleu.Add(0);
+        carteManager.instance.CarteJoueurBleu.Add(0);
         
-        this.carteJoueurVert.Add(0);
-        this.carteJoueurVert.Add(0);
-        this.carteJoueurVert.Add(0);
+        carteManager.instance.CarteJoueurVert.Add(0);
+        carteManager.instance.CarteJoueurVert.Add(0);
+        carteManager.instance.CarteJoueurVert.Add(0);
         
-        this.carteJoueurOrange.Add(0);
-        this.carteJoueurOrange.Add(0);
-        this.carteJoueurOrange.Add(0);
+        carteManager.instance.CarteJoueurOrange.Add(0);
+        carteManager.instance.CarteJoueurOrange.Add(0);
+        carteManager.instance.CarteJoueurOrange.Add(0);
         
         TintCountries();
 
     }
 
+    /// <summary>
+    /// recupere les résultats d'un combat
+    /// </summary>
+    /// <param name="t1"></param>
+    /// <param name="t2"></param>
+    /// <returns></returns>
     public bool ResAttaque(int t1, int t2)
     {
         this.nombreAttaque++;
@@ -705,7 +689,7 @@ public class CountryManager : MonoBehaviour
 
     public void finFight()
     {
-        if (GameManager.instance.battleHasEnded && GameManager.instance.battleWon)
+        if (this.battleHasEnded && this.battleWon)
         {
             if (this.nbTerritoireTotal(Country.theTribes.IndexOf(countrySelectedAttacked.country.tribe)) == 1)
             {
@@ -728,9 +712,8 @@ public class CountryManager : MonoBehaviour
             }
         }
         
-        GameManager.instance.battleWon = false;
-        GameManager.instance.battleHasEnded = false;
-        GameManager.instance.Saving();
+        this.battleWon = false;
+        this.battleHasEnded = false;
     }
 
     public void finFightVictoire()
@@ -750,16 +733,16 @@ public class CountryManager : MonoBehaviour
             switch (this.tourJoueur)
             {
                 case 0:
-                    this.carteJoueurRouge[res]++;
+                    carteManager.instance.CarteJoueurRouge[res]++;
                     break;
                 case 1:
-                    this.carteJoueurBleu[res]++;
+                    carteManager.instance.CarteJoueurBleu[res]++;
                     break;
                 case 2:
-                    this.carteJoueurVert[res]++;
+                    carteManager.instance.CarteJoueurVert[res]++;
                     break;
                 case 3:
-                    this.carteJoueurOrange[res]++;
+                    carteManager.instance.CarteJoueurOrange[res]++;
                     break;
 
             }
@@ -767,14 +750,18 @@ public class CountryManager : MonoBehaviour
             TintCountries();
         
         
-            GameManager.instance.battleWon = false;
-            GameManager.instance.battleHasEnded = false;
-            GameManager.instance.Saving();
+            this.battleWon = false;
+            this.battleHasEnded = false;
         
         
     }
 
-    public int nbTerritoire(int tourJ)
+    /// <summary>
+    /// Permet de connaitre le nombre de troupe que le joueur peut déploiyé dans la phase 1 en fonction du nombre de territoire qu'il possède
+    /// </summary>
+    /// <param name="tourJ">numero du joueur en cours</param>
+    /// <returns>le nombre de troupe que le joueur en cours peut deployé</returns>
+    public int nbtroupeTerritoire(int tourJ)
     {
         string tribe = Country.theTribes[tourJ];
         int count = 0;
@@ -800,46 +787,64 @@ public class CountryManager : MonoBehaviour
         {
             res = 5;
         }
-
+        
+        //si le joueur a choisi la map star wars et a active les bonus de territoire
         if (this.map == 1 && this.isBonus == 1)
         {
-            for (int i = 0; i < countryList.Count; i++)
-            {
-                CountryHandler countHandler = countryList[i].GetComponent<CountryHandler>();
-                if (countHandler.country.name == "Arme_Etoile_de_la_Mort" || countHandler.country.name == "Réacteur_Etoile_de_la_Mort")
-                {
-                    if (countHandler.country.tribe == tribe && tribe == "Empire")
-                    {
-                        res += 3;
-                    }
-                }
-                if (countHandler.country.name == "Endor" || countHandler.country.name == "Hoth" || countHandler.country.name == "Naboo")
-                {
-                    if (countHandler.country.tribe == tribe && tribe == "Rebelle")
-                    {
-                        res += 2;
-                    }
-                }
-                if (countHandler.country.name == "Lothal" || countHandler.country.name == "Mandalore" || countHandler.country.name == "Ilum")
-                {
-                    if (countHandler.country.tribe == tribe && tribe == "Mandalorien")
-                    {
-                        res += 2;
-                    }
-                }
-                if (countHandler.country.name == "Coruscant")
-                {
-                    if (countHandler.country.tribe == tribe && tribe == "Jedi")
-                    {
-                        res += 5;
-                    }
-                }
-            }
+            res += this.nbTroupeContrainteStarWars(tribe);
         }
         
         return res;
     }
+
+    /// <summary>
+    /// lorsque le joueur possede certain territoire en fonction de son equipe, il gagne un bonus de troupe
+    /// </summary>
+    /// <returns>le nombre de troupe bonus</returns>
+    public int nbTroupeContrainteStarWars(string tribe)
+    {
+        int res = 0;
+        for (int i = 0; i < countryList.Count; i++)
+        {
+            CountryHandler countHandler = countryList[i].GetComponent<CountryHandler>();
+            if (countHandler.country.name == "Arme_Etoile_de_la_Mort" || countHandler.country.name == "Réacteur_Etoile_de_la_Mort")
+            {
+                if (countHandler.country.tribe == tribe && tribe == "Empire")
+                {
+                    res += 3;
+                }
+            }
+            if (countHandler.country.name == "Endor" || countHandler.country.name == "Hoth" || countHandler.country.name == "Naboo")
+            {
+                if (countHandler.country.tribe == tribe && tribe == "Rebelle")
+                {
+                    res += 2;
+                }
+            }
+            if (countHandler.country.name == "Lothal" || countHandler.country.name == "Mandalore" || countHandler.country.name == "Ilum")
+            {
+                if (countHandler.country.tribe == tribe && tribe == "Mandalorien")
+                {
+                    res += 2;
+                }
+            }
+            if (countHandler.country.name == "Coruscant")
+            {
+                if (countHandler.country.tribe == tribe && tribe == "Jedi")
+                {
+                    res += 5;
+                }
+            }
+        }
     
+        return res;
+    }
+    
+    /// <summary>
+    /// Permet de savoir combien le joueur en cours possède de territoire
+    /// </summary>
+    /// <param name="tourJ">numero du joueur en cours</param>
+    /// <returns>son nombre de territoire</returns>
     public int nbTerritoireTotal(int tourJ)
     {
         string tribe = Country.theTribes[tourJ];
@@ -855,6 +860,12 @@ public class CountryManager : MonoBehaviour
         
         return count;
     }
+    
+    /// <summary>
+    /// Permet de savoir combien le joueur en cours possède de troupe
+    /// </summary>
+    /// <param name="tourJ">numero du joueur en cours</param>
+    /// <returns>Son nombre de troupe</returns>
     public int nbTroupeTotal(int tourJ)
     {
         string tribe = Country.theTribes[tourJ];
@@ -871,12 +882,16 @@ public class CountryManager : MonoBehaviour
         return count;
     }
 
+    /// <summary>
+    /// Permet de changer de phase de jeu, de deploiement à combat à déplacemnets puis de nouveau a deploiements masi avec le joueur suivant
+    /// </summary>
     public void ChangementPhase()
     {
         CountryManager.instance.CountryIsSelected = false;
         this.phaseEnCours++;
         if (this.phaseEnCours == 2)
-        {
+        {    
+            //On desactive le bouton qui mène au menu des cartes
             this.boutonCarte.SetActive(false);
             this.textCombat.gameObject.SetActive(true);
         }
@@ -885,15 +900,15 @@ public class CountryManager : MonoBehaviour
             this.textCombat.gameObject.SetActive(false);
             this.nombreAttaque = 0;
         }
+        //On repasse a la phase 1
         if (this.phaseEnCours > 3)
         {
             this.phaseEnCours = 1;
-            /*if (this.dataMode == 2)
-            {
-                this.AfficherCarte();
-            }*/
         }
+        //On affiche le bon texte en fonction de la phase
         SetTextPhase();
+        
+        //Si le mode de jeu cart est activé, on affiche le bouton lorsque l'on passe a la phase 1
         if (this.phaseEnCours == 1)
         {
             if (this.dataMode == 2)
@@ -904,14 +919,11 @@ public class CountryManager : MonoBehaviour
         }
     }
     
-    public void ResetPhase()
-    {
-        CountryManager.instance.CountryIsSelected = false;
-        this.nbTroupePhase1 = this.nbTerritoire(TourJoueur);
-        this.phaseEnCours = 1;
-        SetTextPhase();
-    }
-
+    /// <summary>
+    /// Permet de recuperer la couleur de l'équipe en fonction de son nom de base
+    /// </summary>
+    /// <param name="tourJ">numero du joueur en cours</param>
+    /// <returns>Sa couleur</returns>
     public Color32 getCouleurTeam(int tourJ)
     {
         Color32 res;
@@ -957,6 +969,12 @@ public class CountryManager : MonoBehaviour
         return res;
     }
 
+    /// <summary>
+    /// Permet d'afficher le slider pour choisir le nombre de troupe a déployé lors de la phase 1
+    /// Ou de choisir le nombre de troupe a déplace lors de la phase 3
+    /// </summary>
+    /// <param name="max">valeur maximum du slider</param>
+    /// <param name="min">valeur minimum du slider</param>
     public void ShowSliderTroupe(int max, int min)
     {
         valueSlider.gameObject.SetActive(true);
@@ -966,6 +984,9 @@ public class CountryManager : MonoBehaviour
         nbTroupePhaseUn.gameObject.SetActive(true);
     }
 
+    /// <summary>
+    /// Permet de desactiver 
+    /// </summary>
     public void DisableSliderTroupe()
     {
         valueSlider.gameObject.SetActive(false);
@@ -973,21 +994,34 @@ public class CountryManager : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Permet de récuperer la valeur du slider 
+    /// </summary>
+    /// <returns>la valeur du slider</returns>
     public int getValueSlider()
     {
         return (int) nbTroupePhaseUn.value;
     }
 
+    /// <summary>
+    /// Permet d'afficher la valeur du slider en dessous de celui-ci
+    /// </summary>
     public void setValueTextSlider()
     {
         valueSlider.text = nbTroupePhaseUn.value.ToString();
     }
     
+    /// <summary>
+    /// Permet d'afficher la valeur du slider une fois un territoire remporté
+    /// </summary>
     public void setValueTextSliderVictoire()
     {
         this.textSliderVictoire.text = sliderVictoire.value.ToString();
     }
 
+    /// <summary>
+    /// Suivant la phase de jeu, affiche le nom de la phase
+    /// </summary>
     public void SetTextPhase()
     {
         String res = "";
@@ -1008,15 +1042,20 @@ public class CountryManager : MonoBehaviour
     }
 
 
-    
+    /// <summary>
+    /// Permet de savoir si un joueur a gagné la partie
+    /// </summary>
+    /// <returns>true si le joueur du tour en cours a gagné la partie après un combat</returns>
     public bool ConditionVictoire()
     {
         int resVictoire = 0;
         bool res = false;
+        //Condition de victoire pour le mode conquete
         if (this.map == 2)
         {
             int resVictoireRebelle = 0;
             int resVictoireEmpire = 0;
+            //On regarde si chaque équipe a capturé leur objectif
             for (int i = 0; i < countryList.Count; i++)
             {
                 if (countryList[i].GetComponent<CountryHandler>().country.camp == "rebelle1")
@@ -1034,7 +1073,6 @@ public class CountryManager : MonoBehaviour
                     }
                 }
             }
-
             if (resVictoireRebelle == 4)
             {
                 this.Classement.Add(Country.theTribes.IndexOf(Country.theTribes[1]).ToString());
@@ -1062,17 +1100,20 @@ public class CountryManager : MonoBehaviour
                 res = true;
             }
         }
-        
-        
-
         return res;
     }
     
+    /// <summary>
+    /// Arrete la partie et affiche le classement final
+    /// </summary>
     public void Victoire()
     {
+        //On affiche la panel
         this.finPartiePanel.SetActive(true);
             this.textJ3.gameObject.SetActive(false);
             this.textJ4.gameObject.SetActive(false);
+            
+            //On récupere la classement qui est établie au fur et a mesur qu'un joueur perd
             for (int i = 0; i < this.nbJoueur; i++)
             {
                 if (!this.Classement.Contains(i.ToString()))
@@ -1080,10 +1121,11 @@ public class CountryManager : MonoBehaviour
                     this.Classement.Add(i.ToString());
                 }
             }
-        
+            //On met le classement dans le bonne ordre
             this.Classement.Reverse();
             int position = 0;
             int position2 = 0;
+            //On affiche le classement
             if (Country.theTribes.Count > 4)
             {
                 position2 = 4;
@@ -1102,363 +1144,10 @@ public class CountryManager : MonoBehaviour
                 }
             }
             
-            //UnityEditor.EditorApplication.isPlaying = false;
-        }
-
-
-    public void AfficherCarte()
-    {
-        this.cartePanel.gameObject.SetActive(true);
-        if (this.map == 0)
-        {
-            switch (this.tourJoueur)
-            {
-                case 0:
-                    this.carte1.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteRouge1");
-                    this.carte2.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteRouge2");
-                    this.carte3.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteRouge3");
-                    this.valueCarte1.text = this.carteJoueurRouge[0].ToString();
-                    this.valueCarte2.text = this.carteJoueurRouge[1].ToString();
-                    this.valueCarte3.text = this.carteJoueurRouge[2].ToString();
-                    break;
-                case 1:
-                    this.carte1.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteBleu1");
-                    this.carte2.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteBleu2");
-                    this.carte3.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteBleu3");
-                    this.valueCarte1.text = this.carteJoueurBleu[0].ToString();
-                    this.valueCarte2.text = this.carteJoueurBleu[1].ToString();
-                    this.valueCarte3.text = this.carteJoueurBleu[2].ToString();
-                    break;
-                case 2:
-                    this.carte1.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteVert1");
-                    this.carte2.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteVert2");
-                    this.carte3.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteVert3");
-                    this.valueCarte1.text = this.carteJoueurVert[0].ToString();
-                    this.valueCarte2.text = this.carteJoueurVert[1].ToString();
-                    this.valueCarte3.text = this.carteJoueurVert[2].ToString();
-                    break;
-                case 3:
-                    this.carte1.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteOrange1");
-                    this.carte2.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteOrange2");
-                    this.carte3.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteOrange3");
-                    this.valueCarte1.text = this.carteJoueurOrange[0].ToString();
-                    this.valueCarte2.text = this.carteJoueurOrange[1].ToString();
-                    this.valueCarte3.text = this.carteJoueurOrange[2].ToString();
-                    break;
-                default:
-                    this.carte1.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteRouge1");
-                    this.carte2.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteRouge2");
-                    this.carte3.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteRouge3");
-                    this.valueCarte1.text = this.carteJoueurRouge[0].ToString();
-                    this.valueCarte2.text = this.carteJoueurRouge[1].ToString();
-                    this.valueCarte3.text = this.carteJoueurRouge[2].ToString();
-                    break;
-            }
-        }
-        else
-        {
-            switch (this.tourJoueur)
-            {
-                case 0:
-                    this.carte1.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteStarRouge1");
-                    this.carte2.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteStarRouge2");
-                    this.carte3.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteStarRouge3");
-                    this.valueCarte1.text = this.carteJoueurRouge[0].ToString();
-                    this.valueCarte2.text = this.carteJoueurRouge[1].ToString();
-                    this.valueCarte3.text = this.carteJoueurRouge[2].ToString();
-                    break;
-                case 1:
-                    this.carte1.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteStarVert1");
-                    this.carte2.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteStarVert2");
-                    this.carte3.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteStarVert3");
-                    this.valueCarte1.text = this.carteJoueurBleu[0].ToString();
-                    this.valueCarte2.text = this.carteJoueurBleu[1].ToString();
-                    this.valueCarte3.text = this.carteJoueurBleu[2].ToString();
-                    break;
-                case 2:
-                    this.carte1.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteStarGris1");
-                    this.carte2.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteStarGris2");
-                    this.carte3.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteStarGris3");
-                    this.valueCarte1.text = this.carteJoueurVert[0].ToString();
-                    this.valueCarte2.text = this.carteJoueurVert[1].ToString();
-                    this.valueCarte3.text = this.carteJoueurVert[2].ToString();
-                    break;
-                case 3:
-                    this.carte1.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteStarBleu1");
-                    this.carte2.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteStarBleu2");
-                    this.carte3.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteStarBleu3");
-                    this.valueCarte1.text = this.carteJoueurOrange[0].ToString();
-                    this.valueCarte2.text = this.carteJoueurOrange[1].ToString();
-                    this.valueCarte3.text = this.carteJoueurOrange[2].ToString();
-                    break;
-                default:
-                    this.carte1.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteStarRouge1");
-                    this.carte2.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteStarRouge2");
-                    this.carte3.GetComponent<Image>().sprite = Resources.Load<Sprite>("carteStarRouge3");
-                    this.valueCarte1.text = this.carteJoueurRouge[0].ToString();
-                    this.valueCarte2.text = this.carteJoueurRouge[1].ToString();
-                    this.valueCarte3.text = this.carteJoueurRouge[2].ToString();
-                    break;
-            }
-        }
-
-
     }
 
 
-    public void BonusCarte1()
-    {
-        if (this.map == 0)
-        {
-            switch (this.tourJoueur)
-            {
-                case 0:
-                    if (this.carteJoueurRouge[0] > 0)
-                    {
-                        this.nbTroupePhase1 += 1;
-                        this.carteJoueurRouge[0]--;
-                        this.cartePanel.gameObject.SetActive(false);
-                    }
-
-                    break;
-                case 1:
-                    if (this.carteJoueurBleu[0] > 0)
-                    {
-                        this.nbTroupePhase1 += 1;
-                        this.carteJoueurBleu[0]--;
-                        this.cartePanel.gameObject.SetActive(false);
-                    }
-
-                    break;
-                case 2:
-                    if (this.carteJoueurVert[0] > 0)
-                    {
-                        this.nbTroupePhase1 += 2;
-                        this.carteJoueurVert[0]--;
-                        this.cartePanel.gameObject.SetActive(false);
-                    }
-
-                    break;
-                case 3:
-                    if (this.carteJoueurOrange[0] > 0)
-                    {
-                        this.nbTroupePhase1 += 1;
-                        this.carteJoueurOrange[0]--;
-                        this.cartePanel.gameObject.SetActive(false);
-                    }
-
-                    break;
-            }
-        }
-        else
-        {
-            switch (this.tourJoueur)
-            {
-                case 0:
-                    if (this.carteJoueurRouge[0] > 0)
-                    {
-                        this.nbTroupePhase1 += 2;
-                        this.carteJoueurRouge[0]--;
-                        this.cartePanel.gameObject.SetActive(false);
-                    }
-
-                    break;
-                case 1:
-                    if (this.carteJoueurBleu[0] > 0)
-                    {
-                        this.nbTroupePhase1 += 2;
-                        this.carteJoueurBleu[0]--;
-                        this.cartePanel.gameObject.SetActive(false);
-                    }
-
-                    break;
-                case 2:
-                    if (this.carteJoueurVert[0] > 0)
-                    {
-                        this.nbTroupePhase1 += 2;
-                        this.carteJoueurVert[0]--;
-                        this.cartePanel.gameObject.SetActive(false);
-                    }
-
-                    break;
-                case 3:
-                    if (this.carteJoueurOrange[0] > 0)
-                    {
-                        this.nbTroupePhase1 += 2;
-                        this.carteJoueurOrange[0]--;
-                        this.cartePanel.gameObject.SetActive(false);
-                    }
-
-                    break;
-            }
-        }
-
-        this.TintCountries();
-    }
     
-    public void BonusCarte2()
-    {
-        if (this.map == 0)
-        {
-            switch (this.tourJoueur)
-            {
-                case 0:
-                    if (this.carteJoueurRouge[1] > 0)
-                    {
-                        this.nbTroupePhase1 += 3;
-                        this.carteJoueurRouge[1]--;
-                        this.cartePanel.gameObject.SetActive(false);
-                    }
-                    break;
-                case 1:
-                    if (this.carteJoueurBleu[1] > 0)
-                    {
-                        this.nbTroupePhase1 += 4;
-                        this.carteJoueurBleu[1]--;
-                        this.cartePanel.gameObject.SetActive(false);
-                    }
-                    break;
-                case 2:
-                    if (this.carteJoueurVert[1] > 0)
-                    {
-                        this.nbTroupePhase1 += 3;
-                        this.carteJoueurVert[1]--;
-                        this.cartePanel.gameObject.SetActive(false);
-                    }
-                    break;
-                case 3:
-                    if (this.carteJoueurOrange[1] > 0)
-                    {
-                        this.nbTroupePhase1 += 4;
-                        this.carteJoueurOrange[1]--;
-                        this.cartePanel.gameObject.SetActive(false);
-                    }
-                    break;
-            } 
-        }
-        else
-        {
-            switch (this.tourJoueur)
-            {
-                case 0:
-                    if (this.carteJoueurRouge[1] > 0)
-                    {
-                        this.nbTroupePhase1 += 6;
-                        this.carteJoueurRouge[1]--;
-                        this.cartePanel.gameObject.SetActive(false);
-                    }
-                    break;
-                case 1:
-                    if (this.carteJoueurBleu[1] > 0)
-                    {
-                        this.nbTroupePhase1 += 6;
-                        this.carteJoueurBleu[1]--;
-                        this.cartePanel.gameObject.SetActive(false);
-                    }
-                    break;
-                case 2:
-                    if (this.carteJoueurVert[1] > 0)
-                    {
-                        this.nbTroupePhase1 += 6;
-                        this.carteJoueurVert[1]--;
-                        this.cartePanel.gameObject.SetActive(false);
-                    }
-                    break;
-                case 3:
-                    if (this.carteJoueurOrange[1] > 0)
-                    {
-                        this.nbTroupePhase1 += 6;
-                        this.carteJoueurOrange[1]--;
-                        this.cartePanel.gameObject.SetActive(false);
-                    }
-                    break;
-            }
-        }
-        
-        this.TintCountries();
-    }
-    
-    public void BonusCarte3()
-    {
-        if (this.map == 0)
-        {
-            switch (this.tourJoueur)
-            {
-                case 0:
-                    if (this.carteJoueurRouge[2] > 0)
-                    {
-                        this.nbTroupePhase1 += 8;
-                        this.carteJoueurRouge[2]--;
-                        this.cartePanel.gameObject.SetActive(false);
-                    }
-                    break;
-                case 1:
-                    if (this.carteJoueurBleu[2] > 0)
-                    {
-                        this.nbTroupePhase1 += 7;
-                        this.carteJoueurBleu[2]--;
-                        this.cartePanel.gameObject.SetActive(false);
-                    }
-                    break;
-                case 2:
-                    if (this.carteJoueurVert[2] > 0)
-                    {
-                        this.nbTroupePhase1 += 7;
-                        this.carteJoueurVert[2]--;
-                        this.cartePanel.gameObject.SetActive(false);
-                    }
-                    break;
-                case 3:
-                    if (this.carteJoueurOrange[2] > 0)
-                    {
-                        this.nbTroupePhase1 += 7;
-                        this.carteJoueurOrange[2]--;
-                        this.cartePanel.gameObject.SetActive(false);
-                    }
-                    break;
-            }
-        }
-        else
-        {
-            switch (this.tourJoueur)
-            {
-                case 0:
-                    if (this.carteJoueurRouge[2] > 0)
-                    {
-                        this.nbTroupePhase1 += 9;
-                        this.carteJoueurRouge[2]--;
-                        this.cartePanel.gameObject.SetActive(false);
-                    }
-                    break;
-                case 1:
-                    if (this.carteJoueurBleu[2] > 0)
-                    {
-                        this.nbTroupePhase1 += 9;
-                        this.carteJoueurBleu[2]--;
-                        this.cartePanel.gameObject.SetActive(false);
-                    }
-                    break;
-                case 2:
-                    if (this.carteJoueurVert[2] > 0)
-                    {
-                        this.nbTroupePhase1 += 9;
-                        this.carteJoueurVert[2]--;
-                        this.cartePanel.gameObject.SetActive(false);
-                    }
-                    break;
-                case 3:
-                    if (this.carteJoueurOrange[2] > 0)
-                    {
-                        this.nbTroupePhase1 += 9;
-                        this.carteJoueurOrange[2]--;
-                        this.cartePanel.gameObject.SetActive(false);
-                    }
-                    break;
-            }
-        }
-       
-        this.TintCountries();
-    }
 
     public void desactiverTerritoire()
     {

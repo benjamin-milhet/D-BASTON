@@ -13,20 +13,17 @@
           <e p="AffichageTroupe.cs" t="Include" />
           <e p="AttackPanel.cs" t="Include" />
           <e p="bastonPanel.cs" t="Include" />
+          <e p="carteManager.cs" t="Include" />
           <e p="Country.cs" t="Include" />
           <e p="CountryHandler.cs" t="Include" />
           <e p="CountryManager.cs" t="Include" />
           <e p="Dice.cs" t="Include" />
           <e p="Dice2.cs" t="Include" />
           <e p="FightSim.cs" t="Include" />
-          <e p="GameManager.cs" t="Include" />
-          <e p="Joueur.cs" t="Include" />
           <e p="MenuHandler.cs" t="Include" />
-          <e p="MenuJeu.cs" t="Include" />
           <e p="MenuManager.cs" t="Include" />
           <e p="MenuPreparerPartie.cs" t="Include" />
           <e p="opacity.cs" t="Include" />
-          <e p="Partie.cs" t="Include" />
           <e p="resBastonPanel.cs" t="Include" />
           <e p="teamPanel.cs" t="Include" />
         </e>
@@ -105,20 +102,8 @@
           </e>
         </e>
       </e>
-      <e p="Carte_Europe_D-BASTON.PNG" t="Include" />
-      <e p="Combat_2_D-BASTON.PNG" t="Include" />
-      <e p="Combat_3_D-BASTON.PNG" t="Include" />
-      <e p="Combat_D-BASTON.PNG" t="Include" />
-      <e p="Conquête_D-BASTON.PNG" t="Include" />
-      <e p="Europe_D-BASTON.PNG" t="Include" />
-      <e p="Menu_2_D-BASTON.PNG" t="Include" />
-      <e p="Menu_D-BASTON.PNG" t="Include" />
       <e p="obj" t="ExcludeRecursive" />
       <e p="packages" t="ExcludeRecursive" />
-      <e p="Regle_2_D-BASTON.PNG" t="Include" />
-      <e p="Regle_D-BASTON.PNG" t="Include" />
-      <e p="SW_Carte_D-BASTON.PNG" t="Include" />
-      <e p="SW_D-BASTON.PNG" t="Include" />
       <e p="Temp\bin" t="ExcludeRecursive" />
       <e p="testUnity.sln" t="IncludeFlat" />
     </e>

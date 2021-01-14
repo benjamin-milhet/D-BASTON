@@ -121,105 +121,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &5686686
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5686690}
-  - component: {fileID: 5686689}
-  - component: {fileID: 5686688}
-  - component: {fileID: 5686687}
-  m_Layer: 5
-  m_Name: attaque
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &5686687
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5686686}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
---- !u!114 &5686688
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5686686}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
-  m_ReferencePixelsPerUnit: 100
-  m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
-  m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
-  m_PhysicalUnit: 3
-  m_FallbackScreenDPI: 96
-  m_DefaultSpriteDPI: 96
-  m_DynamicPixelsPerUnit: 1
---- !u!223 &5686689
-Canvas:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5686686}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 2
-  m_Camera: {fileID: 519420031}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 0
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
-  m_TargetDisplay: 0
---- !u!224 &5686690
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5686686}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.028132737, y: 0.028132737, z: 0.028132737}
-  m_Children:
-  - {fileID: 900304481}
-  m_Father: {fileID: 0}
-  m_RootOrder: 27
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 808.00006, y: 371}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &6018680
 GameObject:
   m_ObjectHideFlags: 0
@@ -320,8 +221,6 @@ MonoBehaviour:
   country:
     name: czech
     tribe: 0
-    moneyReward: 0
-    expReward: 0
     nbTroupe: 1
     camp: 
   nbTroupeUI: {fileID: 1262424279}
@@ -1219,7 +1118,7 @@ RectTransform:
   m_Children:
   - {fileID: 1362230433}
   m_Father: {fileID: 0}
-  m_RootOrder: 44
+  m_RootOrder: 43
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2094,7 +1993,7 @@ RectTransform:
   m_Children:
   - {fileID: 573491807}
   m_Father: {fileID: 0}
-  m_RootOrder: 42
+  m_RootOrder: 41
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2208,7 +2107,7 @@ RectTransform:
   - {fileID: 365631756}
   - {fileID: 1477637148}
   m_Father: {fileID: 0}
-  m_RootOrder: 50
+  m_RootOrder: 49
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -3684,7 +3583,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 859943188}
+      - m_Target: {fileID: 1709932930}
         m_MethodName: BonusCarte1
         m_Mode: 1
         m_Arguments:
@@ -4827,8 +4726,6 @@ MonoBehaviour:
   country:
     name: danemark
     tribe: 0
-    moneyReward: 0
-    expReward: 0
     nbTroupe: 1
     camp: 
   nbTroupeUI: {fileID: 1332038659}
@@ -5637,7 +5534,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 31
+  m_RootOrder: 30
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &367427197
 GameObject:
@@ -6499,8 +6396,6 @@ MonoBehaviour:
   country:
     name: switzerland
     tribe: 1
-    moneyReward: 0
-    expReward: 0
     nbTroupe: 8
     camp: 
   nbTroupeUI: {fileID: 1844792388}
@@ -6733,8 +6628,6 @@ MonoBehaviour:
   country:
     name: french-north
     tribe: 0
-    moneyReward: 0
-    expReward: 0
     nbTroupe: 7
     camp: 
   nbTroupeUI: {fileID: 73844802}
@@ -7321,8 +7214,6 @@ MonoBehaviour:
   country:
     name: portugal
     tribe: 0
-    moneyReward: 10
-    expReward: 20
     nbTroupe: 2
     camp: 
   nbTroupeUI: {fileID: 1874506509}
@@ -7412,7 +7303,7 @@ Transform:
   - {fileID: 975630281}
   - {fileID: 1719913883}
   m_Father: {fileID: 0}
-  m_RootOrder: 39
+  m_RootOrder: 38
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &493618508
 GameObject:
@@ -7845,8 +7736,6 @@ MonoBehaviour:
   country:
     name: french-south
     tribe: 1
-    moneyReward: 50
-    expReward: 300
     nbTroupe: 5
     camp: 
   nbTroupeUI: {fileID: 1358977371}
@@ -8323,7 +8212,7 @@ RectTransform:
   m_Children:
   - {fileID: 1008401386}
   m_Father: {fileID: 0}
-  m_RootOrder: 45
+  m_RootOrder: 44
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -8455,7 +8344,7 @@ Transform:
   - {fileID: 413647796}
   - {fileID: 676038996}
   m_Father: {fileID: 0}
-  m_RootOrder: 38
+  m_RootOrder: 37
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &597218695
 GameObject:
@@ -8648,7 +8537,7 @@ RectTransform:
   m_Children:
   - {fileID: 457546077}
   m_Father: {fileID: 0}
-  m_RootOrder: 46
+  m_RootOrder: 45
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -11475,7 +11364,7 @@ RectTransform:
   - {fileID: 933230403}
   - {fileID: 1989361302}
   m_Father: {fileID: 0}
-  m_RootOrder: 30
+  m_RootOrder: 29
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -12268,8 +12157,6 @@ MonoBehaviour:
   country:
     name: germany
     tribe: 0
-    moneyReward: 0
-    expReward: 0
     nbTroupe: 5
     camp: 
   nbTroupeUI: {fileID: 1817162812}
@@ -12492,10 +12379,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackPanel: {fileID: 1467932682}
-  attaqueText: {fileID: 900304480}
   finFightPanel: {fileID: 1796407880}
   finPartiePanel: {fileID: 1008401385}
-  cartePanel: {fileID: 457546076}
   couleurTeam: {fileID: 1450113110}
   nbTroupePhaseUn: {fileID: 1272365487}
   valueSlider: {fileID: 75584251}
@@ -12512,17 +12397,14 @@ MonoBehaviour:
   textJ2: {fileID: 1946093312}
   textJ3: {fileID: 1212048861}
   textJ4: {fileID: 1324669020}
-  carte1: {fileID: 233040881}
-  carte2: {fileID: 1828613895}
-  carte3: {fileID: 1217313158}
-  valueCarte1: {fileID: 84057606}
-  valueCarte2: {fileID: 210806811}
-  valueCarte3: {fileID: 1646502103}
   boutonCarte: {fileID: 1805335955}
   boutonSuivant: {fileID: 1491560100}
   boutonMenu: {fileID: 1951602115}
   countryList: []
+  nbTroupePhase1: 0
   countrySelectedAttacked: {fileID: 0}
+  battleHasEnded: 0
+  battleWon: 0
 --- !u!1 &868962901
 GameObject:
   m_ObjectHideFlags: 0
@@ -12623,8 +12505,6 @@ MonoBehaviour:
   country:
     name: england
     tribe: 2
-    moneyReward: 0
-    expReward: 0
     nbTroupe: 4
     camp: 
   nbTroupeUI: {fileID: 1586456679}
@@ -13025,84 +12905,6 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 892675539}
-  m_CullTransparentMesh: 0
---- !u!1 &900304480
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 900304481}
-  - component: {fileID: 900304483}
-  - component: {fileID: 900304482}
-  m_Layer: 5
-  m_Name: Text
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!224 &900304481
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 900304480}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 5686690}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 268.22, y: -4.93}
-  m_SizeDelta: {x: 232.11472, y: 79.31137}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &900304482
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 900304480}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 20
-    m_FontStyle: 0
-    m_BestFit: 0
-    m_MinSize: 2
-    m_MaxSize: 40
-    m_Alignment: 1
-    m_AlignByGeometry: 0
-    m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
-    m_LineSpacing: 1
-  m_Text: Choisir un territoire adjacent a attaquer
---- !u!222 &900304483
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 900304480}
   m_CullTransparentMesh: 0
 --- !u!1 &933230402
 GameObject:
@@ -13947,8 +13749,6 @@ MonoBehaviour:
   country:
     name: spain
     tribe: 0
-    moneyReward: 0
-    expReward: 0
     nbTroupe: 2
     camp: 
   nbTroupeUI: {fileID: 1713690050}
@@ -15385,7 +15185,7 @@ RectTransform:
   - {fileID: 1560466228}
   - {fileID: 625799659}
   m_Father: {fileID: 0}
-  m_RootOrder: 40
+  m_RootOrder: 39
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -15902,7 +15702,7 @@ RectTransform:
   m_Children:
   - {fileID: 1796407881}
   m_Father: {fileID: 0}
-  m_RootOrder: 43
+  m_RootOrder: 42
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -16659,7 +16459,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 859943188}
+      - m_Target: {fileID: 1709932930}
         m_MethodName: BonusCarte3
         m_Mode: 1
         m_Arguments:
@@ -17422,8 +17222,6 @@ MonoBehaviour:
   country:
     name: french-corse
     tribe: 0
-    moneyReward: 0
-    expReward: 0
     nbTroupe: 1
     camp: 
   nbTroupeUI: {fileID: 378176105}
@@ -18039,8 +17837,6 @@ MonoBehaviour:
   country:
     name: ireland
     tribe: 2
-    moneyReward: 0
-    expReward: 0
     nbTroupe: 2
     camp: 
   nbTroupeUI: {fileID: 719505473}
@@ -18652,7 +18448,7 @@ RectTransform:
   - {fileID: 631364710}
   - {fileID: 808660191}
   m_Father: {fileID: 0}
-  m_RootOrder: 51
+  m_RootOrder: 50
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -19554,8 +19350,6 @@ MonoBehaviour:
   country:
     name: belgium
     tribe: 0
-    moneyReward: 0
-    expReward: 0
     nbTroupe: 3
     camp: 
   nbTroupeUI: {fileID: 73046020}
@@ -20123,8 +19917,6 @@ MonoBehaviour:
   country:
     name: italy-sardaigne
     tribe: 0
-    moneyReward: 0
-    expReward: 0
     nbTroupe: 2
     camp: 
   nbTroupeUI: {fileID: 1808511712}
@@ -20495,7 +20287,7 @@ Transform:
   m_LocalScale: {x: 0.62512225, y: 0.6501471, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 28
+  m_RootOrder: 27
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1491560103
 MonoBehaviour:
@@ -20642,7 +20434,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 32
+  m_RootOrder: 31
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1505131559
 GameObject:
@@ -20818,8 +20610,6 @@ MonoBehaviour:
   country:
     name: netherlands
     tribe: 0
-    moneyReward: 0
-    expReward: 0
     nbTroupe: 1
     camp: 
   nbTroupeUI: {fileID: 1703889334}
@@ -21572,7 +21362,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 29
+  m_RootOrder: 28
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1580809651
 GameObject:
@@ -21908,7 +21698,7 @@ RectTransform:
   - {fileID: 1265160762}
   - {fileID: 721401353}
   m_Father: {fileID: 0}
-  m_RootOrder: 33
+  m_RootOrder: 32
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -22624,7 +22414,7 @@ Transform:
   - {fileID: 948757638}
   - {fileID: 830903860}
   m_Father: {fileID: 0}
-  m_RootOrder: 37
+  m_RootOrder: 36
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1687959630
 GameObject:
@@ -22860,8 +22650,6 @@ MonoBehaviour:
   country:
     name: autrichia
     tribe: 1
-    moneyReward: 0
-    expReward: 0
     nbTroupe: 3
     camp: 
   nbTroupeUI: {fileID: 993358377}
@@ -23191,6 +22979,56 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1703889332}
   m_CullTransparentMesh: 0
+--- !u!1 &1709932929
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1709932931}
+  - component: {fileID: 1709932930}
+  m_Layer: 0
+  m_Name: carteManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1709932930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1709932929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3d54d3e6b4a0ad4da2a1a6e7065a299, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cartePanel: {fileID: 457546076}
+  carte1: {fileID: 233040881}
+  carte2: {fileID: 1828613895}
+  carte3: {fileID: 1217313158}
+  valueCarte1: {fileID: 84057606}
+  valueCarte2: {fileID: 210806811}
+  valueCarte3: {fileID: 1646502103}
+--- !u!4 &1709932931
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1709932929}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.2775058, y: 0.0980059, z: -42.484463}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 51
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1713690048
 GameObject:
   m_ObjectHideFlags: 0
@@ -24815,7 +24653,7 @@ Transform:
   m_LocalScale: {x: 0.71385187, y: 0.70127296, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 48
+  m_RootOrder: 47
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1808511711
 GameObject:
@@ -25149,7 +24987,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 859943188}
+      - m_Target: {fileID: 1709932930}
         m_MethodName: BonusCarte2
         m_Mode: 1
         m_Arguments:
@@ -25367,7 +25205,7 @@ RectTransform:
   m_Children:
   - {fileID: 733411776}
   m_Father: {fileID: 0}
-  m_RootOrder: 47
+  m_RootOrder: 46
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -26324,7 +26162,7 @@ RectTransform:
   - {fileID: 259131528}
   - {fileID: 744618132}
   m_Father: {fileID: 0}
-  m_RootOrder: 49
+  m_RootOrder: 48
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -26932,7 +26770,7 @@ RectTransform:
   - {fileID: 187236604}
   - {fileID: 1580809654}
   m_Father: {fileID: 0}
-  m_RootOrder: 36
+  m_RootOrder: 35
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -27352,7 +27190,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 41
+  m_RootOrder: 40
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1989361299
 GameObject:
@@ -27546,7 +27384,7 @@ RectTransform:
   - {fileID: 841547626}
   - {fileID: 504420999}
   m_Father: {fileID: 0}
-  m_RootOrder: 34
+  m_RootOrder: 33
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -27861,8 +27699,6 @@ MonoBehaviour:
   country:
     name: franche-comte
     tribe: 0
-    moneyReward: 0
-    expReward: 0
     nbTroupe: 9
     camp: 
   nbTroupeUI: {fileID: 955376776}
@@ -28666,7 +28502,7 @@ RectTransform:
   - {fileID: 651984494}
   - {fileID: 1061928931}
   m_Father: {fileID: 0}
-  m_RootOrder: 35
+  m_RootOrder: 34
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -29146,8 +28982,6 @@ MonoBehaviour:
   country:
     name: italy-south
     tribe: 0
-    moneyReward: 0
-    expReward: 0
     nbTroupe: 3
     camp: 
   nbTroupeUI: {fileID: 727019487}
@@ -29390,8 +29224,6 @@ MonoBehaviour:
   country:
     name: italy-north
     tribe: 1
-    moneyReward: 0
-    expReward: 0
     nbTroupe: 4
     camp: 
   nbTroupeUI: {fileID: 824276824}

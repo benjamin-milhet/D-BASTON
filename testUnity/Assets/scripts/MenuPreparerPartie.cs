@@ -10,6 +10,9 @@ using Slider = UnityEngine.UI.Slider;
 using TMPro;
 using Toggle = UnityEngine.UI.Toggle;
 
+/// <summary>
+/// Permet de s'occuper des sous-menu du menu principale et de la prépartion de la partie
+/// </summary>
 public class MenuPreparerPartie : MonoBehaviour
 {
     public Dropdown nbJoueur;
@@ -85,7 +88,7 @@ public class MenuPreparerPartie : MonoBehaviour
     }
     
     /// <summary>
-    /// Permet de sauvegarder dans un fichier json le nombre de joueur
+    /// Permet de sauvegarder dans un fichier json toutes les informations choisi lors de la préparation de la partie
     /// </summary>
     public void Saving()
     {
@@ -184,6 +187,7 @@ public class MenuPreparerPartie : MonoBehaviour
                 break;
         }
 
+        //Pour la map satr wars, permet de savoir si l'utilisateur a cocher la case bonus ou non
         if (this.toggleBonus.IsActive())
         {
             if (this.toggleBonus.isOn)
@@ -221,13 +225,20 @@ public class MenuPreparerPartie : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Permet de gerer 
+    /// </summary>
     public void SetVolumeMusique()
     {
         this.audioMusique.volume = this.volumeMusique.value;
     }
 
+    /// <summary>
+    /// Permet a l'utilisateur de changer le nom des différents joueurs
+    /// </summary>
     public void changerNom()
     {
+        //Affiche le panel pour changer de pseudo
         this.menuChangerPseudo.SetActive(true);
         
         int nbJoueur;
@@ -248,6 +259,7 @@ public class MenuPreparerPartie : MonoBehaviour
                 break;
         }
 
+        //Préremplie les cases avec le nom des equipes de base suivant le choix de la carte europe ou star wars
         this.inputJ1.text = this.tribe[0];
         this.inputJ2.text = this.tribe[1];
         this.inputJ3.text = this.tribe[2];
@@ -268,6 +280,9 @@ public class MenuPreparerPartie : MonoBehaviour
         
     }
 
+    /// <summary>
+    /// Permet de desactiver le menu de modification des pseudos sans prendre en compte le changement de pseudo
+    /// </summary>
     public void RetourJoueur()
     {
         this.joueur3.gameObject.SetActive(false);
@@ -277,7 +292,29 @@ public class MenuPreparerPartie : MonoBehaviour
         
         this.menuChangerPseudo.SetActive(false);
     }
+    
+    /// <summary>
+    /// Permet de desactiver le menu de modification des pseudos en prenant compte des modifications
+    /// </summary>
+    public void ValiderPseudo()
+    {
+        this.joueur3.gameObject.SetActive(false);
+        this.inputJ3.gameObject.SetActive(false);
+        this.joueur4.gameObject.SetActive(false);
+        this.inputJ4.gameObject.SetActive(false);
+        
+        this.menuChangerPseudo.SetActive(false);
+        
+        this.tribe.Add(this.inputJ1.text);
+        this.tribe.Add(this.inputJ2.text);
+        this.tribe.Add(this.inputJ3.text);
+        this.tribe.Add(this.inputJ4.text);
 
+    }
+
+    /// <summary>
+    /// Permet d'afficher la page avec les options de préparer la partie
+    /// </summary>
     public void LoadMenuPreparerPartie()
     {
         this.textBonus.gameObject.SetActive(false);
@@ -293,6 +330,9 @@ public class MenuPreparerPartie : MonoBehaviour
         this.tribe.Add("Espagne");
     }
 
+    /// <summary>
+    /// Permet de changer le nom des equipes en fonction de la carte choisi
+    /// </summary>
     public void changerMap()
     {
         this.tribe = new List<string>();
@@ -324,140 +364,72 @@ public class MenuPreparerPartie : MonoBehaviour
                 break;
         }
     }
-
-    public void ValiderPseudo()
-    {
-        this.joueur3.gameObject.SetActive(false);
-        this.inputJ3.gameObject.SetActive(false);
-        this.joueur4.gameObject.SetActive(false);
-        this.inputJ4.gameObject.SetActive(false);
-        
-        this.menuChangerPseudo.SetActive(false);
-        
-        this.tribe.Add(this.inputJ1.text);
-        this.tribe.Add(this.inputJ2.text);
-        this.tribe.Add(this.inputJ3.text);
-        this.tribe.Add(this.inputJ4.text);
-
-    }
-
+    
+    /// <summary>
+    /// Permet de changer les valeurs du dropdown des modes de jeu en fonction de la carte choisi
+    /// </summary>
     public void switchDropdown()
     {
-        switch (this.choixMap.value)
+        if (this.choixMap.value == 2)
         {
-            case 0:
-                this.textBonus.gameObject.SetActive(false);
-                this.toggleBonus.gameObject.SetActive(false);
-                this.choixMode.options.Clear();
-                Dropdown.OptionData info1 = new Dropdown.OptionData();
-                info1.text = "Standard";
-                Dropdown.OptionData info11 = new Dropdown.OptionData();
-                info11.text = "Cartes";
-                this.choixMode.options.Add(info1);
-                this.choixMode.options.Add(info11);
-                this.choixMode.RefreshShownValue();
-                this.choixMap.RefreshShownValue();
-                break;
-            case 1:
-                this.choixMode.options.Clear();
-                Dropdown.OptionData info2 = new Dropdown.OptionData();
-                info2.text = "Standard";
-                Dropdown.OptionData info22 = new Dropdown.OptionData();
-                info22.text = "Cartes";
-                this.choixMode.options.Add(info2);
-                this.choixMode.options.Add(info22);
-                this.textBonus.gameObject.SetActive(true);
-                this.toggleBonus.gameObject.SetActive(true);
-                this.choixMode.RefreshShownValue();
-                this.choixMap.RefreshShownValue();
-                break;
-            case 2:
-                this.textBonus.gameObject.SetActive(false);
-                this.toggleBonus.gameObject.SetActive(false);
-                this.choixMode.options.Clear();
-                Dropdown.OptionData info4 = new Dropdown.OptionData();
-                info4.text = "Conquête";
-                this.choixMode.options.Add(info4);
-                this.choixMode.RefreshShownValue();
-                this.choixMap.RefreshShownValue();
-                break;
-            default:
-                this.textBonus.gameObject.SetActive(false);
-                this.toggleBonus.gameObject.SetActive(false);
-                this.choixMode.options.Clear();
-                Dropdown.OptionData info3 = new Dropdown.OptionData();
-                info3.text = "Standard";
-                Dropdown.OptionData info33 = new Dropdown.OptionData();
-                info33.text = "Cartes";
-                this.choixMode.options.Add(info3);
-                this.choixMode.options.Add(info33);
-                this.choixMode.RefreshShownValue();
-                this.choixMap.RefreshShownValue();
-                break;
-        } 
+            this.textBonus.gameObject.SetActive(false);
+            this.toggleBonus.gameObject.SetActive(false);
+            this.choixMode.options.Clear();
+            Dropdown.OptionData info4 = new Dropdown.OptionData();
+            info4.text = "Conquête";
+            this.choixMode.options.Add(info4);
+            this.choixMode.RefreshShownValue();
+            this.choixMap.RefreshShownValue();
+        }
+        else
+        {
+            this.textBonus.gameObject.SetActive(false);
+            this.toggleBonus.gameObject.SetActive(false);
+            this.choixMode.options.Clear();
+            Dropdown.OptionData info3 = new Dropdown.OptionData();
+            info3.text = "Standard";
+            Dropdown.OptionData info33 = new Dropdown.OptionData();
+            info33.text = "Cartes";
+            this.choixMode.options.Add(info3);
+            this.choixMode.options.Add(info33);
+            this.choixMode.RefreshShownValue();
+            this.choixMap.RefreshShownValue();
+        }
     }
+    
+    /// <summary>
+    /// Permet de changer les valeurs du dropdown carte en focntion du nombre de joueur
+    /// </summary>
     public void switchDropdownParRapportAuNbJoueur()
     {
-        Dropdown.OptionData info3 = new Dropdown.OptionData();
-        Dropdown.OptionData info33 = new Dropdown.OptionData();
-        switch (this.nbJoueur.value)
+        Dropdown.OptionData info1 = new Dropdown.OptionData();
+        Dropdown.OptionData info2 = new Dropdown.OptionData();
+        if (this.nbJoueur.value == 0)
         {
-            case 0:
-                this.choixMap.options.Clear();
-                Dropdown.OptionData info1 = new Dropdown.OptionData();
-                info1.text = "Europe";
-                Dropdown.OptionData info11 = new Dropdown.OptionData();
-                info11.text = "Star Wars";
-                Dropdown.OptionData info111 = new Dropdown.OptionData();
-                info111.text = "Star Wars Conquête";
-                this.choixMap.options.Add(info1);
-                this.choixMap.options.Add(info11);
-                this.choixMap.options.Add(info111);
-                this.choixMap.RefreshShownValue();
-                break;
-            case 1:
-                this.choixMap.options.Clear();
-                info3 = new Dropdown.OptionData();
-                info33 = new Dropdown.OptionData();
-                info3.text = "Europe";
-                info33.text = "Star Wars";
-                this.choixMap.options.Add(info3);
-                this.choixMap.options.Add(info33);
-                this.choixMap.RefreshShownValue();
-                break;
-            case 2:
-                this.choixMap.options.Clear();
-                info3 = new Dropdown.OptionData();
-                info33 = new Dropdown.OptionData();
-                info3.text = "Europe";
-                info33.text = "Star Wars";
-                this.choixMap.options.Add(info3);
-                this.choixMap.options.Add(info33);
-                this.choixMap.RefreshShownValue();
-                break;
-            case 3:
-                this.choixMap.options.Clear();
-                info3 = new Dropdown.OptionData();
-                info33 = new Dropdown.OptionData();
-                info3.text = "Europe";
-                info33.text = "Star Wars";
-                this.choixMap.options.Add(info3);
-                this.choixMap.options.Add(info33);
-                this.choixMap.RefreshShownValue();
-                break;
-            default:
-                this.choixMap.options.Clear();
-                info3 = new Dropdown.OptionData();
-                info33 = new Dropdown.OptionData();
-                info3.text = "Europe";
-                info33.text = "Star Wars";
-                this.choixMap.options.Add(info3);
-                this.choixMap.options.Add(info33);
-                this.choixMap.RefreshShownValue();
-                
-                break;
+            this.choixMap.options.Clear();
+            info1 = new Dropdown.OptionData();
+            info1.text = "Europe";
+            info2 = new Dropdown.OptionData();
+            info2.text = "Star Wars";
+            Dropdown.OptionData info3 = new Dropdown.OptionData();
+            info3.text = "Star Wars Conquête";
+            this.choixMap.options.Add(info1);
+            this.choixMap.options.Add(info2);
+            this.choixMap.options.Add(info3);
+            this.choixMap.RefreshShownValue();
         }
-
+        else
+        {
+            this.choixMap.options.Clear();
+            info1 = new Dropdown.OptionData();
+            info1 = new Dropdown.OptionData();
+            info2.text = "Europe";
+            info2.text = "Star Wars";
+            this.choixMap.options.Add(info1);
+            this.choixMap.options.Add(info2);
+            this.choixMap.RefreshShownValue();
+        }
+        
         this.choixMap.value = 0;
         this.choixMap.RefreshShownValue();
         this.switchDropdown();

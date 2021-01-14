@@ -944,8 +944,6 @@ MonoBehaviour:
   country:
     name: Lothal
     tribe: 0
-    moneyReward: 0
-    expReward: 0
     nbTroupe: 0
     camp: 
   nbTroupeUI: {fileID: 2111351211}
@@ -1872,8 +1870,6 @@ MonoBehaviour:
   country:
     name: Mos_Eisley_Tatooine
     tribe: 0
-    moneyReward: 0
-    expReward: 0
     nbTroupe: 0
     camp: 
   nbTroupeUI: {fileID: 221640319}
@@ -2485,8 +2481,6 @@ MonoBehaviour:
   country:
     name: Ilum
     tribe: 0
-    moneyReward: 0
-    expReward: 0
     nbTroupe: 0
     camp: 
   nbTroupeUI: {fileID: 2094604391}
@@ -3471,7 +3465,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 741333686}
+      - m_Target: {fileID: 950312788}
         m_MethodName: BonusCarte1
         m_Mode: 1
         m_Arguments:
@@ -3705,7 +3699,7 @@ RectTransform:
   m_Children:
   - {fileID: 379421527}
   m_Father: {fileID: 0}
-  m_RootOrder: 42
+  m_RootOrder: 41
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -3967,7 +3961,7 @@ RectTransform:
   - {fileID: 40528522}
   - {fileID: 1104787518}
   m_Father: {fileID: 0}
-  m_RootOrder: 45
+  m_RootOrder: 44
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -5044,7 +5038,7 @@ Transform:
   m_LocalScale: {x: 0.71385187, y: 0.70127296, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 40
+  m_RootOrder: 39
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &470254947
 GameObject:
@@ -7328,10 +7322,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackPanel: {fileID: 650136339}
-  attaqueText: {fileID: 983431967}
   finFightPanel: {fileID: 459725623}
   finPartiePanel: {fileID: 379421526}
-  cartePanel: {fileID: 1694113310}
   couleurTeam: {fileID: 847777565}
   nbTroupePhaseUn: {fileID: 1335280445}
   valueSlider: {fileID: 595143808}
@@ -7348,17 +7340,14 @@ MonoBehaviour:
   textJ2: {fileID: 154110615}
   textJ3: {fileID: 1645104374}
   textJ4: {fileID: 1790850841}
-  carte1: {fileID: 367274123}
-  carte2: {fileID: 1579059315}
-  carte3: {fileID: 1243005020}
-  valueCarte1: {fileID: 511443139}
-  valueCarte2: {fileID: 1072915279}
-  valueCarte3: {fileID: 1962527446}
   boutonCarte: {fileID: 469595459}
   boutonSuivant: {fileID: 926099630}
   boutonMenu: {fileID: 1608900899}
   countryList: []
+  nbTroupePhase1: 0
   countrySelectedAttacked: {fileID: 0}
+  battleHasEnded: 0
+  battleWon: 0
 --- !u!4 &741333687
 Transform:
   m_ObjectHideFlags: 0
@@ -7473,8 +7462,6 @@ MonoBehaviour:
   country:
     name: Mandalore
     tribe: 0
-    moneyReward: 0
-    expReward: 0
     nbTroupe: 0
     camp: 
   nbTroupeUI: {fileID: 44131989}
@@ -7625,8 +7612,6 @@ MonoBehaviour:
   country:
     name: Mos_Espa_Tatooine
     tribe: 0
-    moneyReward: 0
-    expReward: 0
     nbTroupe: 0
     camp: 
   nbTroupeUI: {fileID: 298028372}
@@ -7901,8 +7886,6 @@ MonoBehaviour:
   country:
     name: Hoth
     tribe: 0
-    moneyReward: 0
-    expReward: 0
     nbTroupe: 0
     camp: 
   nbTroupeUI: {fileID: 1160053442}
@@ -8134,8 +8117,6 @@ MonoBehaviour:
   country:
     name: Geonosis
     tribe: 0
-    moneyReward: 0
-    expReward: 0
     nbTroupe: 0
     camp: 
   nbTroupeUI: {fileID: 1611238278}
@@ -9132,8 +9113,6 @@ MonoBehaviour:
   country:
     name: Mon_Cala
     tribe: 0
-    moneyReward: 0
-    expReward: 0
     nbTroupe: 0
     camp: 
   nbTroupeUI: {fileID: 724221847}
@@ -9286,8 +9265,6 @@ MonoBehaviour:
   country:
     name: Desert_Tatooine
     tribe: 0
-    moneyReward: 0
-    expReward: 0
     nbTroupe: 0
     camp: 
   nbTroupeUI: {fileID: 1068244318}
@@ -9577,6 +9554,56 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 33
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &950312787
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 950312789}
+  - component: {fileID: 950312788}
+  m_Layer: 0
+  m_Name: carteManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &950312788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 950312787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3d54d3e6b4a0ad4da2a1a6e7065a299, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cartePanel: {fileID: 1694113310}
+  carte1: {fileID: 367274123}
+  carte2: {fileID: 1579059315}
+  carte3: {fileID: 1243005020}
+  valueCarte1: {fileID: 511443139}
+  valueCarte2: {fileID: 1072915279}
+  valueCarte3: {fileID: 1962527446}
+--- !u!4 &950312789
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 950312787}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.2775058, y: 0.0980059, z: -42.484463}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 45
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &958618461
 GameObject:
   m_ObjectHideFlags: 0
@@ -9677,8 +9704,6 @@ MonoBehaviour:
   country:
     name: Coruscant
     tribe: 0
-    moneyReward: 0
-    expReward: 0
     nbTroupe: 0
     camp: 
   nbTroupeUI: {fileID: 812304239}
@@ -9832,8 +9857,6 @@ MonoBehaviour:
   country:
     name: Alderaan
     tribe: 0
-    moneyReward: 0
-    expReward: 0
     nbTroupe: 0
     camp: 
   nbTroupeUI: {fileID: 1543340781}
@@ -9921,84 +9944,6 @@ PolygonCollider2D:
       - {x: -0.39999998, y: 0.375}
       - {x: -0.39999998, y: 0.36499998}
       - {x: -0.41, y: 0.355}
---- !u!1 &983431967
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 983431968}
-  - component: {fileID: 983431970}
-  - component: {fileID: 983431969}
-  m_Layer: 5
-  m_Name: Text
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!224 &983431968
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 983431967}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1628159441}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 268.22, y: -4.93}
-  m_SizeDelta: {x: 232.11472, y: 79.31137}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &983431969
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 983431967}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 20
-    m_FontStyle: 0
-    m_BestFit: 0
-    m_MinSize: 2
-    m_MaxSize: 40
-    m_Alignment: 1
-    m_AlignByGeometry: 0
-    m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
-    m_LineSpacing: 1
-  m_Text: 
---- !u!222 &983431970
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 983431967}
-  m_CullTransparentMesh: 0
 --- !u!1 &987890755
 GameObject:
   m_ObjectHideFlags: 0
@@ -10383,7 +10328,7 @@ RectTransform:
   m_Children:
   - {fileID: 1694113311}
   m_Father: {fileID: 0}
-  m_RootOrder: 41
+  m_RootOrder: 40
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -10638,7 +10583,7 @@ RectTransform:
   - {fileID: 1103888714}
   - {fileID: 998292873}
   m_Father: {fileID: 0}
-  m_RootOrder: 43
+  m_RootOrder: 42
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -11291,7 +11236,7 @@ RectTransform:
   m_Children:
   - {fileID: 459725624}
   m_Father: {fileID: 0}
-  m_RootOrder: 38
+  m_RootOrder: 37
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -11848,7 +11793,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 39
+  m_RootOrder: 38
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1128967051
 GameObject:
@@ -13186,7 +13131,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 741333686}
+      - m_Target: {fileID: 950312788}
         m_MethodName: BonusCarte3
         m_Mode: 1
         m_Arguments:
@@ -13976,8 +13921,6 @@ MonoBehaviour:
   country:
     name: Arme_Etoile_de_la_Mort
     tribe: 0
-    moneyReward: 0
-    expReward: 0
     nbTroupe: 0
     camp: 
   nbTroupeUI: {fileID: 665318214}
@@ -14199,7 +14142,7 @@ RectTransform:
   - {fileID: 987890758}
   - {fileID: 283112520}
   m_Father: {fileID: 0}
-  m_RootOrder: 44
+  m_RootOrder: 43
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -16218,8 +16161,6 @@ MonoBehaviour:
   country:
     name: Mustafar
     tribe: 0
-    moneyReward: 0
-    expReward: 0
     nbTroupe: 0
     camp: 
   nbTroupeUI: {fileID: 228551746}
@@ -16717,7 +16658,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 741333686}
+      - m_Target: {fileID: 950312788}
         m_MethodName: BonusCarte2
         m_Mode: 1
         m_Arguments:
@@ -16943,8 +16884,6 @@ MonoBehaviour:
   country:
     name: Endor
     tribe: 0
-    moneyReward: 0
-    expReward: 0
     nbTroupe: 0
     camp: 
   nbTroupeUI: {fileID: 1065826775}
@@ -17392,105 +17331,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!1 &1628159437
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1628159441}
-  - component: {fileID: 1628159440}
-  - component: {fileID: 1628159439}
-  - component: {fileID: 1628159438}
-  m_Layer: 5
-  m_Name: attaque
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1628159438
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1628159437}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
---- !u!114 &1628159439
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1628159437}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
-  m_ReferencePixelsPerUnit: 100
-  m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
-  m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
-  m_PhysicalUnit: 3
-  m_FallbackScreenDPI: 96
-  m_DefaultSpriteDPI: 96
-  m_DynamicPixelsPerUnit: 1
---- !u!223 &1628159440
-Canvas:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1628159437}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 2
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 0
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
-  m_TargetDisplay: 0
---- !u!224 &1628159441
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1628159437}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.028132737, y: 0.028132737, z: 0.028132737}
-  m_Children:
-  - {fileID: 983431968}
-  m_Father: {fileID: 0}
-  m_RootOrder: 37
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 808.00006, y: 371}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1630483741
 GameObject:
   m_ObjectHideFlags: 0
@@ -18435,8 +18275,6 @@ MonoBehaviour:
   country:
     name: Naboo
     tribe: 0
-    moneyReward: 0
-    expReward: 0
     nbTroupe: 0
     camp: 
   nbTroupeUI: {fileID: 250805987}
@@ -21165,8 +21003,6 @@ MonoBehaviour:
   country:
     name: "R\xE9acteur_Etoile_de_la_Mort"
     tribe: 0
-    moneyReward: 0
-    expReward: 0
     nbTroupe: 0
     camp: 
   nbTroupeUI: {fileID: 524914321}

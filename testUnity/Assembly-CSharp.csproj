@@ -97,14 +97,11 @@
      <Compile Include="Assets\scripts\Dice.cs" />
      <Compile Include="Assets\scripts\Dice2.cs" />
      <Compile Include="Assets\scripts\FightSim.cs" />
-     <Compile Include="Assets\scripts\GameManager.cs" />
-     <Compile Include="Assets\scripts\Joueur.cs" />
      <Compile Include="Assets\scripts\MenuHandler.cs" />
-     <Compile Include="Assets\scripts\MenuJeu.cs" />
      <Compile Include="Assets\scripts\MenuManager.cs" />
      <Compile Include="Assets\scripts\MenuPreparerPartie.cs" />
-     <Compile Include="Assets\scripts\Partie.cs" />
      <Compile Include="Assets\scripts\bastonPanel.cs" />
+     <Compile Include="Assets\scripts\carteManager.cs" />
      <Compile Include="Assets\scripts\opacity.cs" />
      <Compile Include="Assets\scripts\resBastonPanel.cs" />
      <Compile Include="Assets\scripts\teamPanel.cs" />
@@ -738,18 +735,6 @@
  </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Carte_Europe_D-BASTON.PNG" />
-    <Content Include="Combat_2_D-BASTON.PNG" />
-    <Content Include="Combat_3_D-BASTON.PNG" />
-    <Content Include="Combat_D-BASTON.PNG" />
-    <Content Include="Conquête_D-BASTON.PNG" />
-    <Content Include="Europe_D-BASTON.PNG" />
-    <Content Include="Menu_2_D-BASTON.PNG" />
-    <Content Include="Menu_D-BASTON.PNG" />
-    <Content Include="Regle_2_D-BASTON.PNG" />
-    <Content Include="Regle_D-BASTON.PNG" />
-    <Content Include="SW_Carte_D-BASTON.PNG" />
-    <Content Include="SW_D-BASTON.PNG" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

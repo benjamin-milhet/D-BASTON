@@ -446,7 +446,7 @@ public class FightSim : MonoBehaviour
             resultatAttacked.Add((int)r5+1);
             resultatAttacked.Add((int)r6+1);
         }
-
+        //Trie du tableau contenant les résultats des dés adverses
         resultatAttacked.Sort();
     }   
 
@@ -455,6 +455,7 @@ public class FightSim : MonoBehaviour
     {
         yield return new WaitForSeconds(5.0f);
 
+        //Désactivation des dés et réinitialisation de leur position 
         dice1.SetActive(false);
         dice1.transform.position = new Vector2(8.9f, 6.83f);
         dice2.SetActive(false);
@@ -468,6 +469,7 @@ public class FightSim : MonoBehaviour
     {
         yield return new WaitForSeconds(10.0f);
 
+        //Désactivation des dés et réinitialisation de leur position
         dice4.SetActive(false);
         dice4.transform.position = new Vector2(-8.9f, 6.83f);
         dice5.SetActive(false);
@@ -514,13 +516,16 @@ public class FightSim : MonoBehaviour
         //Applique le résultat sur les territoires 
         bool fin = CountryManager.instance.ResAttaque(res,resAttacked);
 
+        //Affichage de l'écran de fin de baston avec les valeurs
         resAttackCanva.gameObject.SetActive(true);
         resAttackedCanva.gameObject.SetActive(true);
         resBastonCanva.gameObject.SetActive(true);
         bastonPanel bastonPanel = resBastonCanva.GetComponent<bastonPanel>();
 
+        //Affichage du joueur victorieux et du nombre de troupes perdues par l'adversaire
         string s1 = "";
         string s2 = "";
+        //Le joueur qui attaque gagne la baston
         if(res < resAttacked) {
             s1 = Country.theTribes[CountryManager.instance.TourJoueur];
             s2 = CountryManager.instance.countrySelectedAttacked.country.tribe;
@@ -533,11 +538,13 @@ public class FightSim : MonoBehaviour
             bastonPanel.infoBaston.text = "Le joueur " + s1 + " a gagné la baston !";
             bastonPanel.infoPertes.text = "Le joueur " + s2 +  " perd " + resAttacked + " troupes";
         }
+        //Egalité 
         else if (res == resAttacked)
         {
             bastonPanel.infoBaston.text = "Egalité !";
             bastonPanel.infoPertes.text = "Les deux joueurs perdent une troupe";
         }
+        //Le joueur qui attaque perd la baston
         else {
             s1 = Country.theTribes[CountryManager.instance.TourJoueur];
             s2 = CountryManager.instance.countrySelectedAttacked.country.tribe;
@@ -551,15 +558,17 @@ public class FightSim : MonoBehaviour
             bastonPanel.infoPertes.text = "Le joueur " + s1 + " perd " + res + " troupes";
         }
 
+        //Envoie du résultat de la baston
         if (fin)
         {
-            GameManager.instance.battleWon = true;
+            CountryManager.instance.battleWon = true;
         }
         else
         {
-            GameManager.instance.battleWon = false;
+            CountryManager.instance.battleWon = false;
         }
 
+        //Affichage des valeurs des dés
         resBastonPanel resBastonPanel = resAttackCanva.GetComponent<resBastonPanel>();
         resBastonPanel resBastonPanel2 = resAttackedCanva.GetComponent<resBastonPanel>();
         string resValue = "";
@@ -574,9 +583,11 @@ public class FightSim : MonoBehaviour
         resBastonPanel2.resDes.text = resValueAtt;
     }   
 
+    //Couroutine qui après 17 secondes, désactive le fond de la baston et les informations de fin de baston et réactive les boutons
     IEnumerator resBattle(List<int> resultat, List<int> resultatAttacked) {
         yield return new WaitForSeconds(17.0f);
 
+        //Désactivation des fonds 
         jetDes.SetActive(false);
         jetBVJ.SetActive(false);
         jetBVV.SetActive(false);
@@ -584,17 +595,20 @@ public class FightSim : MonoBehaviour
         jetVVJ.SetActive(false);
         jetVVR.SetActive(false);
 
+        //Désactivation des informations de fin de baston
         resAttackCanva.gameObject.SetActive(false);
         resAttackedCanva.gameObject.SetActive(false);
         resBastonCanva.gameObject.SetActive(false);
 
+        //Réactivation des boutons 
         menu.SetActive(true);
         passer.SetActive(true);
 
+        //Suppression des valeurs des dés contenues
         resultat.Clear();
         resultatAttacked.Clear();
 
-        GameManager.instance.battleHasEnded = true;
+        CountryManager.instance.battleHasEnded = true;
         CountryManager.instance.finFight();
     }
 }

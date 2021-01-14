@@ -54,9 +54,13 @@ public class carteManager : MonoBehaviour
         
     }
     
+    /// <summary>
+    /// Permet d'afficher les cartes en fonction du joueur et du mode de jeu
+    /// </summary>
     public void AfficherCarte()
     {
         this.cartePanel.gameObject.SetActive(true);
+        //Sur la map Europe
         if (CountryManager.instance.Map == 0)
         {
             switch (CountryManager.instance.TourJoueur)
@@ -103,6 +107,7 @@ public class carteManager : MonoBehaviour
                     break;
             }
         }
+        //Sur la map Star Wars
         else
         {
             switch (CountryManager.instance.TourJoueur)
@@ -153,9 +158,12 @@ public class carteManager : MonoBehaviour
 
     }
 
-
+    /// <summary>
+    /// Permet d'attribuer le bonus da la carte numero 1 en fonction du mode de jeu
+    /// </summary>
     public void BonusCarte1()
     {
+        //Pour la map Europe
         if (CountryManager.instance.Map == 0)
         {
             switch (CountryManager.instance.TourJoueur)
@@ -198,6 +206,7 @@ public class carteManager : MonoBehaviour
                     break;
             }
         }
+        //Pour la map Star Wars
         else
         {
             switch (CountryManager.instance.TourJoueur)
@@ -243,8 +252,12 @@ public class carteManager : MonoBehaviour
 
         CountryManager.instance.TintCountries();    }
     
+    /// <summary>
+    /// Permet d'attribuer le bonus da la carte numero 2 en fonction du mode de jeu
+    /// </summary>
     public void BonusCarte2()
     {
+        //Pour la map Europe
         if (CountryManager.instance.Map == 0)
         {
             switch (CountryManager.instance.TourJoueur)
@@ -283,6 +296,7 @@ public class carteManager : MonoBehaviour
                     break;
             } 
         }
+        //Pour la map Star Wars
         else
         {
             switch (CountryManager.instance.TourJoueur)
@@ -324,8 +338,12 @@ public class carteManager : MonoBehaviour
         
         CountryManager.instance.TintCountries();    }
     
+    /// <summary>
+    /// Permet d'attribuer le bonus da la carte numero 3 en fonction du mode de jeu
+    /// </summary>
     public void BonusCarte3()
     {
+        //Pour la map Europe
         if (CountryManager.instance.Map == 0)
         {
             switch (CountryManager.instance.TourJoueur)
@@ -364,6 +382,7 @@ public class carteManager : MonoBehaviour
                     break;
             }
         }
+        //Pour la map Star Wars
         else
         {
             switch (CountryManager.instance.TourJoueur)

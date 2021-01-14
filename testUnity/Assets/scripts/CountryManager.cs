@@ -481,6 +481,7 @@ public class CountryManager : MonoBehaviour
     /// </summary>
     public void Initialisation()
     {
+        //Initialise les territoires a chaque joueur pour le mode conquete (atribution non aléatoire)
         if (this.map == 2)
         {
             this.TourJoueur = 0;
@@ -520,6 +521,7 @@ public class CountryManager : MonoBehaviour
             }
             
         }
+        //Ajoute le bon nombre de territoire en fonction du nombre de joueur
         else
         {
             this.TourJoueur = 0;
@@ -594,7 +596,7 @@ public class CountryManager : MonoBehaviour
         this.nbTroupePhase1 = this.nbtroupeTerritoire(TourJoueur);
         SetTextPhase();
 
-        
+        //Initialise le nombre de carte de chaque joueur
         carteManager.instance.CarteJoueurRouge.Add(0);
         carteManager.instance.CarteJoueurRouge.Add(0);
         carteManager.instance.CarteJoueurRouge.Add(0);
@@ -611,6 +613,7 @@ public class CountryManager : MonoBehaviour
         carteManager.instance.CarteJoueurOrange.Add(0);
         carteManager.instance.CarteJoueurOrange.Add(0);
         
+        //Affiche la carte de départ
         TintCountries();
 
     }
@@ -1145,10 +1148,6 @@ public class CountryManager : MonoBehaviour
             }
             
     }
-
-
-    
-
     public void desactiverTerritoire()
     {
         //Récupère la liste de touts les territoires et les désactives 
